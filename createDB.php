@@ -55,6 +55,10 @@ function create_database() {
 
     if(!execute('assets/sql/insertion.sql')) return;
     setHashedPassword();
+
+    execute('assets/sql/admin.sql');
+    execute('assets/sql/membre.sql');
+    execute('assets/sql/visiteur.sql');
 }
 
 create_database();
