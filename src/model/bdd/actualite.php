@@ -1,5 +1,5 @@
 <?php
-require_once "src/model/database.php";
+require_once "src/model/bdd/database.php";
 
 // function insertActualite($url, $date, $id_membre, $id_evenement) {
 //     $sql = 'INSERT INTO EVENEMENT (url_media, date_media, id_membre, id_evenement) 
@@ -9,12 +9,14 @@ require_once "src/model/database.php";
 // }
 
 function getActualite($id_actualite) {
+    $bd = DB::getInstance();
     $sql = "SELECT * FROM ACTUALITE WHERE id_actualite = ?";
     $params = [$id_actualite];
-    return get($sql, $params)[0];
+    return $bd->select($sql, "i",  $params);
 }
 
 function getNextActualite($limit) {
+    $bd = DB::getInstance();
     $sql = "SELECT id_actualite, titre_actualite, date_actualite FROM ACTUALITE WHERE date_actualite <= NOW() ORDER BY date_actualite ASC" . ($limit != null ? " LIMIT $limit;" : ";");
-    return get($sql);
+    return $bd->select($sql);
 }

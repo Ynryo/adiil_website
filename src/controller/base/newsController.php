@@ -1,6 +1,6 @@
 <?php
 
-require_once 'src/model/actualite.php';
+require_once 'src/model/bdd/actualite.php';
 
 class news {
     public function show() {

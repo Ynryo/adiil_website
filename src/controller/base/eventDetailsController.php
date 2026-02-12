@@ -1,7 +1,7 @@
 <?php
 
-require_once 'src/model/evenement.php';
-require_once 'src/model/media.php';
+require_once 'src/model/bdd/evenement.php';
+require_once 'src/model/bdd/media.php';
 
 class eventDetails {
     public function show() {
@@ -14,10 +14,11 @@ class eventDetails {
 
         $eventid = $_GET['id'];
         $event = getEvenement($eventid);
-        if(empty($event) || $event === null || boolval($event["deleted"])) {
+        if(empty($event) || $event === null) {
             header("Location: /?page=base-home");
             exit;
         }
+        $event = $event[0];
 
         if (isset($_GET['show']) && is_numeric($_GET['show']) && $_GET['show']) {
             $show = (int) $_GET['show'];

@@ -50,6 +50,7 @@ CREATE TABLE ARTICLE(
     image_article VARCHAR(500) NOT NULL,
     reduction_article BIT NOT NULL DEFAULT 1,
     prix_article FLOAT NOT NULL CHECK (prix_article >= 0),
+    categorie_article VARCHAR(50) NOT NULL,
     PRIMARY KEY(id_article)
 );
 

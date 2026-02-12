@@ -5,7 +5,7 @@ require __DIR__.'/vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
-require_once "src/model/database.php";
+require_once "src/model/bdd/database.php";
 
 function execute($sqlFile) {
     $bdd = get_bdd();

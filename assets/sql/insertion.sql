@@ -42,17 +42,18 @@ INSERT INTO ADHESION (date_adhesion, prix_adhesion, paiement_adhesion, id_membre
 ('2024-05-02 11:44:18', 5, 'Especes', 10, 1); -- Erwan le Coz achete le grade Fer
 
 -- Ajout des articles de la boutique
-INSERT INTO ARTICLE (xp_article, nom_article, stock_article, image_article, reduction_article, prix_article) VALUES
-(1, 'Canette de Coca', 50, 'http://files.bdeinfo.fr/coca.jpg', 0, 1.50),
-(1, 'Coca Cherry', 30, 'http://files.bdeinfo.fr/coca_cherry.jpg', 0, 1.75),
-(20, 'Lipton Ice Tea', 40, 'http://files.bdeinfo.fr/lipton.jpg', 0, 1.50),
-(1, 'Formule Cafe', 20, 'http://files.bdeinfo.fr/_cafe.jpg', 0, 2.00),
-(1, 'Bueno White', 25, 'http://files.bdeinfo.fr/_bueno_white.jpg', 1, 1.20),
-(1, 'Bueno', 35, 'http://files.bdeinfo.fr/bueno.jpg', 1, 1.20),
-(10, 'Snack Chips', 60, 'http://files.bdeinfo.fr/chips.jpg', 0, 1.00),
-(1, 'Barre de Chocolat', 0, 'http://files.bdeinfo.fr/chocolat.jpg', 0, 1.50),
-(1, 'Jus d Orange', 55, 'http://files.bdeinfo.fr/jus_orange.jpg', 0, 1.30),
-(30, 'Volvic', 70, 'http://files.bdeinfo.fr/volvic.jpg', 0, 0.80);
+INSERT INTO ARTICLE (xp_article, nom_article, stock_article, image_article, reduction_article, prix_article, categorie_article) VALUES
+(1, 'Canette de Coca', 50, 'coca.jpg', 0, 1.50, "Boisson"),
+(1, 'Coca Cherry', 30, 'coca_cherry.jpg', 0, 1.75, "Boisson"),
+(20, 'Lipton Ice Tea', 40, 'lipton.jpg', 0, 1.50, "Boisson"),
+(1, 'Formule Cafe', 20, 'cafe.jpg', 0, 2.00, "Boisson"),
+(1, 'Bueno', 35, 'bueno_classique.png', 1, 1.20, ""),
+(1, 'Bueno White', 25, 'bueno_white.jpg', 1, 1.20, ""),
+(10, 'Snack Chips', 60, 'chips.jpg', 0, 1.00, ""),
+(1, 'Barre de Chocolat', 0, 'chocolat.jpg', 0, 1.50, ""),
+(10, 'Redbull', 50, 'redbull.png', 0, 1.50, "Boisson"),
+(1, 'Jus d''Orange', 55, 'jus_orange.jpg', 0, 1.30, "Boisson"),
+(30, 'Volvic', 70, 'volvic.jpg', 0, 0.80, "Boisson");
 
 -- Ajout des commandes
 INSERT INTO COMMANDE (statut_commande, prix_commande, paiement_commande, date_commande, qte_commande, id_membre, id_article) VALUES
@@ -65,7 +66,7 @@ INSERT INTO COMMANDE (statut_commande, prix_commande, paiement_commande, date_co
 (0, 1.00, 'TPE', NOW(), 3, 7, 7),              -- Tom achete 3 Snack Chips
 (0, 4.50, 'Carte de credit', NOW(), 2, 8, 8),  -- Erwan achete 2 Barres de Chocolat
 (1, 2.60, 'PayPal', NOW(), 2, 9, 9),           -- Evann achete 2 Jus d Orange
-(1, 1.60, 'Especes', NOW(), 4, 10, 10);       -- Baptiste achete 4 Volvic
+(1, 1.60, 'Especes', NOW(), 4, 10, 10);        -- Baptiste achete 4 Volvic
 
 -- Ajout des evenements
 INSERT INTO EVENEMENT (nom_evenement, xp_evenement, places_evenement, prix_evenement, reductions_evenement, lieu_evenement, date_evenement, image_evenement, description_evenement) VALUES
@@ -81,7 +82,7 @@ INSERT INTO EVENEMENT (nom_evenement, xp_evenement, places_evenement, prix_evene
 ('Barbecue de Depart', 10, 50, 30, 0, 'Centre de Conferences', '2027-07-01 12:00:00', NULL, NULL),
 ('Evenement passé', 10, 10, 30, 0, 'Quelque part', '2025-07-01 12:00:00', NULL, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis hendrerit mi. Donec sit amet nisl placerat, tristique dolor vitae, condimentum ipsum. Nam eget neque vel enim commodo pretium in vel sem. Curabitur at libero sollicitudin, placerat erat vel, ultrices nisi. Vestibulum mattis eu sem sed laoreet. Nullam posuere eu risus non volutpat. Etiam tempus nisl eu felis porta rutrum. Cras lectus quam, pharetra ultrices ullamcorper at, rhoncus quis dolor. Aliquam vel metus vitae elit iaculis consectetur nec non lorem. In fermentum nec lacus sed rutrum. Nullam quis congue velit. Quisque eu lectus interdum, fermentum neque non, imperdiet ex. "),
 ('Evenement en cours', 10, 50, 30, 0, 'Quelque part', '2026-07-01 12:00:00', NULL, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis hendrerit mi. Donec sit amet nisl placerat, tristique dolor vitae, condimentum ipsum. Nam eget neque vel enim commodo pretium in vel sem. Curabitur at libero sollicitudin, placerat erat vel, ultrices nisi. Vestibulum mattis eu sem sed laoreet. Nullam posuere eu risus non volutpat. Etiam tempus nisl eu felis porta rutrum. Cras lectus quam, pharetra ultrices ullamcorper at, rhoncus quis dolor. Aliquam vel metus vitae elit iaculis consectetur nec non lorem. In fermentum nec lacus sed rutrum. Nullam quis congue velit. Quisque eu lectus interdum, fermentum neque non, imperdiet ex. "),
-('Evenement plein', 10, 0, 30, 0, 'Quelque part', '2026-07-01 12:00:00', NULL, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis hendrerit mi. Donec sit amet nisl placerat, tristique dolor vitae, condimentum ipsum. Nam eget neque vel enim commodo pretium in vel sem. Curabitur at libero sollicitudin, placerat erat vel, ultrices nisi. Vestibulum mattis eu sem sed laoreet. Nullam posuere eu risus non volutpat. Etiam tempus nisl eu felis porta rutrum. Cras lectus quam, pharetra ultrices ullamcorper at, rhoncus quis dolor. Aliquam vel metus vitae elit iaculis consectetur nec non lorem. In fermentum nec lacus sed rutrum. Nullam quis congue velit. Quisque eu lectus interdum, fermentum neque non, imperdiet ex. ");
+('Evenement plein', 10, 0, 30, 0, 'Quelque part', '2026-07-01 12:00:00', NULL, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis hendrerit mi. Donec sit amet nisl placerat, tristique dolor vitae, condimentum ipsum. Nam eget neque vel enim commodo pretium in vel sem. Curabitur at libero sollicitudin, placerat erat vel, ultrices nisi. Vestibulum mattis eu sem sed laoreet. Nullam posuere eu risus non volutpat. Etiam tempus nisl eu felis porta rutrum. Cras lectus quam, pharetra ultrices ullamcorper at, rhoncus quis dolor. Aliquam vel metus vitae elit iaculis consectetur nec non lorem. In fermentum nec lacus sed rutrum. Nullam quis congue velit. Quisque eu lectus interdum, fermentum neque non, imperdiet ex. "),
 ('Evenement inscrit', 10, 5, 30, 0, 'Quelque part', '2026-07-01 12:00:00', NULL, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis hendrerit mi. Donec sit amet nisl placerat, tristique dolor vitae, condimentum ipsum. Nam eget neque vel enim commodo pretium in vel sem. Curabitur at libero sollicitudin, placerat erat vel, ultrices nisi. Vestibulum mattis eu sem sed laoreet. Nullam posuere eu risus non volutpat. Etiam tempus nisl eu felis porta rutrum. Cras lectus quam, pharetra ultrices ullamcorper at, rhoncus quis dolor. Aliquam vel metus vitae elit iaculis consectetur nec non lorem. In fermentum nec lacus sed rutrum. Nullam quis congue velit. Quisque eu lectus interdum, fermentum neque non, imperdiet ex. ");
 
 -- Ajout des inscriptions

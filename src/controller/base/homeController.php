@@ -1,7 +1,7 @@
 <?php
 
-require_once 'src/model/membre.php';
-require_once 'src/model/evenement.php';
+require_once 'src/model/bdd/membre.php';
+require_once 'src/model/bdd/evenement.php';
 
 class home {
     public function show() {

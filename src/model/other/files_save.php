@@ -51,4 +51,3 @@ function deleteFile(string $fileName) : bool
 
         return false;
     }
-?>

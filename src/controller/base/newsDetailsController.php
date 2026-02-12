@@ -1,6 +1,6 @@
 <?php
 
-require_once 'src/model/actualite.php';
+require_once 'src/model/bdd/actualite.php';
 
 class newsDetails {
     public function show() {
@@ -15,6 +15,7 @@ class newsDetails {
             header("Location: /?page=base-home");
             exit;
         }
+        $actu = $actu[0];
 
         $img = $actu['image_actualite'];
         $imgLink = ($img == null ? "assets/image/admin/default_images/event.jpg" : "/api/files/$img");
