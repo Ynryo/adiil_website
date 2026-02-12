@@ -20,7 +20,13 @@ function getEvenement($id) {
 }
 
 function getNextEvenement($date, $limit) {
-    $sql = "SELECT id_evenement, nom_evenement, lieu_evenement, date_evenement FROM EVENEMENT WHERE date_evenement >= ? ORDER BY date_evenement ASC" . ($limit != null ? " LIMIT $limit;" : ";");
+    $sql = "SELECT id_evenement, nom_evenement, lieu_evenement, date_evenement FROM EVENEMENT WHERE date_evenement >= ? AND deleted = false ORDER BY date_evenement ASC" . ($limit != null ? " LIMIT $limit;" : ";");
+    $params = [$date];
+    return get($sql, $params);
+}
+
+function getPastEvenement($date, $limit) {
+    $sql = "SELECT id_evenement, nom_evenement, lieu_evenement, date_evenement FROM EVENEMENT WHERE date_evenement < ? AND deleted = false ORDER BY date_evenement DESC" . ($limit != null ? " LIMIT $limit;" : ";");
     $params = [$date];
     return get($sql, $params);
 }

@@ -20,44 +20,45 @@
 
     <h1>LES EVENEMENTS</h1>
     <section>
-        <a class="show-more" href="/events.php?show= <?= $show + 10 ?>">Voir plus loin dans le passé</a>
+        <a class="show-more" href="/?page=base-events&show=<?= $show + 10 ?>">Voir plus loin dans le passé</a>
         <div class="events-display">
-            <div class="event-box <?= $other_classes;?>" id="<?= $closest_event_id ?>">
-                <div class="timeline-event">
-                    <h4><?= ucwords($joursFr[$event_date_info['wday']]." ".$event_date_info["mday"]." ".$moisFr[$event_date_info['mon']]);?></h4>
-                    <div class="vertical-line"></div>
-                    <p><?= $date_pin_label ?></p>
-                    <div class="timeline-marker <?= " $date_pin_class" ?>">
-                        <div class="time-line"></div>
-                    </div>
-                </div>
 
-                <?php
-                    foreach ($events_to_display as $event):
-                        $eventid = $event["id_evenement"];
-                        $event_date = substr($event['date_evenement'], 0, 10);
-                        $event_date_info = getdate(strtotime($event_date));
-                        $event_date = new DateTime($event_date);
-                        $other_classes = "";
-                        $isPassed = false;
-                    
-                        if ($event_date < $current_date) {
-                            $date_pin_class = "passed";
-                            $date_pin_label = "Passé";
-                            $other_classes = 'passed';
-                            $isPassed = true;
-                        } elseif ($event_date == $current_date) {
-                            $date_pin_class = "today";
-                            $date_pin_label = "Aujourd'hui";
-                            $closest_event_id = "closest-event"; // Marquer l'événement du jour comme le plus proche
-                        } else {
-                            $date_pin_class = "upcoming";
-                            $date_pin_label = "A venir";
-                            if (empty($closest_event_id)) {
-                                $closest_event_id = "closest-event"; // Marquer le premier événement futur comme le plus proche
-                            }
+            <?php
+                foreach ($events_to_display as $event):
+                    $eventid = $event["id_evenement"];
+                    $event_date = substr($event['date_evenement'], 0, 10);
+                    $event_date_info = getdate(strtotime($event_date));
+                    $event_date = new DateTime($event_date);
+                    $other_classes = "";
+                    $isPassed = false;
+                
+                    if ($event_date < $current_date) {
+                        $date_pin_class = "passed";
+                        $date_pin_label = "Passé";
+                        $other_classes = 'passed';
+                        $isPassed = true;
+                    } elseif ($event_date == $current_date) {
+                        $date_pin_class = "today";
+                        $date_pin_label = "Aujourd'hui";
+                        $closest_event_id = "closest-event"; // Marquer l'événement du jour comme le plus proche
+                    } else {
+                        $date_pin_class = "upcoming";
+                        $date_pin_label = "A venir";
+                        if (empty($closest_event_id)) {
+                            $closest_event_id = "closest-event"; // Marquer le premier événement futur comme le plus proche
                         }
-                        ?>
+                    }
+                    ?>
+
+                    <div class="event-box <?= $other_classes;?>" id="<?= $closest_event_id ?>">
+                        <div class="timeline-event">
+                            <h4><?= ucwords($joursFr[$event_date_info['wday']]." ".$event_date_info["mday"]." ".$moisFr[$event_date_info['mon']]);?></h4>
+                            <div class="vertical-line"></div>
+                            <p><?= $date_pin_label ?></p>
+                            <div class="timeline-marker <?= " $date_pin_class" ?>">
+                                <div class="time-line"></div>
+                            </div>
+                        </div>
 
                         <div class="event" event-id="<?= $eventid;?>">
                             <div>
@@ -66,36 +67,26 @@
                             </div>
                             <h4
                                 <?php
-                                $isPlaceDisponible = get(
-                                    "SELECT (EVENEMENT.places_evenement - (SELECT COUNT(*) FROM INSCRIPTION WHERE INSCRIPTION.id_evenement = EVENEMENT.id_evenement)) > 0 AS isPlaceDisponible FROM EVENEMENT WHERE EVENEMENT.id_evenement = ? ;",
-                                    [$eventid]
-                                )[0]['isPlaceDisponible'];
-                                
-                                if($isPlaceDisponible){
-                                    $event_subscription_color_class = "event-not-subscribed hover_effect";
-                                    $event_subscription_label = "S'inscrire";
-                                }else{
-                                    $event_subscription_color_class = "event-full";
-                                    $event_subscription_label = "Complet";
-                                }
-                    
-                                if($isLoggedIn){
-                                    $isSubscribed = !empty(get(
-                                    "SELECT MEMBRE.id_membre FROM MEMBRE JOIN INSCRIPTION on MEMBRE.id_membre = INSCRIPTION.id_membre WHERE MEMBRE.id_membre = ? AND INSCRIPTION.id_evenement = ? ;",
-                                    [$_SESSION['userid'], $event["id_evenement"]]
-                                    ));
-                                    
-                                    if($isSubscribed){
-                                        $event_subscription_color_class = "event-subscribed";
-                                        $event_subscription_label = "Inscrit";
+                                    if(isPlaceDisponible($eventid)) {
+                                        $event_subscription_color_class = "event-not-subscribed hover_effect";
+                                        $event_subscription_label = "S'inscrire";
+                                    } else {
+                                        $event_subscription_color_class = "event-full";
+                                        $event_subscription_label = "Complet";
                                     }
-                                }
+
+                                    if($_SESSION["userid"] !== null){
+                                        if(isSubscribed($_SESSION['userid'], $event["id_evenement"])){
+                                            $event_subscription_color_class = "event-subscribed";
+                                            $event_subscription_label = "Inscrit";
+                                        }
+                                    }
                                 
-                                if($isPassed){
-                                    $event_subscription_color_class = "event-full";
-                                    $event_subscription_label = "Passé";
-                                }
-                                echo "class=\"$event_subscription_color_class\"";
+                                    if($isPassed){
+                                        $event_subscription_color_class = "event-full";
+                                        $event_subscription_label = "Passé";
+                                    }
+                                    echo "class=\"$event_subscription_color_class\"";
                                 ?>>
                                 <?= $event_subscription_label;?>
                             </h4>

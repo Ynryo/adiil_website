@@ -9,7 +9,7 @@
 
 <!-- HEADER -->
 <header>
-    <a id="accueil" href="">
+    <a id="accueil" href="/?page=base-home">
         <img src="assets/image/base/logo.png" alt="Logo de l'ADIIL">
     </a>
     <nav>

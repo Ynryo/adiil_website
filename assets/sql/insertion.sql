@@ -78,8 +78,8 @@ INSERT INTO EVENEMENT (nom_evenement, xp_evenement, places_evenement, prix_evene
 ('Raclette 2', 10, 75, 12, 0, 'TD2', '2027-05-20 18:30:00'),
 ('Course de Caddie Carrefour', 10, 100, 10, 1, 'Carrefour', '2027-06-10 10:00:00'),
 ('Soiree Bar', 10, 200, 15, 1, 'Bar l''After Work', '2027-06-20 20:00:00'),
-('Barbecue de Depart', 10, 50, 30, 0, 'Centre de Conferences', '2027-07-01 12:00:00');
-
+('Barbecue de Depart', 10, 50, 30, 0, 'Centre de Conferences', '2027-07-01 12:00:00'),
+('Evenement passé pour les tests', 10, 50, 30, 0, 'Quelque part', '2023-07-01 12:00:00');
 
 -- Ajout des inscriptions
 INSERT INTO INSCRIPTION (id_membre, id_evenement, date_inscription, paiement_inscription, prix_inscription) VALUES
@@ -93,7 +93,6 @@ INSERT INTO INSCRIPTION (id_membre, id_evenement, date_inscription, paiement_ins
 (8, 1, '2026-09-13 16:16:45', 'TPE', 18),
 (10, 9, '2026-06-19 10:08:00', 'TPE', 15),
 (9, 7, '2027-05-05 13:02:18','Carte de credit', 12);
-
 
 -- Ajout des actualites
 INSERT INTO ACTUALITE (image_actualite, titre_actualite, contenu_actualite, date_actualite, id_membre) VALUES
@@ -121,7 +120,6 @@ INSERT INTO COMPTABILITE (date_comptabilite, nom_comptabilite, url_comptabilite,
 ('2024-08-12', 'Compta juillet2024', 'http://files.bdeinfo.fr/comptaJuillet2024.xls', 6),
 ('2024-09-09', 'Compta aout2024', 'http://files.bdeinfo.fr/comptaAout2024.xls', 6);
 
-
 -- Ajout des reunions
 INSERT INTO REUNION (date_reunion, fichier_reunion, id_membre) VALUES
 ('2024-09-08', 'http://files.bdeinfo.fr/CR433.odt', 3),
@@ -134,7 +132,6 @@ INSERT INTO REUNION (date_reunion, fichier_reunion, id_membre) VALUES
 ('2024-10-27', 'http://files.bdeinfo.fr/CR440.odt', 5),
 ('2024-11-03', 'http://files.bdeinfo.fr/CR441.odt', 6),
 ('2024-11-10', 'http://files.bdeinfo.fr/CR442.odt', 3);
-
 
 -- Ajout des medias
 INSERT INTO MEDIA (url_media, date_media, id_membre, id_evenement) VALUES
