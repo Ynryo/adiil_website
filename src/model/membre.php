@@ -14,10 +14,10 @@ function getAllMembres() {
     return get($sql);
 }
 
-function getMembre($id_membre) {
+function getMembre($id) {
     $sql = "SELECT * FROM MEMBRE WHERE id_membre = ?";
-    $params = [$id_membre];
-    return get($sql, $params);
+    $params = [$id];
+    return get($sql, $params)[0];
 }
 
 // function updateMembrePassword($id, $password) {

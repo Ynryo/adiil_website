@@ -76,6 +76,8 @@ CREATE TABLE EVENEMENT(
     reductions_evenement BIT NOT NULL DEFAULT 1,
     lieu_evenement VARCHAR(50) NOT NULL,
     date_evenement DATETIME NOT NULL,
+    image_evenement VARCHAR(255),
+    description_evenement TEXT,
     PRIMARY KEY(id_evenement)
 );
 

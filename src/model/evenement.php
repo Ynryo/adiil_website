@@ -16,7 +16,7 @@ function getAllEvenements() {
 function getEvenement($id) {
     $sql = "SELECT * FROM EVENEMENT WHERE id_evenement = ?";
     $params = [$id];
-    return get($sql, $params);
+    return get($sql, $params)[0];
 }
 
 function getNextEvenement($date, $limit) {

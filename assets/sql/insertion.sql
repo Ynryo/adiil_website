@@ -68,18 +68,21 @@ INSERT INTO COMMANDE (statut_commande, prix_commande, paiement_commande, date_co
 (1, 1.60, 'Especes', NOW(), 4, 10, 10);       -- Baptiste achete 4 Volvic
 
 -- Ajout des evenements
-INSERT INTO EVENEMENT (nom_evenement, xp_evenement, places_evenement, prix_evenement, reductions_evenement, lieu_evenement, date_evenement) VALUES
-('LAN Minecraft', 10, 100, 20, 1, 'Amphi 1', '2026-09-15 10:00:00'),
-('Competition CSGO', 10, 200, 15, 1, 'Amphi 1', '2026-10-20 14:00:00'),
-('Raclette', 10, 30, 25, 0, 'TD2', '2026-11-05 18:30:00'),
-('Loup Garou', 10, 150, 10, 1, 'TD2', '2026-12-10 19:00:00'),
-('LAN Mario Kart', 10, 1, 5, 1, 'Amphi 3', '2027-01-15 15:00:00'),
-('Barbecue de l''ADIIL', 10, 300, 10, 1, 'Parking du Batiment Dep. Informatique', '2027-05-01 12:00:00'),
-('Raclette 2', 10, 75, 12, 0, 'TD2', '2027-05-20 18:30:00'),
-('Course de Caddie Carrefour', 10, 100, 10, 1, 'Carrefour', '2027-06-10 10:00:00'),
-('Soiree Bar', 10, 200, 15, 1, 'Bar l''After Work', '2027-06-20 20:00:00'),
-('Barbecue de Depart', 10, 50, 30, 0, 'Centre de Conferences', '2027-07-01 12:00:00'),
-('Evenement passé pour les tests', 10, 50, 30, 0, 'Quelque part', '2023-07-01 12:00:00');
+INSERT INTO EVENEMENT (nom_evenement, xp_evenement, places_evenement, prix_evenement, reductions_evenement, lieu_evenement, date_evenement, image_evenement, description_evenement) VALUES
+('LAN Minecraft', 10, 100, 20, 1, 'Amphi 1', '2026-09-15 10:00:00', NULL, NULL),
+('Competition CSGO', 10, 200, 15, 1, 'Amphi 1', '2026-10-20 14:00:00', NULL, NULL),
+('Raclette', 10, 30, 25, 0, 'TD2', '2026-11-05 18:30:00', NULL, NULL),
+('Loup Garou', 10, 150, 10, 1, 'TD2', '2026-12-10 19:00:00', NULL, NULL),
+('LAN Mario Kart', 10, 1, 5, 1, 'Amphi 3', '2027-01-15 15:00:00', NULL, NULL),
+('Barbecue de l''ADIIL', 10, 300, 10, 1, 'Parking du Batiment Dep. Informatique', '2027-05-01 12:00:00', NULL, NULL),
+('Raclette 2', 10, 75, 12, 0, 'TD2', '2027-05-20 18:30:00', NULL, NULL),
+('Course de Caddie Carrefour', 10, 100, 10, 1, 'Carrefour', '2027-06-10 10:00:00', NULL, NULL),
+('Soiree Bar', 10, 200, 15, 1, 'Bar l''After Work', '2027-06-20 20:00:00', NULL, NULL),
+('Barbecue de Depart', 10, 50, 30, 0, 'Centre de Conferences', '2027-07-01 12:00:00', NULL, NULL),
+('Evenement passé', 10, 10, 30, 0, 'Quelque part', '2025-07-01 12:00:00', NULL, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis hendrerit mi. Donec sit amet nisl placerat, tristique dolor vitae, condimentum ipsum. Nam eget neque vel enim commodo pretium in vel sem. Curabitur at libero sollicitudin, placerat erat vel, ultrices nisi. Vestibulum mattis eu sem sed laoreet. Nullam posuere eu risus non volutpat. Etiam tempus nisl eu felis porta rutrum. Cras lectus quam, pharetra ultrices ullamcorper at, rhoncus quis dolor. Aliquam vel metus vitae elit iaculis consectetur nec non lorem. In fermentum nec lacus sed rutrum. Nullam quis congue velit. Quisque eu lectus interdum, fermentum neque non, imperdiet ex. "),
+('Evenement en cours', 10, 50, 30, 0, 'Quelque part', '2026-07-01 12:00:00', NULL, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis hendrerit mi. Donec sit amet nisl placerat, tristique dolor vitae, condimentum ipsum. Nam eget neque vel enim commodo pretium in vel sem. Curabitur at libero sollicitudin, placerat erat vel, ultrices nisi. Vestibulum mattis eu sem sed laoreet. Nullam posuere eu risus non volutpat. Etiam tempus nisl eu felis porta rutrum. Cras lectus quam, pharetra ultrices ullamcorper at, rhoncus quis dolor. Aliquam vel metus vitae elit iaculis consectetur nec non lorem. In fermentum nec lacus sed rutrum. Nullam quis congue velit. Quisque eu lectus interdum, fermentum neque non, imperdiet ex. "),
+('Evenement plein', 10, 0, 30, 0, 'Quelque part', '2026-07-01 12:00:00', NULL, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis hendrerit mi. Donec sit amet nisl placerat, tristique dolor vitae, condimentum ipsum. Nam eget neque vel enim commodo pretium in vel sem. Curabitur at libero sollicitudin, placerat erat vel, ultrices nisi. Vestibulum mattis eu sem sed laoreet. Nullam posuere eu risus non volutpat. Etiam tempus nisl eu felis porta rutrum. Cras lectus quam, pharetra ultrices ullamcorper at, rhoncus quis dolor. Aliquam vel metus vitae elit iaculis consectetur nec non lorem. In fermentum nec lacus sed rutrum. Nullam quis congue velit. Quisque eu lectus interdum, fermentum neque non, imperdiet ex. ");
+('Evenement inscrit', 10, 5, 30, 0, 'Quelque part', '2026-07-01 12:00:00', NULL, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis hendrerit mi. Donec sit amet nisl placerat, tristique dolor vitae, condimentum ipsum. Nam eget neque vel enim commodo pretium in vel sem. Curabitur at libero sollicitudin, placerat erat vel, ultrices nisi. Vestibulum mattis eu sem sed laoreet. Nullam posuere eu risus non volutpat. Etiam tempus nisl eu felis porta rutrum. Cras lectus quam, pharetra ultrices ullamcorper at, rhoncus quis dolor. Aliquam vel metus vitae elit iaculis consectetur nec non lorem. In fermentum nec lacus sed rutrum. Nullam quis congue velit. Quisque eu lectus interdum, fermentum neque non, imperdiet ex. ");
 
 -- Ajout des inscriptions
 INSERT INTO INSCRIPTION (id_membre, id_evenement, date_inscription, paiement_inscription, prix_inscription) VALUES
