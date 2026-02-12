@@ -1,0 +1,24 @@
+<?php
+
+require_once 'src/model/actualite.php';
+
+class newsDetails {
+    public function show() {
+        if ($_SERVER['REQUEST_METHOD'] !== 'GET' || !isset($_GET['id'])) {
+            header("Location: /?page=base-home");
+            exit;
+        }
+
+        $actuid = $_GET['id'];
+        $actu = getActualite($actuid);
+        if(empty($actu) || is_null($actu)){
+            header("Location: /?page=base-home");
+            exit;
+        }
+
+        $img = $actu['image_actualite'];
+        $imgLink = ($img == null ? "assets/image/admin/default_images/event.jpg" : "/api/files/$img");
+
+        include 'src/view/base/newsDetailsView.php';
+    }
+}
