@@ -14,7 +14,7 @@
                 "i",
                 [$eventid]
             );
-            if(empty($event) || is_null($event)){
+            if(empty($event) || $event === null){
                 header("Location: /index.php");
                 exit;
             }

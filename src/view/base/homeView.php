@@ -24,7 +24,7 @@
         <section>
             <h2 class="titre_vertical"> ADIIL</h2>
             <div id="index_carrousel">
-                <img src="/assets/image/photo_accueil_BDE.png" alt="Carrousel ADIIL">
+                <img src="assets/image/base/photo_accueil_BDE.png" alt="Carrousel ADIIL">
             </div>
         </section>
 
@@ -51,18 +51,16 @@
 
             <div id="podium">
                 <?php foreach ([2, 1, 3] as $member_number): ?>
-                    <?php $pod = $podium[$member_number-1]; ?>
+                    <?php $pod = $podium[$member_number - 1]; ?>
                     <div class="podium_unit">
                         <h3>#0<?= $member_number?></h3>
-                        <h4><?= $pod['prenom_membre'];?></h4>
+                        <h4><?= $pod['prenom_membre'] ?></h4>
                         <div>
-                            <?php if($pod['pp_membre'] == null): ?>
-                                <img src="/admin/ressources/default_images/user.jpg" alt="Profile Picture"
-                                class="profile_picture">
-                            <?php else: ?>
-                                <img src="/api/files/<?= $pod['pp_membre']; ?>" alt="Profile Picture"
-                                    class="profile_picture">
-                            <?php endif ?>
+                            <?php 
+                                $pp = $pod['pp_membre'];
+                                $imgLink = "assets/image/".($pp == null ? "admin/default_images/user.jpg" : "api/pp/$pp");
+                            ?>
+                            <img src="<?= $imgLink ?>" alt="Profile Picture" class="profile_picture">
                             <?= $pod['xp_membre']; ?> xp
                         </div>
                     </div>
@@ -74,9 +72,9 @@
             <div class="events-display">
                 <?php foreach ($events_to_display as $event): ?>
                     <?php $eventid = $event["id_evenement"]; ?>
-                        <div class="event" event-id="<?= $eventid;?>">
+                        <div class="event" event-id="<?= $eventid ?>">
                             <div>
-                                <h2><?= $event['nom_evenement'];?></h2>
+                                <h2><?= $event['nom_evenement'] ?></h2>
                                 <?php
                                     $event_date = substr($event['date_evenement'], 0, 10);
                                     $event_date_info = getdate(strtotime($event_date));
@@ -85,46 +83,33 @@
                             </div>
 
                             <?php
-                                $isPlaceDisponible = get(
-                                    "SELECT (EVENEMENT.places_evenement - (SELECT COUNT(*) FROM INSCRIPTION WHERE INSCRIPTION.id_evenement = EVENEMENT.id_evenement)) > 0 AS isPlaceDisponible FROM EVENEMENT WHERE EVENEMENT.id_evenement = ? ;",
-                                    [$eventid]
-                                )[0]['isPlaceDisponible'];
-                                
-                                if($isPlaceDisponible) {
-                                    //editable
+                                if(isPlaceDisponible($eventid)) {
                                     $event_subscription_color_class = "event-not-subscribed hover_effect";
                                     $event_subscription_label = "S'inscrire";
                                 } else {
-                                    //editable
                                     $event_subscription_color_class = "event-full";
                                     $event_subscription_label = "Complet";
                                 }
 
-                                if($isLoggedIn){
-                                    $isSubscribed = !empty(get(
-                                    "SELECT MEMBRE.id_membre FROM MEMBRE JOIN INSCRIPTION on MEMBRE.id_membre = INSCRIPTION.id_membre WHERE MEMBRE.id_membre = ? AND INSCRIPTION.id_evenement = ? ;",
-                                    [$_SESSION['userid'], $event["id_evenement"]]
-                                    ));
-                                    
-                                    if($isSubscribed){
-                                        //editable
+                                if($_SESSION["userid"] !== null){
+                                    if(isSubscribed($_SESSION['userid'], $event["id_evenement"])){
                                         $event_subscription_color_class = "event-subscribed";
                                         $event_subscription_label = "Inscrit";
                                     }
                                 }
                             ?>
                             
-                            <h4<?= "class=\"$event_subscription_color_class\""?> <?= $event_subscription_label;?>></h4>
+                            <h4<?= "class=\"$event_subscription_color_class\""?> <?= $event_subscription_label ?>></h4>
                         </div>
                     <?php endforeach; ?>
-                <h3><a href="/events.php">Voir tous les événements</a></h3>
+                <h3><a href="/?page=base-events">Voir tous les événements</a></h3>
             </div>
             <h2 class="titre_vertical">EVENT</h2>
 
         </section>
     </div>
 
-    <?php require_once 'src/view/footer.php';?>
+    <?php require_once 'src/view/footer.php' ?>
 
     <script src="assets/js/base/event_details_redirect.js"></script>
     <script src="assets/js/base/bubble.js"></script>

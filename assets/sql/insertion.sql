@@ -10,7 +10,7 @@ INSERT INTO ROLE (nom_role, p_log_role, p_boutique_role, p_reunion_role, p_utili
 -- Insertion des membres
 INSERT INTO MEMBRE (nom_membre, prenom_membre, email_membre, password_membre, xp_membre, discord_token_membre, pp_membre, tp_membre) VALUES
 ('RUFFAULT--RAVENEL', 'Gemino', 'gemino.ruffault@example.com', 'password1', 50, NULL, 'http://files.bdeinfo.fr/fes2fse1f21se.jpg', '11A'),
-('HANNIER', 'Axelle', 'axelle.hannier@example.com', 'password2', 18, NULL, 'http://files.bdeinfo.fr/fesfe43sf.jpg', '12C'),
+('HANNIER', 'Axelle', 'axelle.hannier@example.com', 'password2', 18, NULL, '2.jpg', '12C'),
 ('DAUVERGNE', 'Julien', 'julien.dauvergne@example.com', 'password3', 0, 'g4rd64g6rd4g8f4e64h5bv231h5th44g5ht6h87yj8ty6', 'http://files.bdeinfo.fr/gprdgrd5.jpg','31A'),
 ('DELAYE', 'Baptiste', 'baptiste.delahay@example.com', 'password4', 0, NULL, 'http://files.bdeinfo.fr/h5th42fth.jpg', '32D'),
 ('VIEILLARD', 'Nathalie', 'nathalie.vieillard@example.com', 'password5', 11, NULL, 'http://files.bdeinfo.fr/jygjgy56yjg.jpg', NULL),
@@ -69,30 +69,30 @@ INSERT INTO COMMANDE (statut_commande, prix_commande, paiement_commande, date_co
 
 -- Ajout des evenements
 INSERT INTO EVENEMENT (nom_evenement, xp_evenement, places_evenement, prix_evenement, reductions_evenement, lieu_evenement, date_evenement) VALUES
-('LAN Minecraft', 10, 100, 20, 1, 'Amphi 1', '2024-09-15 10:00:00'),
-('Competition CSGO', 10, 200, 15, 1, 'Amphi 1', '2024-10-20 14:00:00'),
-('Raclette', 10, 30, 25, 0, 'TD2', '2024-11-05 18:30:00'),
-('Loup Garou', 10, 150, 10, 1, 'TD2', '2024-12-10 19:00:00'),
-('LAN Mario Kart', 10, 1, 5, 1, 'Amphi 3', '2025-01-15 15:00:00'),
-('Barbecue de l''ADIIL', 10, 300, 10, 1, 'Parking du Batiment Dep. Informatique', '2025-05-01 12:00:00'),
-('Raclette 2', 10, 75, 12, 0, 'TD2', '2025-05-20 18:30:00'),
-('Course de Caddie Carrefour', 10, 100, 10, 1, 'Carrefour', '2025-06-10 10:00:00'),
-('Soiree Bar', 10, 200, 15, 1, 'Bar l''After Work', '2025-06-20 20:00:00'),
-('Barbecue de Depart', 10, 50, 30, 0, 'Centre de Conferences', '2025-07-01 12:00:00');
+('LAN Minecraft', 10, 100, 20, 1, 'Amphi 1', '2026-09-15 10:00:00'),
+('Competition CSGO', 10, 200, 15, 1, 'Amphi 1', '2026-10-20 14:00:00'),
+('Raclette', 10, 30, 25, 0, 'TD2', '2026-11-05 18:30:00'),
+('Loup Garou', 10, 150, 10, 1, 'TD2', '2026-12-10 19:00:00'),
+('LAN Mario Kart', 10, 1, 5, 1, 'Amphi 3', '2027-01-15 15:00:00'),
+('Barbecue de l''ADIIL', 10, 300, 10, 1, 'Parking du Batiment Dep. Informatique', '2027-05-01 12:00:00'),
+('Raclette 2', 10, 75, 12, 0, 'TD2', '2027-05-20 18:30:00'),
+('Course de Caddie Carrefour', 10, 100, 10, 1, 'Carrefour', '2027-06-10 10:00:00'),
+('Soiree Bar', 10, 200, 15, 1, 'Bar l''After Work', '2027-06-20 20:00:00'),
+('Barbecue de Depart', 10, 50, 30, 0, 'Centre de Conferences', '2027-07-01 12:00:00');
 
 
 -- Ajout des inscriptions
 INSERT INTO INSCRIPTION (id_membre, id_evenement, date_inscription, paiement_inscription, prix_inscription) VALUES
-(1, 3, '2024-10-15 11:06:05', 'TPE', 25),
-(4, 1, '2024-09-08 12:14:18', 'Paypal', 20),
-(4, 6, '2025-04-26 09:04:05', 'Espece', 10),
-(8, 5, '2025-01-13 17:26:32', 'Espece', 4.50),
-(5, 10, '2025-06-15 14:31:56', 'TPE', 30),
-(6, 8, '2024-05-12 8:56:01', 'Paypal', 10),
-(7, 10, '2025-04-02 13:04:02', 'Carte de credit', 30),
-(8, 1, '2024-09-13 16:16:45', 'TPE', 18),
-(10, 9, '2024-06-19 10:08:00', 'TPE', 15),
-(9, 7, '2025-05-05 13:02:18','Carte de credit', 12);
+(1, 3, '2026-10-15 11:06:05', 'TPE', 25),
+(4, 1, '2026-09-08 12:14:18', 'Paypal', 20),
+(4, 6, '2027-04-26 09:04:05', 'Espece', 10),
+(8, 5, '2027-01-13 17:26:32', 'Espece', 4.50),
+(5, 10, '2027-06-15 14:31:56', 'TPE', 30),
+(6, 8, '2026-05-12 8:56:01', 'Paypal', 10),
+(7, 10, '2027-04-02 13:04:02', 'Carte de credit', 30),
+(8, 1, '2026-09-13 16:16:45', 'TPE', 18),
+(10, 9, '2026-06-19 10:08:00', 'TPE', 15),
+(9, 7, '2027-05-05 13:02:18','Carte de credit', 12);
 
 
 -- Ajout des actualites

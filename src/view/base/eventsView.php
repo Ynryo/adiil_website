@@ -9,10 +9,10 @@
 
     <title>Evenements</title>
 
-    <link rel="stylesheet" href="assets/ccs/base/events_style.css">
-    <link rel="stylesheet" href="assets/ccs/base/general_style.css">
-    <link rel="stylesheet" href="assets/ccs/base/header_style.css">
-    <link rel="stylesheet" href="assets/ccs/base/footer_style.css">
+    <link rel="stylesheet" href="assets/css/base/events_style.css">
+    <link rel="stylesheet" href="assets/css/base/general_style.css">
+    <link rel="stylesheet" href="assets/css/base/header_style.css">
+    <link rel="stylesheet" href="assets/css/base/footer_style.css">
 </head>
 
 <body class="body_margin">
@@ -20,7 +20,7 @@
 
     <h1>LES EVENEMENTS</h1>
     <section>
-        <a class="show-more" href="/events.php?show= <?= $show + 10?>">Voir plus loin dans le passé</a>
+        <a class="show-more" href="/events.php?show= <?= $show + 10 ?>">Voir plus loin dans le passé</a>
         <div class="events-display">
             <div class="event-box <?= $other_classes;?>" id="<?= $closest_event_id ?>">
                 <div class="timeline-event">

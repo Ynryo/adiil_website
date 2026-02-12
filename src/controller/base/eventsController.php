@@ -1,6 +1,6 @@
 <?php
 
-require_once 'src/model/database.php';
+require_once 'src/model/evenement.php';
 
 class events {
     public function show() {

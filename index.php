@@ -1,5 +1,6 @@
 <?php
 session_start();
+if (!isset($_SESSION["userid"])) $_SESSION["userid"] = null;
 
 define('ROOT_PATH', __DIR__ . '/');
 
@@ -17,8 +18,8 @@ function dispatch() {
     $dir = explode('-', $parts[0]);
 
     $dirName = $dir[0];
-    $controllerName = $dir[1]."Controller";
     $className = $dir[1];
+    $controllerName = $className."Controller";
 
     $method = $parts[1] ?? 'show';
 
