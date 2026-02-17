@@ -10,13 +10,17 @@ require_once "src/model/bdd/database.php";
 
 function getActualite($id_actualite) {
     $bd = DB::getInstance();
-    $sql = "SELECT * FROM ACTUALITE WHERE id_actualite = ?";
-    $params = [$id_actualite];
-    return $bd->select($sql, "i",  $params);
+    return $bd->select(
+        "SELECT * FROM ACTUALITE WHERE id_actualite = ?", 
+        "i",  
+        [$id_actualite]
+    );
 }
 
 function getNextActualite($limit) {
     $bd = DB::getInstance();
     $sql = "SELECT id_actualite, titre_actualite, date_actualite FROM ACTUALITE WHERE date_actualite <= NOW() ORDER BY date_actualite ASC" . ($limit != null ? " LIMIT $limit;" : ";");
-    return $bd->select($sql);
+    return $bd->select(
+        $sql
+    );
 }

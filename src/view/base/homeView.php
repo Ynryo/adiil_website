@@ -11,8 +11,6 @@
 
     <link rel="stylesheet" href="assets/css/base/index_style.css">
     <link rel="stylesheet" href="assets/css/base/general_style.css">
-    <link rel="stylesheet" href="assets/css/base/header_style.css">
-    <link rel="stylesheet" href="assets/css/base/footer_style.css">
     <link rel="stylesheet" href="assets/css/base/bubble.css">
 </head>
 

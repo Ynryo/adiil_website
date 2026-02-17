@@ -7,7 +7,7 @@ class cart {
         require_once 'src/model/other/files_save.php';
         // require_once 'src/model/other/cart_class.php';
 
-        $bd = getDB();
+        $db = DB::getInstance();
         $cart = new cart();
 
         // On récupère les produits du panier

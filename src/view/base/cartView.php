@@ -10,8 +10,6 @@
 
     <link rel="stylesheet" href="assets/css/base/cart_style.css">
     <link rel="stylesheet" href="assets/css/base/general_style.css">
-    <link rel="stylesheet" href="assets/css/base/header_style.css">
-    <link rel="stylesheet" href="assets/css/base/footer_style.css">
 
     <script>
         //Fonction pour valider la soumission du formulaire (form-quantity) par la touche "Entrée"

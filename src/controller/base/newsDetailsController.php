@@ -18,7 +18,7 @@ class newsDetails {
         $actu = $actu[0];
 
         $img = $actu['image_actualite'];
-        $imgLink = ($img == null ? "assets/image/admin/default_images/event.jpg" : "/api/files/$img");
+        $imgLink = "assets/image/" . ($img == null ? "admin/default_images/event.jpg" : "api/news/$img");
 
         include 'src/view/base/newsDetailsView.php';
     }

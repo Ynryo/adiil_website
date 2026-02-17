@@ -10,8 +10,6 @@
     <title><?= $actu['titre_actualite']?></title>
 
     <link rel="stylesheet" href="assets/css/base/general_style.css">
-    <link rel="stylesheet" href="assets/css/base/header_style.css">
-    <link rel="stylesheet" href="assets/css/base/footer_style.css">
     <link rel="stylesheet" href="assets/css/base/event_details_style.css">
 </head>
 

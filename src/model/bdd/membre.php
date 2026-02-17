@@ -1,57 +1,125 @@
 <?php
 require_once "src/model/bdd/database.php";
 
-// function insertMembre($nom, $prenom, $email, $password) {
-//     $bd = DB::getInstance();
-//     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-//     $sql = 'INSERT INTO MEMBRE (nom_membre, prenom_membre, email_membre, password_membre, xp_membre, discord_token_membre, pp_membre, tp_membre) 
-//             VALUES (?, ?, ?, ?, 0, NULL, NULL, NULL)';
-//     $params = [$nom, $prenom, $email, $hashedPassword];
-//     return $bd->query($sql, $params);
-// }
+function insertMembre($nom, $prenom, $email, $password) {
+    $db = DB::getInstance();
+    $db->query(
+        "CALL creationCompte (?, ?, ?, ?, null);",
+        "sssss",
+        [$nom, $prenom, $email, $password]
+    );
+}
 
 // function getAllMembres() {
-//     $bd = DB::getInstance();
-//     $sql = "SELECT * FROM MEMBRE";
-//     return $bd->select($sql);
+//     $db = DB::getInstance();
+//     return $db->select(
+//         "SELECT * FROM MEMBRE"
+//     );
 // }
 
-// function getMembre($id) {
-//     $bd = DB::getInstance();
-//     $sql = "SELECT * FROM MEMBRE WHERE id_membre = ?";
-//     $params = [$id];
-//     return $bd->select($sql, $params);
-// }
+function getMembre($id) {
+    $db = DB::getInstance();
+    return $db->select(
+        "SELECT * FROM MEMBRE WHERE id_membre = ?",
+        "i",
+        [$id]
+    );
+}
 
-// function updateMembrePassword($id, $password) {
-//     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-//     $sql = "UPDATE MEMBRE SET mdp_membre = ? WHERE id_membre = ?";
-//     $params = [$hashedPassword, $id];
-//     return update($sql, $params);;
-// }
+function updateMembrePassword($hashedPassword, $id) {
+    $db = DB::getInstance();
+    $db->query(
+        "UPDATE MEMBRE SET password_membre = ? WHERE id_membre = ?",
+        "si",
+        [$hashedPassword, $id]
+    );
+}
 
-// function isMembreExisting($mail){
-//     $sql = "SELECT COUNT(*) FROM MEMBRE WHERE email_membre LIKE '$mail'";
-//     return getCount($sql) > 0;
-// }
+function updateMembreAccountInfo($name, $lastName, $mail, $tp, $id) {
+    $db = DB::getInstance();
+    $db->query(
+        "UPDATE MEMBRE SET prenom_membre = ?, nom_membre = ?, email_membre = ?, tp_membre = ? WHERE id_membre = ?",
+        "ssssi",
+        [$name, $lastName, $mail, $tp, $id]
+    );
+}
 
-// function isMembrePasswordCorrect($mail, $password){
-//     if(!isMembreExisting($mail)) return false;
+function isMailUsedByAnotherMembre($mail, $id) {
+    $db = DB::getInstance();
+    $membre = $db->select(
+        "SELECT id_membre FROM MEMBRE WHERE email_membre = ? AND id_membre != ?",
+        "si",
+        [$mail, $id]
+    );
+    return !empty($membre);
+}
 
-//     $sql = "SELECT * FROM MEMBRE WHERE email_membre LIKE '$mail'";
-//     $Membre = get($sql);
-//     return password_verify($password, $Membre[0]['mdp_membre']);
-// }
+function getInfoOfmembre($id) {
+    $db = DB::getInstance();
+    return $db->select(
+        "SELECT pp_membre, xp_membre, prenom_membre, nom_membre, email_membre, tp_membre, discord_token_membre, nom_grade, image_grade FROM MEMBRE LEFT JOIN ADHESION ON MEMBRE.id_membre = ADHESION.id_membre LEFT JOIN GRADE ON ADHESION.id_grade = GRADE.id_grade WHERE MEMBRE.id_membre = ?;",
+        "i",
+        [$id]
+    );
+}
+
+function getMembreByMail($mail) {
+    $db = DB::getInstance();
+    return $db->select(
+        "SELECT * FROM MEMBRE WHERE email_membre = ?",
+        "s",
+        [$mail]
+    );
+}
 
 function getPodium() {
-    $bd = DB::getInstance();
-    $sql = "SELECT prenom_membre, xp_membre, pp_membre FROM MEMBRE ORDER BY xp_membre DESC LIMIT 3;";
-    return $bd->select($sql);
+    $db = DB::getInstance();
+    return $db->select(
+        "SELECT prenom_membre, xp_membre, pp_membre FROM MEMBRE ORDER BY xp_membre DESC LIMIT 3;"
+    );
 }
 
 function getAdherent($id) {
-    $bd = DB::getInstance();
-    $sql = "SELECT * FROM ADHESION INNER JOIN GRADE ON ADHESION.id_grade = GRADE.id_grade WHERE ADHESION.id_membre = ? AND reduction_grade > 0";
-    $params = [$id];
-    return $bd->select($sql, "i", $params);
+    $db = DB::getInstance();
+    return $db->select(
+        "SELECT * FROM ADHESION INNER JOIN GRADE ON ADHESION.id_grade = GRADE.id_grade WHERE ADHESION.id_membre = ? AND reduction_grade > 0",
+        "i",
+        [$id]
+    );
+}
+
+function getNbRolesmembre($id) {
+    $db = DB::getInstance();
+    return $db->select(
+        "SELECT COUNT(*) as nb_roles FROM ASSIGNATION WHERE id_membre = ? ;",
+        "i",
+        [$id]
+    );
+}
+
+function updateMembrePP($fileName, $id) {
+    $db = DB::getInstance();
+    $db->query(
+        "UPDATE MEMBRE SET pp_membre = ? WHERE id_membre = ?",
+        "si",
+        [$fileName, $id]
+    );
+}
+
+function getAchatsMembre($id, $limit) {
+    $db = DB::getInstance();
+    $sql = "
+            SELECT type_transaction, element, quantite, montant, mode_paiement, date_transaction, 
+            CASE 
+            WHEN recupere = 1 THEN 'Récupéré'
+            ELSE 'Non récupéré'
+            END AS statut 
+            FROM HISTORIQUE WHERE id_utilisateur = ? ORDER BY date_transaction DESC
+    " . $limit;
+
+    return $db->select(
+        $sql,
+        "i",
+        [$id]
+    );
 }

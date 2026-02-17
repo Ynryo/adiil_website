@@ -1,7 +1,7 @@
 <?php
 
 class DB {
-    private static $instance = null;
+    private static $instance;
     private $conn;
 
     private function __construct() {
@@ -30,8 +30,7 @@ class DB {
         // Par ex : "ssds" signifie que les 4 arguments sont de type string, string, decimal, string
 
         $stmt = $this->conn->prepare($sql);
-        if (!empty($types))
-        {
+        if (!empty($types)) {
             $stmt->bind_param($types, ...$args);
         }
 
@@ -46,8 +45,7 @@ class DB {
     public function select($sql, $types = "", $args = []) {
 
         $stmt = $this->conn->prepare($sql);
-        if (!empty($types))
-        {
+        if (!empty($types)) {
             $stmt->bind_param($types, ...$args);
         }
         $stmt->execute();
@@ -59,8 +57,4 @@ class DB {
 
         return $data;
     }
-
-    // public static function clean($input) {
-    //     return htmlspecialchars($input);
-    // }
 }

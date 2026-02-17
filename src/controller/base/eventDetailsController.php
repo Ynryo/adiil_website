@@ -25,20 +25,26 @@ class eventDetails {
         }
 
         $img = $event['image_evenement'];
-        $imgLink = ($img == null ? "assets/image/admin/default_images/event.jpg" : "/api/files/$img");
+        $imgLink = "assets/image/" . ($img == null ? "admin/default_images/event.jpg" : "api/event/$img");
 
         $current_date = new DateTime(date("Y-m-d"));
         $event_date = new DateTime(substr($event['date_evenement'], 0, 10));
 
-        // le bouton
         $btnHTML = null;
-        if($event_date < $current_date) {   // l'évènement est déja passé
+        // l'évènement est déja passé
+        if($event_date < $current_date) {
             $btnHTML = '<button class="subscription" id="passed_subscription">Passé</button>';
-        } elseif(isSubscribed($_SESSION['userid'], $eventid)) {   // l'utilisateur est déja inscrit
+        }
+        // l'utilisateur est déja inscrit
+        elseif(isSubscribed($_SESSION['userid'], $eventid)) {
             $btnHTML = '<button class="subscription" id="passed_subscription">Inscrit</button>';
-        } elseif(!isPlaceDisponible($eventid)) {   // l'évènement est complet
+        }
+        // l'évènement est complet
+        elseif(!isPlaceDisponible($eventid)) {
             $btnHTML = '<button class="subscription" id="passed_subscription">Complet</button>';
-        } else {   // sinon l'utilisateur peut s'inscrire
+        }
+        // sinon l'utilisateur peut s'inscrire
+        else {
             $btnHTML = '
                 <form class="subscription" action="/?page=base-eventSubscription" method="post">
                     <input type="text" name="eventid" value="<?= $eventid?>" hidden>

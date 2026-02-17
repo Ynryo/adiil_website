@@ -10,8 +10,6 @@
 
     <link rel="stylesheet" href="assets/css/base/news_style.css">
     <link rel="stylesheet" href="assets/css/base/general_style.css">
-    <link rel="stylesheet" href="assets/css/base/header_style.css">
-    <link rel="stylesheet" href="assets/css/base/footer_style.css">
 </head>
 <body class="body_margin">
     <?php require_once 'src/view/header.php'; ?>

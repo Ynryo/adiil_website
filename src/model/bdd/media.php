@@ -12,13 +12,19 @@ require_once "src/model/bdd/database.php";
 function getEvenementMedia($id_evenement, $limit) {
     $bd = DB::getInstance();
     $sql = "SELECT url_media FROM MEDIA WHERE id_evenement = ? ORDER by date_media ASC" . ($limit != null ? " LIMIT $limit;" : ";");
-    $params = [$id_evenement];
-    return $bd->select($sql, "i", $params);
+    return $bd->select(
+        $sql, 
+        "i", 
+        [$id_evenement]
+        );
 }
 
 function getUserEvenementMedia($id_membre, $id_evenement, $limit) {
     $bd = DB::getInstance();
     $sql = "SELECT url_media FROM MEDIA WHERE id_membre = ? and id_evenement = ? ORDER by date_media ASC" . ($limit != null ? " LIMIT $limit;" : ";");
-    $params = [$id_membre, $id_evenement];
-    return $bd->select($sql, "ii", $params);
+    return $bd->select(
+        $sql, 
+        "ii", 
+        [$id_membre, $id_evenement]
+    );
 }

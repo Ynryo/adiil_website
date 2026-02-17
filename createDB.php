@@ -7,6 +7,18 @@ $dotenv->load();
 
 require_once "src/model/bdd/database.php";
 
+function get_bdd(){
+    $db_name = $_ENV['DB_NAME'];
+    $hostname = $_ENV['DB_HOST'];
+    $user = $_ENV['DB_USER'];
+    $password = $_ENV['DB_PASS'];
+
+    $dsn = "mysql:host=$hostname;dbname=$db_name;charset=utf8mb4";
+    $pdo = new PDO($dsn, $user, $password);
+
+    return $pdo;
+}
+
 function execute($sqlFile) {
     $bdd = get_bdd();
     $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

@@ -17,35 +17,47 @@ require_once "src/model/bdd/database.php";
 
 function getEvenement($id) {
     $bd = DB::getInstance();
-    $sql = "SELECT * FROM EVENEMENT WHERE id_evenement = ?";
-    $params = [$id];
-    return $bd->select($sql, "i",  $params);
+    return $bd->select(
+        "SELECT * FROM EVENEMENT WHERE id_evenement = ?",
+        "i",
+        [$id]
+    );
 }
 
 function getNextEvenement($date, $limit) {
     $bd = DB::getInstance();
     $sql = "SELECT id_evenement, nom_evenement, lieu_evenement, date_evenement FROM EVENEMENT WHERE date_evenement >= ? AND deleted = false ORDER BY date_evenement ASC" . ($limit != null ? " LIMIT $limit;" : ";");
-    $params = [$date];
-    return $bd->select($sql, "s", $params);
+    return $bd->select(
+        $sql,
+        "s",
+        [$date]
+    );
 }
 
 function getPastEvenement($date, $limit) {
     $bd = DB::getInstance();
     $sql = "SELECT id_evenement, nom_evenement, lieu_evenement, date_evenement FROM EVENEMENT WHERE date_evenement < ? AND deleted = false ORDER BY date_evenement DESC" . ($limit != null ? " LIMIT $limit;" : ";");
-    $params = [$date];
-    return $bd->select($sql, "s", $params);
+    return $bd->select(
+        $sql,
+        "s",
+        [$date]
+    );
 }
 
 function isPlaceDisponible($id) {
     $bd = DB::getInstance();
-    $sql = "SELECT (EVENEMENT.places_evenement - (SELECT COUNT(*) FROM INSCRIPTION WHERE INSCRIPTION.id_evenement = EVENEMENT.id_evenement)) > 0 AS isPlaceDisponible FROM EVENEMENT WHERE EVENEMENT.id_evenement = ?;";
-    $params = [$id];
-    return $bd->select($sql, "i", $params)[0]['isPlaceDisponible'];
+    return $bd->select(
+        "SELECT (EVENEMENT.places_evenement - (SELECT COUNT(*) FROM INSCRIPTION WHERE INSCRIPTION.id_evenement = EVENEMENT.id_evenement)) > 0 AS isPlaceDisponible FROM EVENEMENT WHERE EVENEMENT.id_evenement = ?;",
+        "i",
+        [$id]
+    )[0]['isPlaceDisponible'];
 }
 
 function isSubscribed($id_membre, $id_evenement) {
     $bd = DB::getInstance();
-    $sql = "SELECT m.id_membre FROM MEMBRE m JOIN INSCRIPTION i on m.id_membre = i.id_membre WHERE m.id_membre = ? AND i.id_evenement = ?;";
-    $params = [$id_membre, $id_evenement];
-    return !empty($bd->select($sql, "ii", $params));
+    return !empty($bd->select(
+        "SELECT m.id_membre FROM MEMBRE m JOIN INSCRIPTION i on m.id_membre = i.id_membre WHERE m.id_membre = ? AND i.id_evenement = ?;", 
+        "ii", 
+        [$id_membre, $id_evenement]
+    ));
 }
