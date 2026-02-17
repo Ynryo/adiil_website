@@ -43,12 +43,12 @@
                 <?php
                 $medias = getUserEvenementMedia($_SESSION["userid"], $eventid, 4);
                 foreach($medias as $media => $img):?>
-                    <img src="/api/files/<?= trim($img['url_media']);?>" alt="Image Personelle de l'événement">
+                    <img src="assets/image/api/<?= trim($img['url_media']);?>" alt="Image Personelle de l'événement">
                 <?php endforeach;?>
 
                 <form id="add-media" action="/add_media.php" method="post" enctype="multipart/form-data">
                     <label for="file-picker">
-                        <img src="/assets/add_media.png" alt="Ajouter un média">
+                        <img src="assets/image/base/add_media.png" alt="Ajouter un média">
                     </label>
                     <input type="hidden" name="eventid" value="<?= $eventid?>">
                     <input type="hidden" name="userid" value="<?= $_SESSION['userid']?>">
@@ -59,7 +59,7 @@
 
                 <form id="open-gallery" action="/my_gallery.php" method="get">
                     <label for="open-gallery-button">
-                        <img src="/assets/explore_gallery.png" alt="Voir ma galerie entière">
+                        <img src="assets/image/base/explore_gallery.png" alt="Voir ma galerie entière">
                     </label>
                     <input type="hidden" name="eventid" value="<?= $eventid ?>">
                     <button id="open-gallery-button" type="submit" style="display:none;">Envoyer</button>
@@ -70,16 +70,18 @@
         <h3>Collection Generale</h3>
 
         <div class="general-medias">
+            <?php
+                $medias = getEvenementMedia($eventid, $show);
+            ?>
 
-            <?php $medias = getEvenementMedia($eventid, $show);
-            foreach($medias as $media => $img):?>
-                <img src="/api/files/<?= trim($img['url_media']);?>" alt="Image de l'événement">
+            <?php foreach($medias as $media => $img):?>
+                <img src="assets/image/api/event/<?= trim($img['url_media']);?>" alt="Image de l'événement">
             <?php endforeach;?>
-
-
         </div>
+
         <div class="show-more">
             <form action="" method="GET" style="display: inline;">
+                <input type="hidden" name="page" value="base-eventDetails">
                 <input type="hidden" name="id" value="<?= $eventid?>">
                 <input type="hidden" name="show" value="<?= $show + 8?>">
 
@@ -87,9 +89,10 @@
             </form>
 
             <form action="" method="GET" style="display: inline;">
+                <input type="hidden" name="page" value="base-eventDetails">
                 <input type="hidden" name="id" value="<?= $eventid?>">
                 <?php if($show >= 20): ?>
-                <input type="hidden" name="show" value="<?= $show - 10?>">
+                    <input type="hidden" name="show" value="<?= $show - 10?>">
                 <?php endif;?>
                 <button type="submit">Voir Moins</button>
             </form>

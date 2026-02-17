@@ -5,23 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="/styles/delete_account_style.css">
-    <link rel="stylesheet" href="/styles/general_style.css">
-
-    <title>Supprimer le compte</title>
-</head>
-<body>
     
+    <title>Supprimer le compte</title>
 
-<?php 
-session_start();
+    <link rel="stylesheet" href="assets/css/base/general_style.css">
+    <link rel="stylesheet" href="assets/css/base/delete_account_style.css">
+</head>
 
-require_once 'database.php';
-$db = new DB();
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-    if (isset($_POST['delete_account']) && $_POST['delete_account'] === 'true'):?>
+<body>
+    <?php if ($_SERVER['REQUEST_METHOD'] === 'POST') : ?>
+        <?php if (isset($_POST['delete_account']) && $_POST['delete_account'] === 'true') : ?>
                 <div id="deleteAccountAlert" class="alert-container">
                     <div class="alert-content">
                         <p>
@@ -37,27 +30,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </form>
                         </li>
                         <li>
-                            <button id="cancelDelete" onclick="window.location.href='/account.php'">Revenir en arrière</button>
+                            <button id="cancelDelete" onclick="window.location.href='/?page=base-account'">Revenir en arrière</button>
                         </li>
                     </ul>
                     </div>
                 </div>
-<?php 
-    endif;
+        <?php endif ?>
+    <?php endif ?>
 
-    if (isset($_POST['delete_account_valid']) && $_POST['delete_account_valid'] === 'true'){
-        $db->query(
-            "CALL suppressionCompte ( ? );",
-            "i",
-            [$_SESSION["userid"]]
-        );
-        session_destroy();
-        header("Location: /index.php");
-        exit();
-    }
-}
-
-?>
-<script src="/scripts/confirm_account_supression.js"></script>
+    <script src="assets/js/base/confirm_account_supression.js"></script>
 </body>
 </html>

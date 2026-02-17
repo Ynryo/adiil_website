@@ -4,8 +4,8 @@ require_once "src/model/bdd/database.php";
 function insertMembre($nom, $prenom, $email, $password) {
     $db = DB::getInstance();
     $db->query(
-        "CALL creationCompte (?, ?, ?, ?, null);",
-        "sssss",
+        "CALL creationCompte (?, ?, ?, ?);",
+        "ssss",
         [$nom, $prenom, $email, $password]
     );
 }
@@ -121,5 +121,52 @@ function getAchatsMembre($id, $limit) {
         $sql,
         "i",
         [$id]
+    );
+}
+
+function addXpToMembre($xp, $id) {
+    $db = DB::getInstance();
+    return $db->select(
+        "UPDATE MEMBRE m SET m.xp_membre = m.xp_membre + ? where m.id_membre = ?;",
+        "ii",
+        [$xp, $id]
+    );
+}
+
+function getDiscount($id) {
+    $db = DB::getInstance();
+    return $db->select(
+        "SELECT reduction_grade FROM ADHESION 
+        JOIN GRADE ON ADHESION.id_grade = GRADE.id_grade
+        WHERE id_membre = ? AND reduction_grade > 0 order by ADHESION.date_adhesion DESC LIMIT 1",
+        "i",
+        [$id]
+    );
+}
+
+function doesMembreHasGrade($id) {
+    $db = DB::getInstance();
+    return !empty($db->select(
+        "SELECT * FROM ADHESION WHERE id_membre = ?",
+        "i",
+        [$id]
+    ));
+}
+
+function deleteGradeOfMembre($id) {
+    $db = DB::getInstance();
+    $db->query(
+        "DELETE FROM ADHESION WHERE id_membre = ?",
+        "i",
+        [$id]
+    );
+}
+
+function addGradeToMembre($id_membre, $id_grade, $prix, $mode_paiement) {
+    $db = DB::getInstance();
+    $db->query(
+        "INSERT INTO ADHESION (id_membre, id_grade, prix_adhesion, paiement_adhesion, date_adhesion) VALUES (?, ?, ?, ?, NOW())",
+        "iiss",
+        [$id_membre, $id_grade, $prix, $mode_paiement]
     );
 }

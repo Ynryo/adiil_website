@@ -6,10 +6,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <title>Accueil</title>
+    <title>Inscription</title>
 
-    <link rel="stylesheet" href="/styles/login_style.css">
-    <link rel="stylesheet" href="/styles/general_style.css">
+    <link rel="stylesheet" href="assets/css/base/login_style.css">
+    <link rel="stylesheet" href="assets/css/base/general_style.css">
 </head>
 
 <body>
@@ -19,10 +19,10 @@
         <h1>S'inscrire</h1>
 
         <label for="mail">Prénom :</label>
-        <input type="text" name="fname">
+        <input type="text" name="fname" required>
 
         <label for="mail">Nom :</label>
-        <input type="text" name="lname">
+        <input type="text" name="lname" required>
     
         <label for="mail">Adresse Mail :*</label>
         <input type="email" name="mail" required>

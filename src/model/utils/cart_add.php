@@ -1,29 +1,21 @@
 <?php
 
 // Importer les fichiers
-require_once 'database.php';
-require_once 'files_save.php';
-require_once 'cart_class.php';
-
-// Connexion à la base de donnees
-$db = new DB();
+require_once 'src/model/bdd/article.php';
+require_once 'src/model/utils/files_save.php';
+require_once 'src/model/utils/cart_class.php';
 
 // Initialisation du panier
-$cart = new cart($db);
+$cart = new cart();
 
 $json = array('error' => true);
 
 if(isset($_GET['id'])){
-    $product = $db->select(
-        "SELECT id_article FROM ARTICLE WHERE id_article = ?",
-        "i",
-        [$_GET['id']]
-    );
+    $product = getArticle($_GET['id']);
 
     if(empty($product)){
         $json['message'] = "Ce produit n'existe pas"; 
     }
-
 
     $cart->add($product[0]['id_article']);
     $json['error'] = false;

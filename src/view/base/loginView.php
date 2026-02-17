@@ -6,7 +6,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
-    <title>Accueil</title>
+    <title>Connexion</title>
 
     <link rel="stylesheet" href="assets/css/base/login_style.css">
     <link rel="stylesheet" href="assets/css/base/general_style.css">
@@ -27,7 +27,8 @@
         <button type="submit">Se connecter</button>
     </form>
 
-    <form method="GET" action="/signin.php" id="create-account">
+    <form method="GET" action="/" id="create-account">
+        <input type="hidden" name="page" value="base-signin">
         <h2>Pas encore de compte ?</h2>
         <button type="submit">Créez en un</button>
     </form>

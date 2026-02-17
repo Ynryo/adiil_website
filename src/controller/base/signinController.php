@@ -1,32 +1,19 @@
 <?php
 
-// require_once 'src/model/bdd/database.php';
+require_once 'src/model/bdd/membre.php';
 
 class signin {
     public function show() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-            $mail = getMembreByMail($_POST['mail']);
+            $user = getMembreByMail($_POST['mail']);
 
-            if(empty($selection_db)) {
-                $password = $_POST['password'];
-                $password_verif = $_POST['password_verif'];
-
-                if($password == $password_verif){
-                    $fname = "N/A";
-                    $lname = "N/A";
-    
-                    if(isset($_POST['fname'])){
-                        $fname = $_POST['fname'];
-                    }
-                    if(isset($_POST['lname'])){
-                        $lname = $_POST['lname'];
-                    }
-
-                    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-                    insertMembre($lname, $fname, $mail, $hashedPassword);
+            if(empty($user)) {
+                if($_POST['password'] == $_POST['password_verif']){
+                    $hashedPassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
+                    insertMembre($_POST['lname'], $_POST['fname'], $_POST['mail'], $hashedPassword);
                 }
-                header("Location: /?page=base-login.php");
+                header("Location: /?page=base-login");
                 exit;
             } else {
                 echo 'Utilisateur déjà présent';

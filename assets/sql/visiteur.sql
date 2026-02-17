@@ -33,22 +33,6 @@ SELECT
 FROM ARTICLE
 WHERE COALESCE(stock_article,0) > 0;
 
--- Procédure : création de compte (silencieuse si email existe)
-DROP PROCEDURE IF EXISTS creationCompte;
-CREATE PROCEDURE creationCompte(
-    IN _name_user VARCHAR(100),
-    IN _firstName_user VARCHAR(100),
-    IN _email_user VARCHAR(100),
-    IN _password_user VARCHAR(100),
-    IN _pp_user VARCHAR(500)
-)
-BEGIN
-    IF NOT EXISTS (SELECT 1 FROM MEMBRE WHERE email_membre = _email_user) THEN
-        INSERT INTO MEMBRE (nom_membre, prenom_membre, email_membre, password_membre, pp_membre)
-        VALUES (_name_user, _firstName_user, _email_user, _password_user, _pp_user);
-    END IF;
-END;
-
 -- Modifications de schéma : colonnes "deleted" si inexistantes
 ALTER TABLE EVENEMENT ADD COLUMN IF NOT EXISTS deleted BOOLEAN NOT NULL DEFAULT FALSE;
 ALTER TABLE GRADE     ADD COLUMN IF NOT EXISTS deleted BOOLEAN NOT NULL DEFAULT FALSE;

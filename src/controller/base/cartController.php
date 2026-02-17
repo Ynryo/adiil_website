@@ -1,12 +1,11 @@
 <?php
 
 require_once 'src/model/bdd/database.php';
+require_once 'src/model/utils/files_save.php';
+require_once 'src/model/utils/cart_class.php';
 
 class cart {
     public function show() {
-        require_once 'src/model/other/files_save.php';
-        // require_once 'src/model/other/cart_class.php';
-
         $db = DB::getInstance();
         $cart = new cart();
 

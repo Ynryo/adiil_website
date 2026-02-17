@@ -8,6 +8,15 @@ function getAllGrades() {
     );
 }
 
+function getGrade($id) {
+    $db = DB::getInstance();
+    return $db->select(
+        "SELECT * FROM GRADE WHERE id_grade = ?",
+        "i",
+        [$id]
+    );
+}
+
 function getGradeMembre($id_grade, $id_membre) {
     $db = DB::getInstance();
     return $db->select(

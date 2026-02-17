@@ -20,7 +20,7 @@ CREATE TABLE MEMBRE(
     password_membre VARCHAR(100) NOT NULL,
     xp_membre INT NOT NULL DEFAULT 0,
     discord_token_membre VARCHAR(500),
-    pp_membre VARCHAR(500) NOT NULL,
+    pp_membre VARCHAR(500) DEFAULT NULL,
     tp_membre VARCHAR(3),
     PRIMARY KEY(id_membre)
 );

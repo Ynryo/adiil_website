@@ -57,7 +57,7 @@
                 <?php if($this->infoUser[0]['image_grade'] == null): ?>
                     <img src="/admin/ressources/default_images/grade.webp" alt="Image du grade" />
                 <?php else: ?>
-                    <img src="/api/files/<?= $this->infoUser[0]['image_grade']; ?>" alt="Illustration du grade de l'utilisateur" />
+                    <img src="assets/image/api/<?= $this->infoUser[0]['image_grade']; ?>" alt="Illustration du grade de l'utilisateur" />
                 <?php endif?>
             <?php endif; ?>
         </div>
