@@ -1,8 +1,6 @@
 <?php
-session_start();
-
-require_once 'DB.php';
-require_once 'tools.php';
+require_once __DIR__ . '/../bootstrap.php';
+use App\Helpers\Tools;
 
 
 // TODO: Remove this line in production
@@ -10,9 +8,9 @@ ini_set('display_errors', 1);
 
 header('Content-Type: application/json');
 
-tools::checkPermission('p_achat');
+Tools::checkPermission('p_achat');
 
-$DB = new DB();
+$DB = \App\Database\DB::getInstance();
 
 $methode = $_SERVER['REQUEST_METHOD'];
 
@@ -26,8 +24,9 @@ switch ($methode) {
         break;
 }
 
-function get_purchase() : void {
-    $db = new DB();
+function get_purchase(): void
+{
+    $DB = \App\Database\DB::getInstance();
 
     $data = $db->select("SELECT H.*, M.nom_membre, M.prenom_membre FROM HISTORIQUE_COMPLET as H INNER JOIN MEMBRE M on H.id_membre = M.id_membre");
 

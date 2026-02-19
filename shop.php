@@ -1,198 +1,177 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boutique</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="/styles/shop_style.css">
-    <link rel="stylesheet" href="/styles/general_style.css">
-    <link rel="stylesheet" href="/styles/header_style.css">
-    <link rel="stylesheet" href="/styles/footer_style.css">
-
-
-
-
+    <link rel="stylesheet" href="/public/styles/shop_style.css">
+    <link rel="stylesheet" href="/public/styles/general_style.css">
+    <link rel="stylesheet" href="/public/styles/header_style.css">
+    <link rel="stylesheet" href="/public/styles/footer_style.css">
 </head>
-
-
 
 <body class="body_margin">
 
-<!--------------->
-<!------PHP------>
-<!--------------->
+    <?php
+    require_once "header.php";
+    require_once 'cart_class.php';
 
-<!-- Importer les fichiers -->
-<?php 
-require_once "header.php" ;
-require_once 'database.php';
-require_once 'files_save.php';
-require_once 'cart_class.php';
+    use App\Database\DB;
+    $db = DB::getInstance();
+    $cart = new cart($db);
 
-// Connexion à la base de donnees
-$db = new DB();
+    // --- Gestion de la recherche, des filtres et tris ---
+    
+    $filters = [];
+    $orderBy = "name_asc";
+    $searchTerm = "";
 
-// Initialisation du panier
-$cart = new cart($db);
-
-
-// Gestion de la recherche, des filtres et tris
-
-//Traitement du formulaire
-$filters = [];
-$orderBy = "name_asc";
-$searchTerm = "";
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['reset'])) {
-        $filters = [];
-        $orderBy = "name_asc";
-        $searchTerm = "";
-    } else {
-        if (isset($_POST['category'])) {
-            $filters = $_POST['category'];
-        }
-        if (isset($_POST['sort'])) {
-            $orderBy = $_POST['sort'];
-        }
-        if (!empty($_POST['search'])) {
-            $searchTerm = $_POST['search'];
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (isset($_POST['reset'])) {
+            $filters = [];
+            $orderBy = "name_asc";
+            $searchTerm = "";
+        } else {
+            if (isset($_POST['category'])) {
+                $filters = $_POST['category'];
+            }
+            if (isset($_POST['sort'])) {
+                $orderBy = $_POST['sort'];
+            }
+            if (!empty($_POST['search'])) {
+                $searchTerm = $_POST['search'];
+            }
         }
     }
-}
 
-//Construction de la requête SQL
-$query = "SELECT * FROM ARTICLE";
-$whereClauses = ["deleted = false"];
-$params = [];
-// Ajout de la recherche par nom
-if (!empty($searchTerm)) {
-    $whereClauses[] = "nom_article LIKE ?";
-    $params[] = '%' . $searchTerm . '%';
-}
-// Ajout des filtres par catégorie
-if (!empty($filters)) {
-    $placeholders = implode(", ", array_fill(0, count($filters), "?"));
-    $whereClauses[] = "categorie_article IN ($placeholders)";
-    $params = array_merge($params, $filters);
-}
-// Ajout des clauses WHERE
-if (!empty($whereClauses)) {
-    $query .= " WHERE " . implode(" AND ", $whereClauses);
-}
-// Ajout du tri
-if ($orderBy === "price_asc") {
-    $query .= " ORDER BY prix_article ASC";
-} elseif ($orderBy === "price_desc") {
-    $query .= " ORDER BY prix_article DESC";
-} elseif ($orderBy === "name_asc") {
-    $query .= " ORDER BY nom_article ASC";
-} elseif ($orderBy === "name_desc") {
-    $query .= " ORDER BY nom_article DESC";
-}
-// Exécution de la requête
-$products = $db->select($query, str_repeat("s", count($params)), $params);
-?>
+    // Construction de la requête SQL
+    $query = "SELECT * FROM ARTICLE";
+    $whereClauses = ["deleted = false"];
+    $params = [];
 
+    if (!empty($searchTerm)) {
+        $whereClauses[] = "nom_article LIKE ?";
+        $params[] = '%' . $searchTerm . '%';
+    }
 
+    if (!empty($filters)) {
+        $placeholders = implode(", ", array_fill(0, count($filters), "?"));
+        $whereClauses[] = "categorie_article IN ($placeholders)";
+        $params = array_merge($params, $filters);
+    }
 
+    if (!empty($whereClauses)) {
+        $query .= " WHERE " . implode(" AND ", $whereClauses);
+    }
 
-<!--------------->
-<!------HTML----->
-<!--------------->
+    // Tri
+    $sortMap = [
+        'price_asc' => 'prix_article ASC',
+        'price_desc' => 'prix_article DESC',
+        'name_asc' => 'nom_article ASC',
+        'name_desc' => 'nom_article DESC',
+    ];
+    $query .= " ORDER BY " . ($sortMap[$orderBy] ?? 'nom_article ASC');
 
-<H1>LA BOUTIQUE</H1>
+    $products = $db->select($query, str_repeat("s", count($params)), $params);
+    ?>
 
-<div id="principal-section">
-    <form method="post" id="filter-form">
-        <fieldset>
-            <input id = "search-input" type="text" name="search" placeholder="Rechercher un article" value="<?= htmlspecialchars($searchTerm) ?>">
-        </fieldset>
-        <details>
-            <summary>Catégories</summary>
+    <h1>LA BOUTIQUE</h1>
+
+    <div id="principal-section">
+        <form method="post" id="filter-form">
             <fieldset>
-                <label><input type="checkbox" name="category[]" value="Sucré" <?= in_array('Sucré', $filters) ? 'checked' : '' ?>> Sucré</label><br>
-                <label><input type="checkbox" name="category[]" value="Salé" <?= in_array('Salé', $filters) ? 'checked' : '' ?>> Salé</label><br>
-                <label><input type="checkbox" name="category[]" value="Boisson" <?= in_array('Boisson', $filters) ? 'checked' : '' ?>> Boisson</label><br>
-                <label><input type="checkbox" name="category[]" value="Merch" <?= in_array('Merch', $filters) ? 'checked' : '' ?>> Merch</label>
+                <input id="search-input" type="text" name="search" placeholder="Rechercher un article"
+                    value="<?= htmlspecialchars($searchTerm) ?>">
             </fieldset>
-        </details>
-        <div>
-            <label>Trier par</label>
-            <select name="sort">
-                <option value="name_asc" <?= $orderBy === 'name_asc' ? 'selected' : '' ?>>Ordre alphabétique (A-Z)</option>
-                <option value="name_desc" <?= $orderBy === 'name_desc' ? 'selected' : '' ?>>Ordre anti-alphabétique (Z-A)</option>
-                <option value="price_asc" <?= $orderBy === 'price_asc' ? 'selected' : '' ?>>Prix croissant</option>
-                <option value="price_desc" <?= $orderBy === 'price_desc' ? 'selected' : '' ?>>Prix décroissant</option>
-            </select>
+            <details>
+                <summary>Catégories</summary>
+                <fieldset>
+                    <?php
+                    $categories = ['Sucré', 'Salé', 'Boisson', 'Merch'];
+                    foreach ($categories as $cat):
+                        ?>
+                        <label><input type="checkbox" name="category[]" value="<?= htmlspecialchars($cat) ?>"
+                                <?= in_array($cat, $filters) ? 'checked' : '' ?>> <?= htmlspecialchars($cat) ?></label><br>
+                    <?php endforeach; ?>
+                </fieldset>
+            </details>
+            <div>
+                <label for="sort">Trier par</label>
+                <select name="sort" id="sort">
+                    <option value="name_asc" <?= $orderBy === 'name_asc' ? 'selected' : '' ?>>Ordre alphabétique (A-Z)
+                    </option>
+                    <option value="name_desc" <?= $orderBy === 'name_desc' ? 'selected' : '' ?>>Ordre anti-alphabétique
+                        (Z-A)</option>
+                    <option value="price_asc" <?= $orderBy === 'price_asc' ? 'selected' : '' ?>>Prix croissant</option>
+                    <option value="price_desc" <?= $orderBy === 'price_desc' ? 'selected' : '' ?>>Prix décroissant</option>
+                </select>
+            </div>
+            <button type="submit" name="reset">Réinitialiser</button>
+        </form>
+
+        <div id="cart-info">
+            <button>
+                <a href="cart.php">
+                    <img src="/public/assets/logo_caddie.png" alt="Logo du panier">
+                    <p>Panier (<span id="count"><?= $cart->count() ?></span>)</p>
+                </a>
+            </button>
         </div>
-        <button type="submit" name="reset">Réinitialiser</button>
-    </form>
-
-    <div id='cart-info'>
-        <button>
-            <a href="cart.php">
-                <img src="/assets/logo_caddie.png" alt="Logo du panier">
-                <p>Panier (<span id="count"><?=$cart->count();?></span>)</p>
-            </a>
-        </button>
     </div>
-</div>
 
-<p id='message-reduc'>
-    * Articles non éligibles aux réductions de grade
-</p>
-<?php if (!empty($products)) : ?>
-    <div id="product-list">
-        <?php foreach ($products as $product) : ?>
-                <div id="one-product">
+    <p id="message-reduc">
+        * Articles non éligibles aux réductions de grade
+    </p>
+
+    <?php if (!empty($products)): ?>
+        <div id="product-list">
+            <?php foreach ($products as $product): ?>
+                <div class="product-card">
                     <div>
-                        <?php if($product['image_article'] == null):?>
+                        <?php if ($product['image_article'] === null): ?>
                             <img src="/admin/ressources/default_images/boutique.png" alt="Image de l'article" />
-                        <?php else:?>
-                            <img src="/api/files/<?php echo $product['image_article']; ?>" alt="Image de l'article" />
-                        <?php endif?>
+                        <?php else: ?>
+                            <img src="/api/files/<?= htmlspecialchars($product['image_article']) ?>" alt="Image de l'article" />
+                        <?php endif ?>
                         <h3 title="<?= htmlspecialchars($product['nom_article']) ?>">
                             <?= htmlspecialchars($product['nom_article']) ?>
                         </h3>
-                        <p><?= number_format(htmlspecialchars($product['prix_article']), 2, ',', ' ') ?> € </p>
-                        <p><?= htmlspecialchars($product['xp_article']) ?> XP
-                            <?php if (!(int)$product['reduction_article']){ ?>
-                            <span>    * </span>
-                            <?php } ?>
+                        <p><?= number_format((float) $product['prix_article'], 2, ',', ' ') ?> €</p>
+                        <p><?= (int) $product['xp_article'] ?> XP
+                            <?php if (!(int) $product['reduction_article']): ?>
+                                <span> * </span>
+                            <?php endif; ?>
                         </p>
                     </div>
                     <div>
-                        <p id="stock-status">
-                            <?php if ((int)$product['stock_article'] > 0 || (int)$product['stock_article'] < 0): ?>
-                                <a class="addCart" id="add-to-cart-button" href="/cart_add.php?id=<?= htmlspecialchars($product['id_article']) ?>">
+                        <p class="stock-status">
+                            <?php if ((int) $product['stock_article'] !== 0): ?>
+                                <a class="addCart" href="/cart_add.php?id=<?= (int) $product['id_article'] ?>">
                                     Ajouter au panier
                                 </a>
                             <?php else: ?>
-                                <button id="out-of-stock">Épuisé</button>
+                                <button class="out-of-stock" disabled>Épuisé</button>
                             <?php endif; ?>
                         </p>
                     </div>
                 </div>
-        <?php endforeach; ?>
-    </div>
-<?php else : ?>
-    <p>Aucun produit trouvé pour les critères sélectionnés.</p>
-<?php endif; ?>
+            <?php endforeach; ?>
+        </div>
+    <?php else: ?>
+        <p>Aucun produit trouvé pour les critères sélectionnés.</p>
+    <?php endif; ?>
 
+    <?php require_once "footer.php" ?>
 
-
-
-<?php require_once "footer.php" ?>
-
-<!--Dynamisme du panier-->
-    <!--Automatisation de la soumission du formulaire (filter-form)-->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const form = document.querySelector("#filter-form");
-            
-            // Soumission du formulaire lorsqu'on appuie sur "Entrée" dans le champ de recherche
+
+            // Soumission sur Entrée dans le champ de recherche
             const searchInput = document.querySelector("input[name='search']");
             searchInput.addEventListener("keydown", function (event) {
                 if (event.key === "Enter") {
@@ -201,39 +180,57 @@ $products = $db->select($query, str_repeat("s", count($params)), $params);
                 }
             });
 
-            // Soumission du formulaire lorsqu'une catégorie est sélectionnée
+            // Soumission sur changement de catégorie
             const detailsElement = document.querySelector("details");
-            // Restaurer l'état ouvert du menu si nécessaire
             if (sessionStorage.getItem("details-open") === "true") {
                 detailsElement.open = true;
             }
-            // Empêcher la fermeture du menu après soumission
             const categoryCheckboxes = document.querySelectorAll("input[name='category[]']");
             categoryCheckboxes.forEach(function (checkbox) {
                 checkbox.addEventListener("change", function () {
-                    // Sauvegarder l'état du menu
                     sessionStorage.setItem("details-open", "true");
-                    // Soumettre le formulaire
                     form.submit();
                 });
             });
-            // Nettoyer l'état lorsque l'utilisateur ferme manuellement le menu
             detailsElement.addEventListener("toggle", function () {
                 if (!detailsElement.open) {
                     sessionStorage.removeItem("details-open");
                 }
             });
 
-            // Soumission du formulaire lorsqu'une option de tri est sélectionnée
+            // Soumission sur changement de tri
             const sortSelect = document.querySelector("select[name='sort']");
             sortSelect.addEventListener("change", function () {
                 form.submit();
             });
         });
     </script>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script src="/scripts/add_cart.js"></script>
+
+    <script>
+        // Vanilla JS pour l'ajout au panier (remplace jQuery 1.7.2)
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".addCart").forEach(function (link) {
+                link.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    const url = this.getAttribute("href");
+
+                    fetch(url)
+                        .then(function (response) {
+                            if (response.ok) {
+                                const countEl = document.getElementById("count");
+                                if (countEl) {
+                                    countEl.textContent = parseInt(countEl.textContent) + 1;
+                                }
+                            }
+                        })
+                        .catch(function (err) {
+                            console.error("Erreur ajout panier:", err);
+                        });
+                });
+            });
+        });
+    </script>
 
 </body>
-</html>
 
+</html>

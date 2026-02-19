@@ -1,22 +1,39 @@
 <?php
 
-session_start();
-include_once '../api/tools.php';
+require_once __DIR__ . '/../bootstrap.php';
+use App\Helpers\Tools;
+use App\Helpers\Session;
 
+Session::start();
 
-if(!isset($_SESSION['userid'])){
+if (!Session::isLoggedIn()) {
     header('Location: ../login.php');
     exit();
 }
-if (!(isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'])){
+if (!Session::isAdmin()) {
     header('Location: /admin/panels/unauthorized.html');
     exit();
 }
 
+// Définir les entrées de navigation avec leurs permissions
+$navItems = [
+    ['perm' => null, 'key' => 'chat', 'icon' => 'chat.svg', 'label' => 'Chat'],
+    ['perm' => 'p_boutique', 'key' => 'boutique', 'icon' => 'boutique.svg', 'label' => 'Boutique'],
+    ['perm' => 'p_utilisateur', 'key' => 'utilisateurs', 'icon' => 'users.svg', 'label' => 'Utilisateurs'],
+    ['perm' => 'p_grade', 'key' => 'grades', 'icon' => 'grades.svg', 'label' => 'Grades'],
+    ['perm' => 'p_evenement', 'key' => 'evenements', 'icon' => 'events.svg', 'label' => 'Evenements'],
+    ['perm' => 'p_comptabilite', 'key' => 'comptabilite', 'icon' => 'comptabilite.svg', 'label' => 'Comptabilité'],
+    ['perm' => 'p_reunion', 'key' => 'reunions', 'icon' => 'reunions.svg', 'label' => 'Réunions'],
+    ['perm' => 'p_role', 'key' => 'roles', 'icon' => 'roles.svg', 'label' => 'Rôles'],
+    ['perm' => 'p_actualite', 'key' => 'actualites', 'icon' => 'actualite.svg', 'label' => 'Actualités'],
+    ['perm' => 'p_boutique', 'key' => 'history', 'icon' => 'history.svg', 'label' => "Historique d'achats"],
+    ['perm' => 'p_log', 'key' => 'logs', 'icon' => 'logs.svg', 'label' => 'Logs du serveur'],
+];
 ?>
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,7 +41,9 @@ if (!(isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'])){
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
 
     <link rel="shortcut icon" href="ressources/favicon.png" type="image/x-icon">
 
@@ -32,140 +51,33 @@ if (!(isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'])){
     <link rel="stylesheet" href="styles/admin.css">
 
 </head>
+
 <body id="main">
 
     <!-- Navigation -->
     <nav>
-
         <h1 onclick="window.location.href='/'" style="cursor: pointer;">ADIIL - Admin</h1>
 
         <ul>
-
-            <li perm="chat">
-                <img src="ressources/panels_icons/chat.svg" alt="Icone du chat">
-                <p>Chat</p>
-            </li>
-            
-            <?php
-                if (tools::hasPermission('p_boutique')){
-                    echo '
-                        <li perm="boutique">
-                            <img src="ressources/panels_icons/boutique.svg" alt="Icone de la boutique">
-                            <p>Boutique</p>
-                        </li>
-                        ';
-                }
-            ?>
-            
-            <?php
-                if (tools::hasPermission('p_utilisateur')){
-                    echo '
-            <li perm="utilisateurs">
-                <img src="ressources/panels_icons/users.svg" alt="Icone des utilisateurs">
-                <p>Utilisateurs</p>
-            </li>
-                        ';
-                }
-            ?>
-            
-            <?php
-                if (tools::hasPermission('p_grade')){
-                    echo '
-            <li perm="grades">
-                <img src="ressources/panels_icons/grades.svg" alt="Icone des grades">
-                <p>Grades</p>
-            </li>
-                        ';
-                }
-            ?>
-            
-            <?php
-                if (tools::hasPermission('p_evenement')){
-                    echo '
-            <li perm="evenements">
-                <img src="ressources/panels_icons/events.svg" alt="Icone des événements">
-                <p>Evenements</p>
-            </li>
-                        ';
-                }
-            ?>
-            
-            <?php
-                if (tools::hasPermission('p_comptabilite')){
-                    echo '
-            <li perm="comptabilite">
-                <img src="ressources/panels_icons/comptabilite.svg" alt="Icone de la comptabilite">
-                <p>Comptabilite</p>
-            </li>
-                        ';
-                }
-            ?>
-            
-            <?php
-                if (tools::hasPermission('p_reunion')){
-                    echo '
-            <li perm="reunions">
-                <img src="ressources/panels_icons/reunions.svg" alt="Icone des réunions">
-                <p>Réunions</p>
-            </li>
-                        ';
-                }
-            ?>
-
-            <?php
-                if (tools::hasPermission('p_role')){
-                    echo '
-            <li perm="roles">
-                <img src="ressources/panels_icons/roles.svg" alt="Icone des roles">
-                <p>Rôles</p>
-            </li>
-                        ';
-                }
-            ?>
-
-            <?php
-                if (tools::hasPermission('p_actualite')){
-                    echo '
-            <li perm="actualites">
-                <img src="ressources/panels_icons/actualite.svg" alt="Icone des actualités">
-                <p>Actualités</p>
-            </li>
-                        ';
-                }
-            ?>
-
-            <?php
-                if (tools::hasPermission('p_boutique')){
-                    echo '
-            <li perm="history">
-                <img src="ressources/panels_icons/history.svg" alt="Icone de l\'historique d\'achat">
-                <p>Historique d\'achats</p>
-            </li>
-                        ';
-                }
-            ?>
-
-            <?php
-                if (tools::hasPermission('p_log')){
-                    echo '
-            <li perm="logs">
-                <img src="ressources/panels_icons/logs.svg" alt="Icone des logs du serveur">
-                <p>Logs du serveur</p>
-            </li>
-                        ';
-                }
-            ?>
-
+            <?php foreach ($navItems as $item): ?>
+                <?php if ($item['perm'] === null || Tools::hasPermission($item['perm'])): ?>
+                    <li perm="<?= htmlspecialchars($item['key']) ?>">
+                        <img src="ressources/panels_icons/<?= htmlspecialchars($item['icon']) ?>"
+                            alt="Icone <?= htmlspecialchars($item['label']) ?>">
+                        <p><?= htmlspecialchars($item['label']) ?></p>
+                    </li>
+                <?php endif; ?>
+            <?php endforeach; ?>
         </ul>
     </nav>
 
-    <!-- Permissions -->
+    <!-- Contenu principal -->
     <main>
-        <iframe frameborder="0" id="content" src="./panels/chat.html"></iframe>
+        <iframe frameborder="0" id="content" src="./panels/chat.html" title="Panneau d'administration"></iframe>
     </main>
 
-    <!-- SCRIPT -->
     <script type="module" src="scripts/admin.js"></script>
 
 </body>
+
 </html>

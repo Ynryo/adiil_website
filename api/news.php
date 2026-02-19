@@ -1,23 +1,20 @@
 <?php
 session_start();
-use model\File;
-use model\News;
-use model\Role;
-
-require_once 'filter.php';
-require_once 'models/News.php';
-require_once 'DB.php';
-require_once 'tools.php';
-require_once 'models/File.php';
+require_once __DIR__ . '/../bootstrap.php';
+use App\Models\File;
+use App\Models\News;
+use App\Models\Role;
+use App\Helpers\Filter;
+use App\Helpers\Tools;
 
 // TODO: Remove this line in production
 ini_set('display_errors', 1);
 
 header('Content-Type: application/json');
 
-tools::checkPermission('p_actualite');
+Tools::checkPermission('p_actualite');
 
-$DB = new DB();
+$DB = \App\Database\DB::getInstance();
 
 $methode = $_SERVER['REQUEST_METHOD'];
 
@@ -29,13 +26,13 @@ switch ($methode) {
         create_news();
         break;
     case 'PUT':                     # UPDATE (données)
-        if (tools::methodAccepted('application/json')) {
+        if (Tools::methodAccepted('application/json')) {
             update_news();
         }
         break;
 
     case 'PATCH':                     # UPDATE (image)
-            update_image();
+        update_image();
         break;
 
     case 'DELETE':                   # DELETE
@@ -49,10 +46,10 @@ switch ($methode) {
 
 
 
-function get_news() : void
+function get_news(): void
 {
     if (isset($_GET['id'])) {
-        $id = filter::int($_GET['id']);
+        $id = Filter::int($_GET['id']);
         $news = News::getInstance($id);
 
         if ($news == null) {
@@ -68,15 +65,15 @@ function get_news() : void
     }
 }
 
-function create_news() : void
+function create_news(): void
 {
     $news = News::create("Nouvel article", "Description de l'article", "2021-01-01", $_SESSION['userid'], null);
     echo $news;
 }
 
-function update_news() : void
+function update_news(): void
 {
-    $id = filter::int($_GET['id']);
+    $id = Filter::int($_GET['id']);
     $news = News::getInstance($id);
 
     if ($news == null) {
@@ -86,19 +83,19 @@ function update_news() : void
     }
 
     $data = json_decode(file_get_contents('php://input'), true);
-    $name = filter::string($data['name'], maxLenght: 100);
-    $description = filter::string($data['description'], maxLenght: 1000);
-    $date = filter::string($data['date']);
-    $id_membre = filter::int($_SESSION['userid']);
+    $name = Filter::string($data['name'], maxLength: 100);
+    $description = Filter::string($data['description'], maxLength: 1000);
+    $date = Filter::string($data['date']);
+    $id_membre = Filter::int($_SESSION['userid']);
 
     $news->update($name, $description, $date, $id_membre);
 
     echo $news;
 }
 
-function update_image() : void
+function update_image(): void
 {
-    $id = filter::int($_GET['id']);
+    $id = Filter::int($_GET['id']);
     $news = News::getInstance($id);
 
     if ($news == null) {
@@ -120,9 +117,9 @@ function update_image() : void
 }
 
 
-function delete_news() : void
+function delete_news(): void
 {
-    $id = filter::int($_GET['id']);
+    $id = Filter::int($_GET['id']);
     $news = News::getInstance($id);
 
     if ($news == null) {

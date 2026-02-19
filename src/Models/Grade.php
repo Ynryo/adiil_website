@@ -1,11 +1,9 @@
 <?php
 
-namespace model;
+namespace App\Models;
 
 use JsonSerializable;
 
-require_once __DIR__ . '/BaseModel.php';
-require_once __DIR__ . '/File.php';
 
 
 class Grade extends BaseModel implements JsonSerializable
@@ -13,7 +11,7 @@ class Grade extends BaseModel implements JsonSerializable
 
     public static function create(string $name, string $description, float $price, File | null $image, float $reduction) : Grade
     {
-        $DB = new \DB();
+        $DB = \App\Database\DB::getInstance();
 
         $id = $DB->query("INSERT INTO GRADE (nom_grade, description_grade, prix_grade, image_grade, reduction_grade)
                     VALUES (?, ?, ?, ?, ?)", "ssdsd", [$name, $description, $price, $image, $reduction]);
@@ -49,7 +47,7 @@ class Grade extends BaseModel implements JsonSerializable
 
     public static function getInstance($id): Grade | null
     {
-        $DB = new \DB();
+        $DB = \App\Database\DB::getInstance();
         $result = $DB->select("SELECT * FROM GRADE WHERE id_grade = ? AND deleted=false", "i", [$id]);
 
         if (count($result) == 0) {
@@ -61,7 +59,7 @@ class Grade extends BaseModel implements JsonSerializable
 
     public static function bulkFetch(): array
     {
-        $DB = new \DB();
+        $DB = \App\Database\DB::getInstance();
         return $DB->select("SELECT * FROM GRADE WHERE deleted=false");
     }
 

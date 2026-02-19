@@ -58,6 +58,7 @@ CREATE TABLE ARTICLE(
                         image_article VARCHAR(500) NOT NULL,
                         reduction_article BIT NOT NULL DEFAULT 1,
                         prix_article FLOAT NOT NULL CHECK (prix_article >= 0),
+                         deleted BIT NOT NULL DEFAULT 0,
                         PRIMARY KEY(id_article)
 );
 
@@ -84,6 +85,9 @@ CREATE TABLE EVENEMENT(
                           reductions_evenement BIT NOT NULL DEFAULT 1,
                           lieu_evenement VARCHAR(50) NOT NULL,
                           date_evenement DATETIME NOT NULL,
+                           image_evenement VARCHAR(500),
+                           description_evenement VARCHAR(1000),
+                           deleted BIT NOT NULL DEFAULT 0,
                           PRIMARY KEY(id_evenement)
 );
 
@@ -104,6 +108,7 @@ CREATE TABLE GRADE(
                       prix_grade INT NOT NULL CHECK (prix_grade >= 0),
                       description_grade VARCHAR(500),
                       nom_grade VARCHAR(100) NOT NULL,
+                       deleted BIT NOT NULL DEFAULT 0,
                       PRIMARY KEY(id_grade)
 );
 
@@ -417,17 +422,17 @@ AS
        -- Les permissions sont stockees sous forme de BIT, on les transforme en 1 ou 0 sous forme d'entiers
        -- Ensuite, on prends la plus grande valeur. Si c'est 0, il n'a pas la permission, si c'est 1, il l'a.
 SELECT MEMBRE.id_membre,
-       MAX(CAST(COALESCE(p_log_role, 0) AS INT))          AS 'Acces aux logs',
-       MAX(CAST(COALESCE(p_boutique_role, 0) AS INT)) AS 'Gestion de la boutique',
-       MAX(CAST(COALESCE(p_reunion_role, 0) AS INT))  AS 'Gestion des reunions',
-       MAX(CAST(COALESCE(p_utilisateur_role, 0) AS INT))AS 'Gestion des utilisateurs',
-       MAX(CAST(COALESCE(p_grade_role, 0) AS INT))        AS 'Gestion des grades',
-       MAX(CAST(COALESCE(p_roles_role, 0) AS INT))        AS 'Gestion des roles',
-       MAX(CAST(COALESCE(p_actualite_role, 0) AS INT))    AS 'Gestion des actualites',
-       MAX(CAST(COALESCE(p_evenements_role, 0) AS INT))   AS 'Gestion des evenements',
-       MAX(CAST(COALESCE(p_comptabilite_role, 0) AS INT)) AS 'Gestion de la comptabilite',
-       MAX(CAST(COALESCE(p_achats_role, 0) AS INT))       AS 'Acces aux achats',
-       MAX(CAST(COALESCE(p_moderation_role, 0) AS INT))   AS 'Moderation'
+       MAX(CAST(COALESCE(p_log_role, 0) AS INT))          AS p_log,
+       MAX(CAST(COALESCE(p_boutique_role, 0) AS INT))     AS p_boutique,
+       MAX(CAST(COALESCE(p_reunion_role, 0) AS INT))      AS p_reunion,
+       MAX(CAST(COALESCE(p_utilisateur_role, 0) AS INT))  AS p_utilisateur,
+       MAX(CAST(COALESCE(p_grade_role, 0) AS INT))        AS p_grade,
+       MAX(CAST(COALESCE(p_roles_role, 0) AS INT))        AS p_role,
+       MAX(CAST(COALESCE(p_actualite_role, 0) AS INT))    AS p_actualite,
+       MAX(CAST(COALESCE(p_evenements_role, 0) AS INT))   AS p_evenement,
+       MAX(CAST(COALESCE(p_comptabilite_role, 0) AS INT)) AS p_comptabilite,
+       MAX(CAST(COALESCE(p_achats_role, 0) AS INT))       AS p_achats,
+       MAX(CAST(COALESCE(p_moderation_role, 0) AS INT))   AS p_moderation
 FROM MEMBRE
          LEFT JOIN ASSIGNATION ON MEMBRE.id_membre = ASSIGNATION.id_membre
          LEFT JOIN ROLE ON ASSIGNATION.id_role = ROLE.id_role
@@ -911,16 +916,6 @@ CALL creationCompte('DUPONT', 'jean', 'dupont.jean@example.com', 'hjhrethe2454rr
 
 SELECT*FROM MEMBRE;
 
-
--- fixs for deployment
-ALTER TABLE EVENEMENT
-    ADD COLUMN deleted BOOLEAN NOT NULL DEFAULT FALSE;
-
-ALTER TABLE GRADE
-    ADD COLUMN deleted BOOLEAN NOT NULL DEFAULT FALSE;
-
-ALTER TABLE ARTICLE
-    ADD COLUMN deleted BOOLEAN NOT NULL DEFAULT FALSE;
 
 
 DROP VIEW IF EXISTS LISTE_PERMISSIONS;

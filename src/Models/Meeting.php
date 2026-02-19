@@ -1,11 +1,9 @@
 <?php
 
-namespace model;
+namespace App\Models;
 
 use JsonSerializable;
 
-require_once __DIR__ . '/BaseModel.php';
-require_once __DIR__ . '/Member.php';
 
 class Meeting extends BaseModel implements JsonSerializable
 {
@@ -36,7 +34,7 @@ class Meeting extends BaseModel implements JsonSerializable
 
     public static function create(string $date, File $file, Member $member) : Meeting
     {
-        $DB = new \DB();
+        $DB = \App\Database\DB::getInstance();
 
         $id = $DB->query("INSERT INTO REUNION (date_reunion, fichier_reunion, id_membre)
                     VALUES (?, ?, ?)", "ssi", [$date, $file->getFileName(), $member->getId()]);
@@ -46,7 +44,7 @@ class Meeting extends BaseModel implements JsonSerializable
 
     public static function getInstance($id): ?Meeting
     {
-        $DB = new \DB();
+        $DB = \App\Database\DB::getInstance();
         $result = $DB->select("SELECT * FROM REUNION WHERE id_reunion = ?", "i", [$id]);
 
         if (count($result) == 0) {
@@ -70,7 +68,7 @@ class Meeting extends BaseModel implements JsonSerializable
 
     public static function bulkFetch() : array
     {
-        $DB = new \DB();
+        $DB = \App\Database\DB::getInstance();
         return $DB->select("SELECT * FROM REUNION");
     }
 

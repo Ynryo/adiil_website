@@ -1,22 +1,18 @@
 <?php
 session_start();
-use model\File;
-use model\Meeting;
-use model\Member;
-
-require_once 'filter.php';
-require_once 'models/File.php';
-require_once 'models/Meeting.php';
-require_once 'models/Member.php';
-require_once 'DB.php';
-require_once 'tools.php';
+require_once __DIR__ . '/../bootstrap.php';
+use App\Models\File;
+use App\Models\Meeting;
+use App\Models\Member;
+use App\Helpers\Filter;
+use App\Helpers\Tools;
 
 // TODO: Remove this line in production
 ini_set('display_errors', 1);
 
 header('Content-Type: application/json');
 
-tools::checkPermission('p_reunion');
+Tools::checkPermission('p_reunion');
 
 $methode = $_SERVER['REQUEST_METHOD'];
 
@@ -25,7 +21,7 @@ switch ($methode) {
         get_meetings();
         break;
     case 'POST':                     # CREATE
-            create_meeting();
+        create_meeting();
         break;
     case 'DELETE':                   # DELETE
         delete_meeting();
@@ -36,9 +32,10 @@ switch ($methode) {
         break;
 }
 
-function get_meetings() : void {
+function get_meetings(): void
+{
     if (isset($_GET['id'])) {
-        $id = filter::int($_GET['id']);
+        $id = Filter::int($_GET['id']);
         $meeting = Meeting::getInstance($id);
 
         if ($meeting) {
@@ -57,14 +54,14 @@ function get_meetings() : void {
 }
 
 
-function create_meeting() : void
+function create_meeting(): void
 {
     // TODO : Récupérer l'ID de membre grace au token PHP
 
     if (isset($_POST['date'])) {
 
-        $date = filter::date($_POST['date']);
-        $user = Member::getInstance(filter::int($_SESSION['userid']));
+        $date = Filter::date($_POST['date']);
+        $user = Member::getInstance(Filter::int($_SESSION['userid']));
 
         $file = File::saveFile();
 
@@ -87,10 +84,10 @@ function create_meeting() : void
 }
 
 
-function delete_meeting() : void
+function delete_meeting(): void
 {
     if (isset($_GET['id'])) {
-        $id = filter::int($_GET['id']);
+        $id = Filter::int($_GET['id']);
 
         $meeting = Meeting::getInstance($id);
 

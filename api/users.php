@@ -1,14 +1,10 @@
 <?php
 session_start();
-use model\File;
-use model\Member;
-
-require_once 'models/Member.php';
-require_once 'models/File.php';
-require_once 'filter.php';
-
-require_once 'DB.php';
-require_once 'tools.php';
+require_once __DIR__ . '/../bootstrap.php';
+use App\Models\File;
+use App\Models\Member;
+use App\Helpers\Filter;
+use App\Helpers\Tools;
 
 // TODO: Remove this line in production
 ini_set('display_errors', 1);
@@ -16,7 +12,7 @@ ini_set('display_errors', 1);
 header('Content-Type: application/json');
 
 
-tools::checkPermission('p_utilisateur');
+Tools::checkPermission('p_utilisateur');
 
 
 $methode = $_SERVER['REQUEST_METHOD'];
@@ -32,7 +28,7 @@ switch ($methode) {
         create_user();
         break;
     case 'PUT':                      # UPDATE (données seulement)
-        if (tools::methodAccepted('application/json')) {
+        if (Tools::methodAccepted('application/json')) {
             update_user();
         }
         break;
@@ -48,10 +44,11 @@ switch ($methode) {
         break;
 }
 
-function get_users() : void {
+function get_users(): void
+{
     if (isset($_GET['id'])) {
         // Si un ID est précisé, on renvoie les infos de l'utilisateur correspondant avec ses rôles
-        $id = filter::int($_GET['id']);
+        $id = Filter::int($_GET['id']);
 
         $data = Member::getInstance($id);
 
@@ -73,7 +70,7 @@ function get_users() : void {
     echo json_encode($data);
 }
 
-function create_user() : void
+function create_user(): void
 {
     $user = Member::create(
         "Nom",
@@ -87,7 +84,7 @@ function create_user() : void
     echo json_encode($user->toJsonWithRoles());
 }
 
-function update_user() : void
+function update_user(): void
 {
 
     $data = json_decode(file_get_contents('php://input'), true);
@@ -98,12 +95,12 @@ function update_user() : void
         return;
     }
 
-    $id = filter::int($_GET['id']);
-    $name = filter::string($data['name'],maxLenght: 100);
-    $surname =  filter::string($data['firstname'], maxLenght: 100);
-    $email = filter::email($data['email'], maxLenght: 100);
-    $tp = filter::string($data['tp'], maxLenght: 3);
-    $xp = filter::int($data['xp']);
+    $id = Filter::int($_GET['id']);
+    $name = Filter::string($data['name'], maxLength: 100);
+    $surname = Filter::string($data['firstname'], maxLength: 100);
+    $email = Filter::email($data['email'], maxLength: 100);
+    $tp = Filter::string($data['tp'], maxLength: 3);
+    $xp = Filter::int($data['xp']);
 
     $user = Member::getInstance($id);
 
@@ -129,7 +126,7 @@ function update_image(): void
         return;
     }
 
-    $id = filter::int($_GET['id']);
+    $id = Filter::int($_GET['id']);
 
     $user = Member::getInstance($id);
 
@@ -157,7 +154,7 @@ function update_image(): void
 }
 
 
-function delete_user() :void
+function delete_user(): void
 {
     if (!isset($_GET['id'])) {
         http_response_code(400);
@@ -165,7 +162,7 @@ function delete_user() :void
         return;
     }
 
-    $id = filter::int($_GET['id']);
+    $id = Filter::int($_GET['id']);
 
     $user = Member::getInstance($id);
 

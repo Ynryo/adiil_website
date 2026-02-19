@@ -1,12 +1,11 @@
 <?php
 
-namespace model;
+namespace App\Models;
 
-require_once __DIR__ . '/BaseModel.php';
 
 use finfo;
 use JsonSerializable;
-use tools;
+use App\Helpers\Tools;
 
 class File implements JsonSerializable
 {
@@ -23,7 +22,7 @@ class File implements JsonSerializable
         $this->fileName = $fileName;
     }
 
-    public static function getFile(string | null $fileName): File | null
+    public static function getFile(string|null $fileName): File|null
     {
         if (!is_null($fileName) && file_exists('files/' . $fileName)) {
             return new File($fileName);
@@ -39,7 +38,7 @@ class File implements JsonSerializable
     // Or, on utilise PUT et PATCH pour les fichiers.
     // Au moment d'écrire ces lignes, je suis vraiment enervé contre PHP.
     // Villain php
-    public static function saveFile(): File | null
+    public static function saveFile(): File|null
     {
         $method = $_SERVER['REQUEST_METHOD'];
 
@@ -50,7 +49,7 @@ class File implements JsonSerializable
             }
 
             $extension = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
-            $name = tools::generateUUID() . '.' . $extension;
+            $name = Tools::generateUUID() . '.' . $extension;
 
             if (move_uploaded_file($_FILES['file']['tmp_name'], 'files/' . $name)) {
                 chmod('files/' . $name, 0644);
@@ -96,7 +95,7 @@ class File implements JsonSerializable
             ];
 
             $extension = $extensions[$mimeType] ?? 'bin';
-            $name = tools::generateUUID() . '.' . $extension;
+            $name = Tools::generateUUID() . '.' . $extension;
 
             // Déplacement du fichier vers sa destination finale
             if (rename($tempFile, 'files/' . $name)) {
@@ -112,7 +111,7 @@ class File implements JsonSerializable
     }
 
     // cf. mon commentaire de la méthode ci dessus
-    public static function saveImage(): File | null
+    public static function saveImage(): File|null
     {
         // Types MIME autorisés
         $allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
@@ -145,17 +144,17 @@ class File implements JsonSerializable
     }
 
 
-    public function deleteFile() : bool
+    public function deleteFile(): bool
     {
-            if (file_exists('files/' . $this->fileName)) {
-                unlink('files/' . $this->fileName);
-                return true;
-            }
+        if (file_exists('files/' . $this->fileName)) {
+            unlink('files/' . $this->fileName);
+            return true;
+        }
 
-            return false;
+        return false;
     }
 
-    public function __toString() : string
+    public function __toString(): string
     {
         return $this->fileName;
     }

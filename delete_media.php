@@ -1,31 +1,47 @@
 <?php
-require_once 'files_save.php';
-require_once 'database.php';
-$db = new DB();
+require_once __DIR__ . '/bootstrap.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['mediaid'], $_POST['eventid'])) {
-        $fileName = $db->select(
-            "SELECT url_media FROM `MEDIA` WHERE id_media = ? AND id_evenement = ?",
+use App\Helpers\FileSave;
+use App\Database\DB;
+use App\Helpers\Session;
+use App\Helpers\Csrf;
+
+Session::start();
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_POST['mediaid'], $_POST['eventid'])) {
+    header("Location: /index.php");
+    exit();
+}
+
+Csrf::check();
+
+if (!Session::isLoggedIn()) {
+    header("Location: /login.php");
+    exit();
+}
+
+$mediaid = (int) $_POST['mediaid'];
+$eventid = (int) $_POST['eventid'];
+
+$db = DB::getInstance();
+
+// Vérifier que le média appartient à l'utilisateur courant
+$media = $db->select(
+    "SELECT url_media FROM MEDIA WHERE id_media = ? AND id_evenement = ? AND id_membre = ?",
+    "iii",
+    [$mediaid, $eventid, Session::getUserId()]
+);
+
+if (!empty($media)) {
+    $fileName = $media[0]['url_media'];
+    if (deleteFile($fileName)) {
+        $db->query(
+            "DELETE FROM MEDIA WHERE id_media = ? AND id_evenement = ?",
             "ii",
-            [$_POST['mediaid'], $_POST['eventid']]
-        )[0]['url_media'];
-
-        if(deleteFile($fileName)){
-            // Met à jour la base de données avec le nom du fichier
-            $db->query(
-                "DELETE FROM MEDIA WHERE id_media = ? AND id_evenement = ?",
-                "ii",
-                [$_POST['mediaid'], $_POST['eventid']]
-            );
-        }
-        
-        // Recharge la page pour afficher la nouvelle image
-        header("Location: /my_gallery.php?eventid=".$_POST["eventid"]);
-        exit();
-
-    }else{
-        header("Location: /index.php");
-        exit();
+            [$mediaid, $eventid]
+        );
     }
+}
 
-?>
+header("Location: /my_gallery.php?eventid=" . $eventid);
+exit();

@@ -1,22 +1,17 @@
 <?php
 session_start();
-use model\Accounting;
-use model\File;
-
-require_once 'DB.php';
-require_once 'tools.php';
-require_once 'filter.php';
-require_once 'models/File.php';
-require_once 'models/Accounting.php';
-
-require_once 'models/Accounting.php';
+require_once __DIR__ . '/../bootstrap.php';
+use App\Models\Accounting;
+use App\Models\File;
+use App\Helpers\Filter;
+use App\Helpers\Tools;
 
 // TODO: Remove this line in production
 ini_set('display_errors', 1);
 
 header('Content-Type: application/json');
 
-tools::checkPermission('p_comptabilite');
+Tools::checkPermission('p_comptabilite');
 
 $methode = $_SERVER['REQUEST_METHOD'];
 
@@ -26,10 +21,10 @@ switch ($methode) {
         break;
 
     case 'POST':                     # CREATE
-            create_accounting();
+        create_accounting();
         break;
     case 'DELETE':                   # DELETE
-            delete_accounting();
+        delete_accounting();
         break;
     default:
         # 405 Method Not Allowed
@@ -79,9 +74,9 @@ function create_accounting(): void
 
     } else {
 
-        $date = filter::date($_POST['date']);
-        $nom = filter::string($_POST['nom'], maxLenght: 100);
-        $id_membre = filter::int($_SESSION['userid']);
+        $date = Filter::date($_POST['date']);
+        $nom = Filter::string($_POST['nom'], maxLength: 100);
+        $id_membre = Filter::int($_SESSION['userid']);
 
         $compta = Accounting::create($date, $nom, $file, $id_membre);
 
@@ -92,7 +87,7 @@ function create_accounting(): void
 
 }
 
-function delete_accounting() : void
+function delete_accounting(): void
 {
     if (!isset($_GET['id'])) {
         http_response_code(400);
@@ -100,7 +95,7 @@ function delete_accounting() : void
         return;
     }
 
-    $id = filter::int($_GET['id']);
+    $id = Filter::int($_GET['id']);
 
     $compta = Accounting::getInstance($id);
 

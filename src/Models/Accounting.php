@@ -1,16 +1,15 @@
 <?php
 
-namespace model;
+namespace App\Models;
 
 use JsonSerializable;
 
-require_once __DIR__ . '/BaseModel.php';
 
 class Accounting extends BaseModel implements JsonSerializable
 {
     public static function create(string $date, string $name, string $url, int $memberId) : Accounting
     {
-        $DB = new \DB();
+        $DB = \App\Database\DB::getInstance();
 
         $id = $DB->query("INSERT INTO COMPTABILITE (date_comptabilite, nom_comptabilite, url_comptabilite, id_membre)
                     VALUES (?, ?, ?, ?)", "sssi", [$date, $name, $url, $memberId]);
@@ -25,7 +24,7 @@ class Accounting extends BaseModel implements JsonSerializable
 
     public static function getInstance($id): ?Accounting
     {
-        $DB = new \DB();
+        $DB = \App\Database\DB::getInstance();
         $result = $DB->select("SELECT * FROM COMPTABILITE WHERE id_comptabilite = ?", "i", [$id]);
 
         if (count($result) == 0) {
@@ -48,7 +47,7 @@ class Accounting extends BaseModel implements JsonSerializable
 
     public static function bulkFetch() : array
     {
-        $DB = new \DB();
+        $DB = \App\Database\DB::getInstance();
         return $DB->select("SELECT * FROM COMPTABILITE");
     }
 

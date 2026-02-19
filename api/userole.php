@@ -1,13 +1,11 @@
 <?php
 session_start();
 
-use model\Member;
-
-require_once 'filter.php';
-require_once 'models/Role.php';
-require_once 'models/Member.php';
-require_once 'DB.php';
-require_once 'tools.php';
+require_once __DIR__ . '/../bootstrap.php';
+use App\Models\Member;
+use App\Models\Role;
+use App\Helpers\Filter;
+use App\Helpers\Tools;
 
 // TODO: Remove this line in production
 ini_set('display_errors', 1);
@@ -15,8 +13,8 @@ ini_set('display_errors', 1);
 header('Content-Type: application/json');
 
 
-tools::checkPermission('p_role');
-tools::checkPermission('p_utilisateur');
+Tools::checkPermission('p_role');
+Tools::checkPermission('p_utilisateur');
 
 
 $methode = $_SERVER['REQUEST_METHOD'];
@@ -30,7 +28,7 @@ switch ($methode) {
         create_role();
         break;
     case 'PUT':
-        if (tools::methodAccepted('application/json')) {
+        if (Tools::methodAccepted('application/json')) {
             setUserRoles();
         }
         break;
@@ -45,11 +43,11 @@ switch ($methode) {
 }
 
 
-function get_userRoles() : void
+function get_userRoles(): void
 {
     if (isset($_GET['id'])) {
         // Si un ID est précisé, on renvoie les infos de l'utilisateur correspondant avec ses rôles
-        $id = filter::int($_GET['id']);
+        $id = Filter::int($_GET['id']);
 
         $data = Member::getInstance($id);
 
@@ -69,11 +67,11 @@ function get_userRoles() : void
     }
 }
 
-function setUserRoles() : void
+function setUserRoles(): void
 {
     if (isset($_GET['id'])) {
 
-        $id = filter::int($_GET['id']);
+        $id = Filter::int($_GET['id']);
 
         $data = Member::getInstance($id);
 
@@ -90,7 +88,7 @@ function setUserRoles() : void
             return;
         }
 
-        $roles = filter::json($val['roles']);
+        $roles = Filter::json($val['roles']);
         $success = $data->setRoles($roles);
 
         if ($success) {

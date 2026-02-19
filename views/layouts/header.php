@@ -1,16 +1,19 @@
-<link rel="shortcut icon" href="/admin/ressources/favicon.png" type="image/x-icon">
-
 <?php
-    @session_start();
-    $isUserLoggedIn = isset($_SESSION['userid']);
-    $isAdmin = isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] ;
+require_once __DIR__ . '/bootstrap.php';
+
+use App\Helpers\Session;
+
+Session::start();
+$isUserLoggedIn = Session::isLoggedIn();
+$isAdmin = Session::isAdmin();
 ?>
 
+<link rel="shortcut icon" href="/admin/ressources/favicon.png" type="image/x-icon">
 
 <!-- HEADER -->
 <header>
     <a id="accueil" href="/index.php">
-        <img src="/assets/logo.png" alt="Logo de l'ADIIL">
+        <img src="/public/assets/logo.png" alt="Logo de l'ADIIL">
     </a>
     <nav>
         <ul>
@@ -26,7 +29,7 @@
             <li>
                 <a href="/grade.php">Grades</a>
             </li>
-            
+
             <?php if ($isUserLoggedIn): ?>
                 <li>
                     <a href="/agenda.php">Agenda</a>
@@ -43,9 +46,9 @@
                 </li>
 
                 <?php if ($isAdmin): ?>
-                  <li>
-                      <a id="header_admin" href="/admin/admin.php">Panel Admin</a>
-                  </li>
+                    <li>
+                        <a id="header_admin" href="/admin/admin.php">Panel Admin</a>
+                    </li>
                 <?php endif; ?>
 
             <?php else: ?>
@@ -54,7 +57,7 @@
                 </li>
             <?php endif; ?>
 
-      
+
         </ul>
     </nav>
 </header>

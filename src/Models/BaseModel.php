@@ -1,6 +1,6 @@
 <?php
 
-namespace model;
+namespace App\Models;
 
 class BaseModel
 {
@@ -17,7 +17,7 @@ class BaseModel
     protected function __construct($id)
     {
         $this->id = $id;
-        $this->DB = new \DB();
+        $this->DB = \App\Database\DB::getInstance();
     }
 
 }

@@ -1,11 +1,9 @@
 <?php
 session_start();
-use model\Role;
-
-require_once 'filter.php';
-require_once 'models/Role.php';
-require_once 'DB.php';
-require_once 'tools.php';
+require_once __DIR__ . '/../bootstrap.php';
+use App\Models\Role;
+use App\Helpers\Filter;
+use App\Helpers\Tools;
 
 // TODO: Remove this line in production
 ini_set('display_errors', 1);
@@ -13,7 +11,7 @@ ini_set('display_errors', 1);
 header('Content-Type: application/json');
 
 
-tools::checkPermission('p_role');
+Tools::checkPermission('p_role');
 
 
 $methode = $_SERVER['REQUEST_METHOD'];
@@ -24,10 +22,10 @@ switch ($methode) {
         get_role();
         break;
     case 'POST':                     # CREATE
-            create_role();
+        create_role();
         break;
     case 'PUT':
-        if (tools::methodAccepted('application/json')) {
+        if (Tools::methodAccepted('application/json')) {
             update_role();
         }
         break;
@@ -41,11 +39,11 @@ switch ($methode) {
         break;
 }
 
-function get_role() : void
+function get_role(): void
 {
     if (isset($_GET['id'])) {
         // Si un ID est précisé, on renvoie les infos de l'utilisateur correspondant avec ses rôles
-        $id = filter::int($_GET['id']);
+        $id = Filter::int($_GET['id']);
 
         $data = Role::getInstance($id);
 
@@ -72,7 +70,7 @@ function create_role(): void
     echo json_encode($role);
 }
 
-function update_role() : void
+function update_role(): void
 {
     $data = json_decode(file_get_contents('php://input'), true);
 
@@ -82,19 +80,19 @@ function update_role() : void
         return;
     }
 
-    $id = filter::int($_GET['id']);
-    $name = filter::string($data['name']);
-    $p_log = filter::bool($data['permissions']['p_log'] ?? false);
-    $p_boutique = filter::bool($data['permissions']['p_boutique'] ?? false);
-    $p_reunion = filter::bool($data['permissions']['p_reunion'] ?? false);
-    $p_utilisateur = filter::bool($data['permissions']['p_utilisateur'] ?? false);
-    $p_grade = filter::bool($data['permissions']['p_grade'] ?? false);
-    $p_role = filter::bool($data['permissions']['p_role'] ?? false);
-    $p_actualite = filter::bool($data['permissions']['p_actualite'] ?? false);
-    $p_evenement = filter::bool($data['permissions']['p_evenement'] ?? false);
-    $p_comptabilite = filter::bool($data['permissions']['p_comptabilite'] ?? false);
-    $p_achat = filter::bool($data['permissions']['p_achat'] ?? false);
-    $p_moderation = filter::bool($data['permissions']['p_moderation'] ?? false);
+    $id = Filter::int($_GET['id']);
+    $name = Filter::string($data['name']);
+    $p_log = Filter::bool($data['permissions']['p_log'] ?? false);
+    $p_boutique = Filter::bool($data['permissions']['p_boutique'] ?? false);
+    $p_reunion = Filter::bool($data['permissions']['p_reunion'] ?? false);
+    $p_utilisateur = Filter::bool($data['permissions']['p_utilisateur'] ?? false);
+    $p_grade = Filter::bool($data['permissions']['p_grade'] ?? false);
+    $p_role = Filter::bool($data['permissions']['p_role'] ?? false);
+    $p_actualite = Filter::bool($data['permissions']['p_actualite'] ?? false);
+    $p_evenement = Filter::bool($data['permissions']['p_evenement'] ?? false);
+    $p_comptabilite = Filter::bool($data['permissions']['p_comptabilite'] ?? false);
+    $p_achat = Filter::bool($data['permissions']['p_achat'] ?? false);
+    $p_moderation = Filter::bool($data['permissions']['p_moderation'] ?? false);
 
     $role = Role::getInstance($id);
 
@@ -112,7 +110,7 @@ function update_role() : void
 
 }
 
-function delete_role() : void
+function delete_role(): void
 {
     if (!isset($_GET['id'])) {
         http_response_code(400);
@@ -120,7 +118,7 @@ function delete_role() : void
         return;
     }
 
-    $id = filter::int($_GET['id']);
+    $id = Filter::int($_GET['id']);
 
     $role = Role::getInstance($id);
 

@@ -1,11 +1,9 @@
 <?php
 
-namespace model;
+namespace App\Models;
 
 use JsonSerializable;
 
-require_once __DIR__ . '/File.php';
-require_once __DIR__ . '/BaseModel.php';
 
 class Event extends BaseModel implements JsonSerializable
 {
@@ -37,7 +35,7 @@ class Event extends BaseModel implements JsonSerializable
 
     public static function getInstance(int $id): ?Event
     {
-        $DB = new \DB();
+        $DB = \App\Database\DB::getInstance();
         $sql = "SELECT * FROM EVENEMENT WHERE id_evenement = ? AND deleted=false";
         $event = $DB->select($sql, "i", [$id]);
 
@@ -50,7 +48,7 @@ class Event extends BaseModel implements JsonSerializable
 
     public static function create(string $nom, string $description, int $xp, int $places, bool $reductions, float $prix, string $lieu, string $date) : Event
     {
-        $DB = new \DB();
+        $DB = \App\Database\DB::getInstance();
         $id = $DB->query("INSERT INTO EVENEMENT (nom_evenement, xp_evenement, places_evenement, reductions_evenement, prix_evenement, lieu_evenement, date_evenement, description_evenement)
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?)", "siiidsss", [$nom, $xp, $places, $reductions, $prix, $lieu, $date, $description]);
 
@@ -60,7 +58,7 @@ class Event extends BaseModel implements JsonSerializable
 
     public static function bulkFetch() : array
     {
-        $DB = new \DB();
+        $DB = \App\Database\DB::getInstance();
         $sql = "SELECT * FROM EVENEMENT WHERE deleted=false";
         return $DB->select($sql);
     }

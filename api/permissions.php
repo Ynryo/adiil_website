@@ -1,6 +1,5 @@
 <?php
 session_start();
-require_once 'DB.php';
 
 // TODO: Remove this line in production
 ini_set('display_errors', 1);
@@ -9,7 +8,7 @@ header('Content-Type: application/json');
 
 if (isset($_SESSION['userid'])) {
 
-    $db = new \DB();
+    $db = \App\Database\DB::getInstance();
 
     $results = $db->select("SELECT * FROM LISTE_PERMISSIONS WHERE id_membre = ?", 'i', [$_SESSION['userid']]);
 
