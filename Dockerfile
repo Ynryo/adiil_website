@@ -1,6 +1,7 @@
 FROM php:8.3-apache
 
-#install mysqli extension for MySQL connectivity
+#install system dependencies and mysqli extension
+RUN apt-get update && apt-get install -y unzip git && rm -rf /var/lib/apt/lists/*
 RUN docker-php-ext-install mysqli
 
 #install Composer
@@ -10,9 +11,13 @@ WORKDIR /var/www/html
 
 COPY ./adiil_website /var/www/html
 
-#regenerate autoloader to match current composer.json PSR-4 mapping
-RUN composer dump-autoload --no-dev --optimize
+#install dependencies and regenerate autoloader
+RUN composer install --no-dev --optimize-autoloader
+
+# Copy custom entrypoint
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 EXPOSE 80
 
-CMD ["apache2-foreground"]
+ENTRYPOINT ["docker-entrypoint.sh"]
