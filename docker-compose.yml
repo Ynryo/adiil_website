@@ -11,6 +11,9 @@ services:
       DB_PASS_FILE: /run/secrets/db_root_password
     secrets:
       - db_root_password
+    volumes:
+      - ./adiil_website:/var/www/html
+      - /var/www/html/vendor
     depends_on:
       db:
         condition: service_healthy

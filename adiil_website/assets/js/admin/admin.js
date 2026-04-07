@@ -26,7 +26,7 @@ listItems.forEach(item => {
 
         // Ajoute la classe 'selected' à l'élément cliqué
         item.classList.add('selected');
-        content.src = './panels/' + item.getAttribute('perm') + '.html' + (debug ? '?debug' : '');
+        content.src = 'src/view/admin/' + item.getAttribute('perm') + '.html' + (debug ? '?debug' : '');
         
         
     });
