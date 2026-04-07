@@ -1,6 +1,7 @@
 <?php
 session_start();
-if (!isset($_SESSION["userid"])) $_SESSION["userid"] = null;
+if (!isset($_SESSION["userid"]))
+    $_SESSION["userid"] = null;
 
 define('ROOT_PATH', __DIR__ . '/');
 
@@ -9,7 +10,8 @@ require __DIR__ . '/vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
-function dispatch() {
+function dispatch()
+{
 
     $page = $_GET['page'] ?? 'base-home';
 
@@ -19,7 +21,7 @@ function dispatch() {
 
     $dirName = $dir[0];
     $className = $dir[1];
-    $controllerName = $className."Controller";
+    $controllerName = $className . "Controller";
 
     $method = $parts[1] ?? 'show';
 

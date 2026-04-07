@@ -29,83 +29,25 @@
                 <p>Chat</p>
             </li>
             <?php
-            if (hasPermission('p_boutique')) {
-                echo '<li perm="boutique">
-                        <img src="assets/image/admin/panels_icons/boutique.svg" alt="Icone de la boutique">
-                        <p>Boutique</p>
+            $onglets = [
+                ["boutique", "p_boutique", "Boutique"], //nom img, id permission, nom onglet
+                ["users", "p_utilisateur", "Utilisateurs"],
+                ["grades", "p_grade", "Grades"],
+                ["events", "p_evenement", "Événements"],
+                ["comptabilite", "p_comptabilite", "Comptabilité"],
+                ["reunions", "p_reunion", "Réunions"],
+                ["roles", "p_role", "Rôles"],
+                ["actualites", "p_actualite", "Actualités"],
+                ["history", "p_boutique", "Historique"],
+                ["logs", "p_log", "Logs"]
+            ];
+            foreach ($onglets as $onglet) {
+                if (hasPermission($onglet[1])) {
+                    echo '<li perm="' . $onglet[0] . '">
+                        <img src="assets/image/admin/panels_icons/' . $onglet[0] . '.svg" alt="Icone de la ' . $onglet[0] . '">
+                        <p>' . $onglet[2] . '</p>
                     </li>';
-            }
-            ?>
-            <?php
-            if (hasPermission('p_utilisateur')) {
-                echo '<li perm="utilisateurs">
-                        <img src="assets/image/admin/panels_icons/users.svg" alt="Icone des utilisateurs">
-                        <p>Utilisateurs</p>
-                    </li>';
-            }
-            ?>
-            <?php
-            if (hasPermission('p_grade')) {
-                echo '<li perm="grades">
-                        <img src="assets/image/admin/panels_icons/grades.svg" alt="Icone des grades">
-                        <p>Grades</p>
-                    </li>';
-            }
-            ?>
-            <?php
-            if (hasPermission('p_evenement')) {
-                echo '<li perm="evenements">
-                        <img src="assets/image/admin/panels_icons/events.svg" alt="Icone des événements">
-                        <p>Evenements</p>
-                    </li>';
-            }
-            ?>
-            <?php
-            if (hasPermission('p_comptabilite')) {
-                echo '<li perm="comptabilite">
-                        <img src="assets/image/admin/panels_icons/comptabilite.svg" alt="Icone de la comptabilite">
-                        <p>Comptabilite</p>
-                    </li>';
-            }
-            ?>
-            <?php
-            if (hasPermission('p_reunion')) {
-                echo '<li perm="reunions">
-                        <img src="assets/image/admin/panels_icons/reunions.svg" alt="Icone des réunions">
-                        <p>Réunions</p>
-                    </li>';
-            }
-            ?>
-            <?php
-            if (hasPermission('p_role')) {
-                echo '<li perm="roles">
-                        <img src="assets/image/admin/panels_icons/roles.svg" alt="Icone des roles">
-                        <p>Rôles</p>
-                    </li>';
-            }
-            ?>
-            <?php
-            if (hasPermission('p_actualite')) {
-                echo '<li perm="actualites">
-                        <img src="assets/image/admin/panels_icons/actualite.svg" alt="Icone des actualités">
-                        <p>Actualités</p>
-                    </li>';
-            }
-            ?>
-            <?php
-            if (hasPermission('p_boutique')) {
-                echo '<li perm="history">
-                        <img src="assets/image/admin/panels_icons/history.svg" alt="Icone de l\'historique d\'achat">
-                        <p>Historique d\'achats</p>
-                    </li>';
-            }
-            ?>
-            <?php
-            if (hasPermission('p_log')) {
-                echo '<li perm="logs">
-                        <img src="assets/image/admin/panels_icons/logs.svg" alt="Icone des logs du serveur">
-                        <p>Logs du serveur</p>
-                    </li>';
+                }
             }
             ?>
         </ul>
