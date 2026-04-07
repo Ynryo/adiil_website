@@ -9,16 +9,16 @@ INSERT INTO ROLE (nom_role, p_log_role, p_boutique_role, p_reunion_role, p_utili
 
 -- Insertion des membres
 INSERT INTO MEMBRE (nom_membre, prenom_membre, email_membre, password_membre, xp_membre, discord_token_membre, pp_membre, tp_membre) VALUES
-('RUFFAULT--RAVENEL', 'Gemino', 'gemino.ruffault@example.com', 'password1', 50, NULL, 'http://files.bdeinfo.fr/fes2fse1f21se.jpg', '11A'),
-('HANNIER', 'Axelle', 'axelle.hannier@example.com', 'password2', 18, NULL, '2.jpg', '12C'),
-('DAUVERGNE', 'Julien', 'julien.dauvergne@example.com', 'password3', 0, 'g4rd64g6rd4g8f4e64h5bv231h5th44g5ht6h87yj8ty6', 'http://files.bdeinfo.fr/gprdgrd5.jpg','31A'),
-('DELAYE', 'Baptiste', 'baptiste.delahay@example.com', 'password4', 0, NULL, 'http://files.bdeinfo.fr/h5th42fth.jpg', '32D'),
-('VIEILLARD', 'Nathalie', 'nathalie.vieillard@example.com', 'password5', 11, NULL, 'http://files.bdeinfo.fr/jygjgy56yjg.jpg', NULL),
-('HAVARD', 'Barnabe', 'barnabe.havard@example.com', 'password6', 0, 'kiuilui4l8iul654hg2g', 'http://files.bdeinfo.fr/fesifo45ht45h.jpg', '11A'),
-('FEVRIER', 'Theo', 'theo.fevrier@example.com', 'password7', 0, NULL, 'http://files.bdeinfo.fr/gr68grg.jpg', NULL),
-('GOUIN', 'Tom', 'tom.gouin@example.com', 'password8', 12, NULL, 'http://files.bdeinfo.fr/fesf4556fe.jpg', NULL),
-('CONGNARD', 'Evann', 'evann.congnard@example.com', 'password9', 0, NULL, 'http://files.bdeinfo.fr/2f1e2sfs.jpg', '31A'),
-('LE COZ', 'Erwan', 'erwan.lecoz@example.com', 'password10', 0, NULL, 'http://files.bdeinfo.fr/fesf45ef6s4fes6.jpg', '31B');
+('RUFFAULT--RAVENEL', 'Gemino', 'gemino.ruffault@example.com', '$2y$10$oFylvlAz4ugNIWxRb6C9tuKcyMX3AN97fmIZhGJr2zyxo5RzTRKPO', 50, NULL, 'http://files.bdeinfo.fr/fes2fse1f21se.jpg', '11A'),
+('HANNIER', 'Axelle', 'axelle.hannier@example.com', '$2y$10$W1hVuGCabIgfBtywA1XBN.rIz0seoMT0u1e63TsV9Zl2BTWs3fuAW', 18, NULL, '2.jpg', '12C'),
+('DAUVERGNE', 'Julien', 'julien.dauvergne@example.com', '$2y$10$jElJU3PY2wLPTYr3wFFSKOXqpbPhAXlqPOsqND/6VsPaS2ep7teOe', 0, 'g4rd64g6rd4g8f4e64h5bv231h5th44g5ht6h87yj8ty6', 'http://files.bdeinfo.fr/gprdgrd5.jpg','31A'),
+('DELAYE', 'Baptiste', 'baptiste.delahay@example.com', '$2y$10$m4T0vn5KLlZkb8lVU4Lxj.s2JYWXi961zl5o3yAlBYRhNz8a5QAvG', 0, NULL, 'http://files.bdeinfo.fr/h5th42fth.jpg', '32D'),
+('VIEILLARD', 'Nathalie', 'nathalie.vieillard@example.com', '$2y$10$iV3H5vcRzwvAxLVccdCUB.Mgu0024D8wMM6ZFnE0oVzKod8.zT3/q', 11, NULL, 'http://files.bdeinfo.fr/jygjgy56yjg.jpg', NULL),
+('HAVARD', 'Barnabe', 'barnabe.havard@example.com', '$2y$10$0pIz8stU9.rXcCjPn2lPju2BSUwMZAK6rBlnvOa4lpvd3oPFG0wWK', 0, 'kiuilui4l8iul654hg2g', 'http://files.bdeinfo.fr/fesifo45ht45h.jpg', '11A'),
+('FEVRIER', 'Theo', 'theo.fevrier@example.com', '$2y$10$KcZ5VshLmFq6LlsV97GaC.8kSa0zpa6aVl2rONiM4Vuu.JbvY1qiy', 0, NULL, 'http://files.bdeinfo.fr/gr68grg.jpg', NULL),
+('GOUIN', 'Tom', 'tom.gouin@example.com', '$2y$10$NXHF18OTKyo2X5VCL3lIGuLbUC1wnmLZd.PMLQlmb4c3Omut6eEzq', 12, NULL, 'http://files.bdeinfo.fr/fesf4556fe.jpg', NULL),
+('CONGNARD', 'Evann', 'evann.congnard@example.com', '$2y$10$7XaRqYy3pjHccQ49TSsHb.FYwqYwvXursrfd718KrADcMA2VGc/kS', 0, NULL, 'http://files.bdeinfo.fr/2f1e2sfs.jpg', '31A'),
+('LE COZ', 'Erwan', 'erwan.lecoz@example.com', '$2y$10$kbISruZXQhMHGHgx6L08AO1J5O7tRttrtc/S./qboXojbYPWbE3de', 0, NULL, 'http://files.bdeinfo.fr/fesf45ef6s4fes6.jpg', '31B');
 
 -- Definition des roles
 INSERT INTO ASSIGNATION (id_membre, id_role) VALUES
