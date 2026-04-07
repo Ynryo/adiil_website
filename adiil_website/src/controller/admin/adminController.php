@@ -1,6 +1,6 @@
 <?php
 
-class admin
+class Admin
 {
     public function show()
     {
@@ -12,8 +12,7 @@ class admin
             header('Location: src/view/admin/unauthorized.html');
             exit();
         }
-
-        include 'src/model/utils/permissions.php';
-        include 'src/view/admin/adminView.php';
+        include_once 'src/model/utils/permissions.php';
+        include_once 'src/view/admin/adminView.php';
     }
 }
