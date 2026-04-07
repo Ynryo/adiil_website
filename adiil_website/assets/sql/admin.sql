@@ -76,6 +76,7 @@ GROUP BY MEMBRE.id_membre;
 /***************************************************/
 DROP PROCEDURE IF EXISTS refund_transaction;
 
+DELIMITER $$
 CREATE PROCEDURE refund_transaction(IN _id_commande INT)
 BEGIN
     DECLARE _id_article INT;
@@ -97,24 +98,28 @@ BEGIN
         WHERE id_article = _id_article;
 
     DELETE FROM COMMANDE WHERE id_commande = _id_commande;
-END;
+END $$
+DELIMITER ;
 
 /***************************************************/
 /* PROCEDURE : Supprimer un evenement et sa galerie */
 /***************************************************/
 DROP PROCEDURE IF EXISTS delete_event;
 
+DELIMITER $$
 CREATE PROCEDURE delete_event(IN _id_event INT)
 BEGIN
     DELETE FROM MEDIA WHERE id_evenement = _id_event;
     DELETE FROM EVENEMENT WHERE id_evenement = _id_event;
-END;
+END $$
+DELIMITER ;
 
 /***************************************************/
 /* TRIGGER : Vérifier permissions pour créer actualité */
 /***************************************************/
 DROP TRIGGER IF EXISTS permissions_create_event;
 
+DELIMITER $$
 CREATE TRIGGER permissions_create_event 
 AFTER INSERT ON ACTUALITE
 FOR EACH ROW
@@ -129,4 +134,5 @@ BEGIN
         SIGNAL SQLSTATE '45000' 
         SET MESSAGE_TEXT = 'Vous n''avez pas les permissions pour ajouter une actualite';
     END IF;
-END;
+END $$
+DELIMITER ;
