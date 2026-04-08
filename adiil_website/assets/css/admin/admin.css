@@ -1,15 +1,9 @@
 /* VARIABLES */
 :root {
     --bg-color: #0F0F0F;
-
     --nav-text-color: white;
     --nav-width: 270px;
 }
-
-
-/*
-    All the styles are prefixed with #main to avoid conflicts with styles within the iframe.
-*/
 
 /* MAIN BODY */
 #main {

@@ -2,18 +2,23 @@
 
 class Admin
 {
+    public const UNAUTHORIZED_REDIRECT = 'Location: src/view/admin/unauthorized.html';
+    public const LOGIN_REDIRECT = 'Location: src/view/login.php';
+    public const HEADER = "src/view/admin/header.php";
+    public const MODEL_PERMS = "src/model/utils/permissions.php";
+
     public function show()
     {
         if (!isset($_SESSION['userid'])) {
-            header('Location: src/view/login.php');
+            header(self::LOGIN_REDIRECT);
             exit();
         }
         if (!(isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'])) {
-            header('Location: src/view/admin/unauthorized.html');
+            header(self::UNAUTHORIZED_REDIRECT);
             exit();
         }
-        include_once 'src/model/utils/permissions.php';
-        include_once 'src/view/admin/header.php';
+        include_once self::MODEL_PERMS;
+        include_once self::HEADER;
     }
 
     public function chat()
@@ -27,14 +32,14 @@ class Admin
     public function boutique()
     {
         if (!isset($_SESSION['userid'])) {
-            header('Location: src/view/login.php');
+            header(self::LOGIN_REDIRECT);
             exit();
         }
         if (!(isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'])) {
-            header('Location: src/view/admin/unauthorized.html');
+            header(self::UNAUTHORIZED_REDIRECT);
             exit();
         }
-        include_once 'src/model/utils/permissions.php';
+        include_once self::MODEL_PERMS;
 
         $page = $_GET['page'] ?? '';
         $parts = explode('/', $page);
@@ -43,23 +48,39 @@ class Admin
         include_once 'src/controller/admin/boutiqueController.php';
         $boutiqueController = new BoutiqueController();
 
-        if ($action === 'show') {
-            include_once 'src/view/admin/header.php';
+        if ($action === 'show' || !method_exists($boutiqueController, $action)) {
+            include_once self::HEADER;
             $boutiqueController->show();
-        } elseif (method_exists($boutiqueController, $action)) {
-            $boutiqueController->$action();
         } else {
-            include_once 'src/view/admin/header.php';
-            $boutiqueController->show();
+            $boutiqueController->$action();
         }
     }
 
     public function users()
     {
-        $this->show();
+        if (!isset($_SESSION['userid'])) {
+            header(self::LOGIN_REDIRECT);
+            exit();
+        }
+        if (!(isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'])) {
+            header(self::UNAUTHORIZED_REDIRECT);
+            exit();
+        }
+        include_once self::MODEL_PERMS;
+
+        $page = $_GET['page'] ?? '';
+        $parts = explode('/', $page);
+        $action = $parts[2] ?? 'show';
+
         include_once 'src/controller/admin/usersController.php';
         $usersController = new UsersController();
-        $usersController->show();
+
+        if ($action === 'show' || !method_exists($usersController, $action)) {
+            include_once self::HEADER;
+            $usersController->show();
+        } else {
+            $usersController->$action();
+        }
     }
 
     public function grades()
