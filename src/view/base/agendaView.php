@@ -8,20 +8,21 @@
 
     <title>Agenda</title>
 
-    <link rel="stylesheet" href="assets/css/base/general_style.css">
-    <link rel="stylesheet" href="assets/css/base/planner_style.css">
     <link rel="stylesheet" href="assets/css/base/agenda_style.css">
+    <link rel="stylesheet" href="assets/css/base/general_style.css">
 </head>
 
-<body class="body_margin">
+<body>
     <?php require_once 'src/view/header.php'; ?>
 
     <h1>Agenda <?= $this->escape((string) $tp_user) ?></h1>
 
     <div class="titlebar">
-        <a class="agenda-link" href="?page=base-agenda&week=<?= $this->escape($prevWeekValue) ?>">← semaine précédente</a>
+        <a href="?page=base-agenda&week=<?= $this->escape($prevWeekValue) ?>">← semaine précédente</a>
+        <!-- <span style="color: rgb(0, 0, 0, 0)">-------------------------</span> -->
         <?= $this->escape($this->shortWeekRange($weekStart, $weekEnd)) ?>
-        <a class="agenda-link" href="?page=base-agenda&week=<?= $this->escape($nextWeekValue) ?>">semaine suivante →</a>
+        <!-- <span style="color: rgb(0, 0, 0, 0)">-------------------------</span> -->
+        <a href="?page=base-agenda&week=<?= $this->escape($nextWeekValue) ?>">semaine suivante →</a>
     </div>
 
     <div class="planner-wrap">
