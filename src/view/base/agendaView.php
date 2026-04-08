@@ -52,13 +52,8 @@
                     </td>
 
                     <?php foreach ($days as $dayKey => $dayData): ?>
-                        <?php
-                            $date = $dayData['date'];
-                            $isMonday = $date->format('N') === '1';
-                            $isToday = $date->format('Y-m-d') === $now->format('Y-m-d');
-                        ?>
                         <td>
-                            <div class="day-cell <?= $isMonday ? 'monday' : '' ?> <?= $isToday ? 'today' : '' ?>" style="height: <?= (int) $totalGridHeight ?>px;">
+                            <div class="day-cell" style="height: <?= (int) $totalGridHeight ?>px;">
                                 <?php for ($slot = 0; $slot <= $totalSlots; $slot++): ?>
                                     <?php $top = $slot * 26; ?>
                                     <div class="hour-line" style="top: <?= (int) $top ?>px;"></div>
