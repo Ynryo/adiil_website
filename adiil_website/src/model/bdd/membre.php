@@ -202,10 +202,11 @@ function updateMembreAdmin($id, $nom, $prenom, $email, $tp, $xp)
 function createMembreAdmin()
 {
     $db = DB::getInstance();
+    $random_password = password_hash(bin2hex(random_bytes(10)), PASSWORD_DEFAULT);
     return $db->query(
-        "INSERT INTO MEMBRE (nom_membre, prenom_membre, email_membre, pp_membre, tp_membre) VALUES ('Nom', 'Prenom', 'prenom.nom@univ-lemans.fr', NULL, '21a')",
-        "",
-        []
+        "INSERT INTO MEMBRE (nom_membre, prenom_membre, email_membre, pp_membre, tp_membre, password_membre) VALUES ('Nom', 'Prenom', 'nouveau.membre@univ-lemans.fr', NULL, '21a', ?)",
+        "s",
+        [$random_password]
     );
 }
 

@@ -25,3 +25,35 @@ function getGradeMembre($id_grade, $id_membre) {
         [$id_grade, $id_membre]
     );
 }
+
+function updateGrade($id, $nom, $description, $prix, $reduction) {
+    $db = DB::getInstance();
+    $db->query(
+        "UPDATE GRADE SET nom_grade = ?, description_grade = ?, prix_grade = ?, reduction_grade = ? WHERE id_grade = ?",
+        "ssdii",
+        [$nom, $description, $prix, (int)$reduction, $id]
+    );
+}
+
+function createGrade() {
+    $db = DB::getInstance();
+    return $db->query(
+        "INSERT INTO GRADE (nom_grade, description_grade, prix_grade, reduction_grade, image_grade) VALUES ('Nouveau grade', 'Ceci est un nouveau grade', 10.99, 0, NULL)",
+        "",
+        []
+    );
+}
+
+function updateGradeImage($id, $imageName) {
+    $db = DB::getInstance();
+    $db->query(
+        "UPDATE GRADE SET image_grade = ? WHERE id_grade = ?",
+        "si",
+        [$imageName, $id]
+    );
+}
+
+function deleteGrade($id) {
+    $db = DB::getInstance();
+    $db->query("UPDATE GRADE SET deleted = TRUE WHERE id_grade = ?", "i", [$id]);
+}
