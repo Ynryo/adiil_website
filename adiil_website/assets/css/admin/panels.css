@@ -21,8 +21,6 @@ header {
     position: fixed;
     top: 0;
     padding: 30px;
-    /* border-bottom: 2px solid var(--border-color);
-    background-color: var(--background-color-whiter); */
     height: 90px;
     width: 100%;
     z-index: 99;
@@ -38,10 +36,7 @@ h1 {
 nav {
     overflow-x: hidden;
     width: var(--nav-width);
-    /* background-color: var(--background-color-darker);
-    border-right: 2px solid var(--border-color); */
     height: 100%;
-    padding: 25px;
     position: relative;
 }
 
@@ -66,10 +61,6 @@ nav a {
     text-decoration: none;
     color: inherit;
     width: 100%;
-}
-
-.navadd-btn {
-    backdrop-filter: blur(40px);
 }
 
 nav li a::after {
@@ -99,9 +90,7 @@ nav li.active a::after {
 /* BUTTONS */
 .btn-transparent {
     outline: none;
-    border: none;
     background-color: transparent;
-
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -109,10 +98,7 @@ nav li.active a::after {
     font-size: 14px;
     gap: 5px;
     border-radius: 10px;
-}
-
-.btn-transparent:hover {
-    background-color: var(--hover-bg-color);
+    border: 1px solid rgb(104, 104, 104);
 }
 
 .navadd-btn {
@@ -120,12 +106,11 @@ nav li.active a::after {
     position: absolute;
     bottom: 25px;
     width: calc(100% - 50px);
-    --hover-bg-color: rgba(0, 0, 0, 0.1)
+    background-color: var(--background-color-whiter);
 }
 
-.btn-transparent img {
-    width: 24px;
-    height: 24px;
+.navadd-btn:hover {
+    background-color: var(--background-color-darker);
 }
 
 .btn-blue {

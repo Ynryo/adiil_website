@@ -26,10 +26,32 @@ class Admin
 
     public function boutique()
     {
-        $this->show();
+        if (!isset($_SESSION['userid'])) {
+            header('Location: src/view/login.php');
+            exit();
+        }
+        if (!(isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'])) {
+            header('Location: src/view/admin/unauthorized.html');
+            exit();
+        }
+        include_once 'src/model/utils/permissions.php';
+
+        $page = $_GET['page'] ?? '';
+        $parts = explode('/', $page);
+        $action = $parts[2] ?? 'show';
+
         include_once 'src/controller/admin/boutiqueController.php';
         $boutiqueController = new BoutiqueController();
-        $boutiqueController->show();
+
+        if ($action === 'show') {
+            include_once 'src/view/admin/header.php';
+            $boutiqueController->show();
+        } elseif (method_exists($boutiqueController, $action)) {
+            $boutiqueController->$action();
+        } else {
+            include_once 'src/view/admin/header.php';
+            $boutiqueController->show();
+        }
     }
 
     public function users()
