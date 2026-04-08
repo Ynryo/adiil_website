@@ -136,10 +136,29 @@ class Admin
 
     public function roles()
     {
-        $this->show();
+        if (!isset($_SESSION['userid'])) {
+            header(self::LOGIN_REDIRECT);
+            exit();
+        }
+        if (!(isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'])) {
+            header(self::UNAUTHORIZED_REDIRECT);
+            exit();
+        }
+        include_once self::MODEL_PERMS;
+
+        $page = $_GET['page'] ?? '';
+        $parts = explode('/', $page);
+        $action = $parts[2] ?? 'show';
+
         include_once 'src/controller/admin/rolesController.php';
         $rolesController = new RolesController();
-        $rolesController->show();
+
+        if ($action === 'show' || !method_exists($rolesController, $action)) {
+            include_once self::HEADER;
+            $rolesController->show();
+        } else {
+            $rolesController->$action();
+        }
     }
 
     public function actualites()
