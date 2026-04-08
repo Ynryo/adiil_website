@@ -24,7 +24,7 @@
             <?php
                 foreach ($events_to_display as $event):
                     $eventid = $event["id_evenement"];
-                    $event_date = substr($event['date_evenement'], 0, 10);
+                    $event_date = substr($event['date_debut_evenement'], 0, 10);
                     $event_date_info = getdate(strtotime($event_date));
                     $event_date = new DateTime($event_date);
                     $other_classes = "";

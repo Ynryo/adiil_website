@@ -28,7 +28,7 @@ class eventDetails {
         $imgLink = "assets/image/" . ($img == null ? "admin/default_images/event.jpg" : "api/event/$img");
 
         $current_date = new DateTime(date("Y-m-d"));
-        $event_date = new DateTime(substr($event['date_evenement'], 0, 10));
+        $event_date = new DateTime(substr($event['date_debut_evenement'], 0, 10));
 
         $btnHTML = null;
         // l'évènement est déja passé

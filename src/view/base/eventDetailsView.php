@@ -21,7 +21,7 @@
         <img src="<?= $imgLink ?>" alt="Image de l'événement">
 
         <div>
-            <h2><?= date('d/m/Y', strtotime($event['date_evenement'])); ?></h2>
+            <h2><?= date('d/m/Y', strtotime($event['date_debut_evenement'])); ?></h2>
             <?= $btnHTML ?>
         </div>
 
