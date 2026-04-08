@@ -28,7 +28,7 @@ $isAdmin = isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'];
                 <li><a href="/?page=base-account">Mon compte</a></li>
 
                 <?php if ($isAdmin): ?>
-                    <li><a id="header_admin" href="/?page=admin-admin">Panel Admin</a></li>
+                    <li><a id="header_admin" href="/?page=admin-admin/chat">Panel Admin</a></li>
                 <?php endif; ?>
 
             <?php else: ?>
