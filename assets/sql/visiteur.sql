@@ -17,7 +17,8 @@ SELECT
     e.places_evenement,
     e.prix_evenement,
     e.lieu_evenement,
-    e.date_evenement
+    e.date_debut_evenement,
+    e.date_fin_evenement
 FROM EVENEMENT e;
 
 -- Vue : articles disponibles
