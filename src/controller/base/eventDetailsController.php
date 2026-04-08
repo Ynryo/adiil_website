@@ -47,7 +47,7 @@ class eventDetails {
         else {
             $btnHTML = '
                 <form class="subscription" action="/?page=base-eventSubscription" method="post">
-                    <input type="text" name="eventid" value="<?= $eventid?>" hidden>
+                    <input type="text" name="eventid" value="'.$eventid.'" hidden>
                     <button type="submit">Inscription</a></button>
                 </form>
             ';
