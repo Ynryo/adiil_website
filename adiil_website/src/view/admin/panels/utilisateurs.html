@@ -11,15 +11,19 @@
         <!-- AUTO GENERATED -->
 
     </ul>
+
     <button class="btn-transparent navadd-btn" id="new_btn"><img src="assets/images/admin/add.svg" alt="Ajouter">Ajouter
-        un article</button>
+        un
+        utilisateur</button>
 
 </nav>
 
 <!-- MAIN -->
 <main>
+
     <!-- SKELETON FOR LOADING -->
     <div id="main_skeleton">
+
         <div class="propertie">
             <div>
                 <div class="skeleton-text"></div>
@@ -87,7 +91,7 @@
                 <div class="skeleton-text"></div>
             </div>
             <div>
-                <div class="skeleton-toggle"></div>
+                <div class="skeleton-text"></div>
             </div>
         </div>
 
@@ -98,72 +102,89 @@
 
         <div class="propertie">
             <div>
-                <p>Image de présentation</p>
-                <p>Mettre à jour l'image de présentation de l'événement.</p>
+                <p>Photo de profil</p>
+                <p>Mettre à jour l'image de photo de profile de l'utilisateur.</p>
             </div>
             <div>
-                <img id="prop_image" alt="Article">
-                <img src="assets/images/admin/edit.svg" alt="Modifier" id="prop_image_edit">
-            </div>
-        </div>
-
-        <div class="propertie">
-            <div>
-                <p>Nom de l'article</p>
-                <p>Nom affiché de l'article sur la boutique.</p>
-            </div>
-            <div>
-                <input type="text" id="prop_name" placeholder="Canette Oasis">
+                <img src="https://lium.univ-lemans.fr/wp-content/uploads/2018/01/PL-e1663234102408.png"
+                    alt="Profil de l'utilisateur" id="prop_img">
+                <img src="../ressources/edit.svg" id="prop_img_edit" alt="Modifier">
             </div>
         </div>
 
         <div class="propertie">
             <div>
-                <p>Prix</p>
-                <p>Prix de l'article TTC, or réduction.</p>
+                <p>Nom de famille</p>
+                <p>Nom de famille affiché de l’utilisateur.</p>
             </div>
             <div>
-                <input type="number" min="0" id="prop_price" value="1">
-            </div>
-        </div>
-
-        <div class="propertie">
-            <div>
-                <p>Categorie</p>
-                <p>Categorie pour trier les articles dans la boutique.</p>
-            </div>
-            <div>
-                <input type="text" id="prop_categorie" placeholder="Snacks">
+                <input type="text" placeholder="Barbecue de l'ADIIL" id="prop_nom">
             </div>
         </div>
 
         <div class="propertie">
             <div>
-                <p>Quantités</p>
-                <p>Quantités disponibles à l'achat de l'article (-1 Signifie illimité).</p>
+                <p>Prénom</p>
+                <p>Prénom affiché de l’utilisateur.</p>
             </div>
             <div>
-                <input type="number" min="-1" id="prop_qte" value="-1">
-            </div>
-        </div>
-
-        <div class="propertie">
-            <div>
-                <p>XP</p>
-                <p>XP rapporter par l'achat de l'article.</p>
-            </div>
-            <div>
-                <input type="number" id="prop_xp" value="10">
+                <input type="text" placeholder="Parking Batiment Info" id="prop_prenom">
             </div>
         </div>
 
         <div class="propertie">
             <div>
-                <p>Réductions applicables</p>
-                <p>Est-ce que les réductions du prix des grades peuvent s'appliquer sur cet article ?</p>
+                <p>Adresse e-mail</p>
+                <p>Adresse e-mail associé à l’utilisateur.</p>
             </div>
             <div>
-                <div class="toggle toggle-active" id="prop_reductions"></div>
+                <input type="email" placeholder="Parking Batiment Info" id="prop_email">
+            </div>
+        </div>
+
+        <div class="propertie">
+            <div>
+                <p>Points d'éxperiences</p>
+                <p>Sélectionnez le niveau d’xp de l’utilisateur.</p>
+            </div>
+            <div>
+                <input type="number" placeholder="512" min="-42" id="prop_xp">
+            </div>
+        </div>
+
+        <div class="propertie">
+            <div>
+                <p>TP</p>
+                <p>Sélectionnez le groupe de l'utilisateur.</p>
+            </div>
+            <div>
+                <select id="prop_tp">
+                    <option value="11a">11a</option>
+                    <option value="11b">11b</option>
+                    <option value="12c">12c</option>
+                    <option value="12d">12d</option>
+                    <option value="21a">21a</option>
+                    <option value="21b">21b</option>
+                    <option value="22c">22c</option>
+                    <option value="22d">22d</option>
+                    <option value="31a">31a</option>
+                    <option value="31b">31b</option>
+                    <option value="32c">32c</option>
+                    <option value="32d">32d</option>
+                    <option value="">Aucun</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="propertie">
+            <div>
+                <p>Rôles</p>
+                <p>Lister les rôles à attribuer aux utilisateurs.</p>
+            </div>
+            <div id="prop_roles">
+                <p>Administrateur</p>
+                <p class="selected">fruit</p>
+                <p>administrateu</p>
             </div>
         </div>
 
@@ -180,9 +201,4 @@
 
 <!-- SCRIPTS -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script type="module" src="assets/js/admin/toggle.js"></script>
-<script type="module" src="assets/js/admin/boutique.js"></script>
-
-</body>
-
-</html>
+<script type="module" src="../scripts/users.js"></script>
