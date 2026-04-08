@@ -112,15 +112,47 @@ class Admin
 
     public function events()
     {
-        $this->show();
+        if (!isset($_SESSION['userid'])) {
+            header(self::LOGIN_REDIRECT);
+            exit();
+        }
+        if (!(isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'])) {
+            header(self::UNAUTHORIZED_REDIRECT);
+            exit();
+        }
+        include_once self::MODEL_PERMS;
+
+        $page = $_GET['page'] ?? '';
+        $parts = explode('/', $page);
+        $action = $parts[2] ?? 'show';
+
         include_once 'src/controller/admin/eventsController.php';
         $eventsController = new EventsController();
-        $eventsController->show();
+
+        if ($action === 'show' || !method_exists($eventsController, $action)) {
+            include_once self::HEADER;
+            $eventsController->show();
+        } else {
+            $eventsController->$action();
+        }
     }
 
     public function comptabilite()
     {
-        $this->show();
+        if (!isset($_SESSION['userid'])) {
+            header(self::LOGIN_REDIRECT);
+            exit();
+        }
+        if (!(isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'])) {
+            header(self::UNAUTHORIZED_REDIRECT);
+            exit();
+        }
+        include_once self::MODEL_PERMS;
+
+        $page = $_GET['page'] ?? '';
+        $parts = explode('/', $page);
+        $action = $parts[2] ?? 'show';
+
         include_once 'src/controller/admin/comptabiliteController.php';
         $comptabiliteController = new ComptabiliteController();
         $comptabiliteController->show();
