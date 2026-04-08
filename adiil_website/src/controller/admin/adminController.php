@@ -32,6 +32,14 @@ class Admin
         $boutiqueController->show();
     }
 
+    public function users()
+    {
+        $this->show();
+        include_once 'src/controller/admin/usersController.php';
+        $usersController = new UsersController();
+        $usersController->show();
+    }
+
     public function grades()
     {
         $this->show();
@@ -40,23 +48,59 @@ class Admin
         $gradesController->show();
     }
 
-    public function logs()
+    public function events()
     {
-        include_once 'src/view/admin/logs.php';
+        $this->show();
+        include_once 'src/controller/admin/eventsController.php';
+        $eventsController = new EventsController();
+        $eventsController->show();
+    }
+
+    public function comptabilite()
+    {
+        $this->show();
+        include_once 'src/controller/admin/comptabiliteController.php';
+        $comptabiliteController = new ComptabiliteController();
+        $comptabiliteController->show();
     }
 
     public function reunions()
     {
-        include_once 'src/view/admin/reunions.php';
+        $this->show();
+        include_once 'src/controller/admin/reunionsController.php';
+        $reunionsController = new ReunionsController();
+        $reunionsController->show();
     }
 
-    public function evenements()
+    public function roles()
     {
-        include_once 'src/view/admin/evenements.php';
+        $this->show();
+        include_once 'src/controller/admin/rolesController.php';
+        $rolesController = new RolesController();
+        $rolesController->show();
     }
 
     public function actualites()
     {
-        include_once 'src/view/admin/actualites.php';
+        $this->show();
+        include_once 'src/controller/admin/actualitesController.php';
+        $actualitesController = new ActualitesController();
+        $actualitesController->show();
+    }
+
+    public function history()
+    {
+        $this->show();
+        include_once 'src/controller/admin/historyController.php';
+        $historyController = new HistoryController();
+        $historyController->show();
+    }
+
+    public function logs()
+    {
+        $this->show();
+        include_once 'src/controller/admin/logsController.php';
+        $logsController = new LogsController();
+        $logsController->show();
     }
 }
