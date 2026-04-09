@@ -2,7 +2,7 @@
 
 require_once 'src/model/bdd/evenement.php';
 
-class events
+class Events
 {
     public function show()
     {
@@ -23,6 +23,6 @@ class events
 
         $closest_event_id = "";
 
-        include 'src/view/base/eventsView.php';
+        include_once 'src/view/base/eventsView.php';
     }
 }

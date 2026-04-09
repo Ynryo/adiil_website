@@ -57,7 +57,7 @@ function updateEvenementImage($id, $imageName)
 function getNextEvenement($date, $limit)
 {
     $db = DB::getInstance();
-    $sql = "SELECT id_evenement, nom_evenement, lieu_evenement, date_evenement FROM EVENEMENT WHERE date_evenement >= ? AND deleted = false ORDER BY date_evenement ASC" . ($limit != null ? " LIMIT $limit;" : ";");
+    $sql = "SELECT id_evenement, nom_evenement, lieu_evenement, date_evenement FROM EVENEMENT WHERE date_evenement >= ? AND deleted = false ORDER BY date_evenement DESC" . ($limit != null ? " LIMIT $limit;" : ";");
     return $db->select(
         $sql,
         "s",

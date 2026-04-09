@@ -3,7 +3,7 @@
 class Admin
 {
     public const UNAUTHORIZED_REDIRECT = 'Location: src/view/admin/unauthorized.html';
-    public const LOGIN_REDIRECT = 'Location: src/view/login.php';
+    public const LOGIN_REDIRECT = 'Location: ?page=base-login';
     public const HEADER = "src/view/admin/header.php";
     public const MODEL_PERMS = "src/model/utils/permissions.php";
 
