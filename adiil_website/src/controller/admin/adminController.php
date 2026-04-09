@@ -160,10 +160,29 @@ class Admin
 
     public function reunions()
     {
-        $this->show();
+        if (!isset($_SESSION['userid'])) {
+            header(self::LOGIN_REDIRECT);
+            exit();
+        }
+        if (!(isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'])) {
+            header(self::UNAUTHORIZED_REDIRECT);
+            exit();
+        }
+        include_once self::MODEL_PERMS;
+
+        $page = $_GET['page'] ?? '';
+        $parts = explode('/', $page);
+        $action = $parts[2] ?? 'show';
+
         include_once 'src/controller/admin/reunionsController.php';
         $reunionsController = new ReunionsController();
-        $reunionsController->show();
+
+        if ($action === 'show' || !method_exists($reunionsController, $action)) {
+            include_once self::HEADER;
+            $reunionsController->show();
+        } else {
+            $reunionsController->$action();
+        }
     }
 
     public function roles()
