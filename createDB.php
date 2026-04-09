@@ -1,13 +1,14 @@
 <?php
 
-require __DIR__.'/vendor/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
 require_once "src/model/bdd/database.php";
 
-function get_bdd(){
+function get_bdd()
+{
     $db_name = $_ENV['DB_NAME'];
     $hostname = $_ENV['DB_HOST'];
     $user = $_ENV['DB_USER'];
@@ -19,7 +20,8 @@ function get_bdd(){
     return $pdo;
 }
 
-function execute($sqlFile) {
+function execute($sqlFile)
+{
     $bdd = get_bdd();
     $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -45,7 +47,8 @@ function execute($sqlFile) {
     }
 }
 
-function setHashedPassword() {
+function setHashedPassword()
+{
     $bdd = get_bdd();
     $query = $bdd->query("SELECT id_membre, password_membre FROM MEMBRE");
     $users = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -62,10 +65,15 @@ function setHashedPassword() {
     }
 }
 
-function create_database() {
-    if(!execute('assets/sql/creation.sql')) return;
+function create_database()
+{
+    if (!execute('assets/sql/creation.sql')) {
+        return;
+    }
 
-    if(!execute('assets/sql/insertion.sql')) return;
+    if (!execute('assets/sql/insertion.sql')) {
+        return;
+    }
     setHashedPassword();
 
     execute('assets/sql/admin.sql');
