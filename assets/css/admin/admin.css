@@ -17,6 +17,17 @@
     overflow: hidden;
 }
 
+.logo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo img {
+    width: 100px;
+}
+
 /* NAVIGATION */
 #main nav {
     display: flex;

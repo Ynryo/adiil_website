@@ -18,7 +18,10 @@
 
 <body id="main">
     <nav>
-        <h1 href="/?base-home" style="cursor: pointer;">ADIIL - Admin</h1>
+        <a href="/?page=base-home" class="logo">
+            <img src="assets/image/base/logo.png" alt="Logo de l'ADIIL">
+            <h1>Administration</h1>
+        </a>
         <ul>
             <?php
             $onglets = [ //nom img, id permission, nom onglet
