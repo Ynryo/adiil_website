@@ -36,7 +36,7 @@
                 <form method="POST" enctype="multipart/form-data" id="pp-form">
 
                     <label id="cadre-pp" for="profilePictureInput">
-                        <img src=<?= $imgLink ?> alt="Photo de profil de l'utilisateur" />
+                        <img src=<?= $imgLink ?> alt="User pp" />
                     </label>
 
                     <input type="file" id="profilePictureInput" name="file" accept="image/jpeg, image/png, image/webp"
@@ -44,7 +44,7 @@
 
                     <button type="button" id="edit-icon"
                         onclick="document.getElementById('profilePictureInput').click()">
-                        <img src="assets/image/base/edit_logo.png" alt="Icone éditer la photo de profil" />
+                        <img src="assets/image/base/edit_logo.png" alt="Icone edit pp" />
                     </button>
                 </form>
             </div>
@@ -58,17 +58,18 @@
                 <?php else: ?>
                     <p><?= $this->infoUser[0]['nom_grade']; ?></p>
                     <?php if ($this->infoUser[0]['image_grade'] == null): ?>
-                        <img src="/admin/ressources/default_images/grade.webp" alt="Image du grade" />
+                        <img src="/admin/ressources/default_images/grade.webp" alt="Logo du grade" />
                     <?php else: ?>
                         <img src="assets/image/api/<?= $this->infoUser[0]['image_grade']; ?>"
-                            alt="Illustration du grade de l'utilisateur" />
+                            alt="Logo du grade de l'utilisateur" />
                     <?php endif ?>
                 <?php endif; ?>
             </div>
         </div>
 
         <!-- Formulaire contenant les données personnelles de l'utilisateur -->
-        <form method="POST" action="" id="account-personalInfo-form">
+        <form method="POST" action="" id="account-personalInfo-form" class="container">
+            <p>Mes informations personnelles :</p>
             <div>
                 <div>
                     <input type="text" id="name" name="name" placeholder="Prénom"
@@ -111,33 +112,36 @@
                 </div>
             </div>
 
-            <button type="submit">
+            <button type="submit" class="save-button">
                 <img src="assets/image/base/save_logo.png" alt="Logo enregistrer les modifications" />
+                Sauvegarder
             </button>
         </form>
 
         <!-- Formulaire permettant à l'utilisateur de modifier son mot de passe-->
-        <form method="POST" action="" id="account-editPass-form">
+        <form method="POST" action="" id="account-editPass-form" class="container">
+            <p>Modifier mon mot de passe :</p>
             <div>
                 <div>
-                    <p>Modifier mon mot de passe :</p>
                     <input type="password" id="mdp" name="mdp" placeholder="Mot de passe actuel">
                 </div>
                 <div>
                     <input type="password" id="newMdp" name="newMdp" placeholder="Nouveau mot de passe" required>
-                    <input type="password" id="newMdpVerif" name="newMdpVerif"
-                        placeholder="Confirmation du nouveau mot de passe" required>
+                    <input type="password" id="newMdpVerif" name="newMdpVerif" placeholder="Répétez le mot de passe"
+                        required>
                 </div>
             </div>
 
-            <button type="submit"><img src="assets/image/base/save_logo.png"
-                    alt="Logo editer la photo de profil" /></button>
+            <button type="submit" class="save-button">
+                <img src="assets/image/base/save_logo.png" alt="Logo enregistrer les modifications" />
+                Sauvegarder
+            </button>
         </form>
     </section>
 
     <section> <!-- Ensemble des différents boutons du compte -->
 
-        <div id="buttons-section">
+        <div class="buttons-section container">
             <!--Discord-->
             <button type="button">
                 <a href="https://discord.com/login" target="_blank">

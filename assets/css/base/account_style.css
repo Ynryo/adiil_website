@@ -21,7 +21,7 @@ H2 {
     align-self: center;
     margin: auto;
     justify-content: space-around;
-    align-items:stretch;
+    align-items: stretch;
     background-color: rgb(23, 23, 23);
     margin-top: 80px;
     margin-bottom: 60px;
@@ -29,7 +29,7 @@ H2 {
 }
 
 #account-generalInfo div:first-of-type {
-    display : flex;
+    display: flex;
     flex-direction: row;
 }
 
@@ -69,30 +69,30 @@ H2 {
 }
 
 
-#account-generalInfo div:nth-of-type(2){
+#account-generalInfo div:nth-of-type(2) {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
 }
 
-#account-generalInfo div:nth-of-type(2) p:nth-child(1){
+#account-generalInfo div:nth-of-type(2) p:nth-child(1) {
     font-size: 75px;
     font-weight: 500;
 }
 
-#account-generalInfo div:nth-of-type(2) p:nth-child(2){
+#account-generalInfo div:nth-of-type(2) p:nth-child(2) {
     font-size: 45px;
 }
 
-#account-generalInfo div:nth-of-type(3){
+#account-generalInfo div:nth-of-type(3) {
     display: flex;
     flex-direction: column;
     align-items: center;
     align-self: center;
 }
 
-#account-generalInfo div:nth-of-type(3) p{
+#account-generalInfo div:nth-of-type(3) p {
     font-size: 35px;
     font-weight: 500;
 }
@@ -104,248 +104,148 @@ H2 {
     margin-top: 2vh;
 }
 
-#cadre-grade img{
+#cadre-grade img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
 
-#account-personalInfo-form {
-    border-radius: 10px;
-    width: 60%;
-    height: 15vh;
-    display: flex;
-    flex-direction: row;
-    padding: 2vh;
-    align-self: center;
-    margin: auto;
-    justify-content: space-between;
-    align-items:center;
-    background-color: rgb(23, 23, 23);
-    margin-bottom: 60px;
-    padding-left: 5vh;
-    padding-right: 5vh;
-    box-shadow: 10px 7px 4px rgba(0, 0, 0, 0.107);
-}
-
-#account-personalInfo-form button{
-    display: flex;
-    flex-direction: row;
-    all: unset;
-    cursor: pointer;
-    align-items: flex-end;
-    align-self: flex-end;
-    padding: 0vh;
-}
-
-#account-personalInfo-form button img{
-    width: 3vh;
-    height: 3vh;
-}
-
-#account-personalInfo-form div {
-    display: flex;
-    flex-direction: row;
-    width: 80vh;
-    align-items: space-around;
-    padding: 0vh;
-}
-
-#account-personalInfo-form div div:first-of-type, 
-#account-personalInfo-form div div:nth-of-type(2){
+.container {
     display: flex;
     flex-direction: column;
-    gap: 1.5vh;
-}
-
-#account-personalInfo-form input{
-    border-radius: 5px;
-    border: 2px solid rgb(169, 169, 169);
-    width: 15vh;
-    height: 4vh;
-    background-color: #1E1E1E;
-    font-size: 16px;               
-    color: white;  
-    padding-left: 2vh;
-}
-
-#account-personalInfo-form div div:nth-of-type(1) input:nth-of-type(2){
-    width: 20vh;
-}
-
-#account-personalInfo-form div:nth-of-type(2) input{
-    width: 31vh;
-}
-
-#account-personalInfo-form select{
-    all: unset;
-    width: 7vh;
-    border: 2px solid rgb(169, 169, 169);
-    background-color: #1E1E1E;
-    border-radius: 5px;
-    padding: 0.80vh 1.5vh 0.80vh 1vh;
-    background: #1E1E1E url('assets/image/base/chevron_logo.png') no-repeat right 4px center;
-    background-size: 12px 12px;
-}
-
-
-#account-editPass-form {
-    border-radius: 10px;
-    width: 60%;
-    height: 15vh;
-    display: flex;
-    flex-direction: row;
-    padding: 2vh;
     align-self: center;
-    margin: auto;
     justify-content: space-between;
-    align-items:center;
-    background-color: rgb(23, 23, 23);
-    margin-bottom: 60px;
-    padding-left: 5vh;
-    padding-right: 5vh;
-    box-shadow: 10px 7px 4px rgba(0, 0, 0, 0.107);
-
-}
-
-#account-editPass-form div {
-    display: flex;
-    flex-direction: row;
-    width: 80vh;
-    align-items: space-around;
-    padding: 0vh;
-}
-
-#account-editPass-form  div div:first-of-type, 
-#account-editPass-form div div:nth-of-type(2){
-    display: flex;
-    flex-direction: column;
-    gap: 1.5vh;
-    justify-content: space-between;
-}
-
-#account-editPass-form  div div:first-of-type p{
-    font-size: 1.5em;
-    color: rgb(169, 169, 169);
-}
-
-#account-editPass-form div input{
-    border-radius: 5px;
-    border: 2px solid rgb(169, 169, 169);
-    width: 35vh;
-    height: 4vh;
-    background-color: #1E1E1E;
-    font-size: 16px;               
-    color: white;  
-    padding-left: 2vh;
-
-}
-
-
-#account-editPass-form button{
-    display: flex;
-    flex-direction: row;
-    all: unset;
-    cursor: pointer;
-    align-items: flex-end;
-    align-self: flex-end;
-}
-
-#account-editPass-form button img{
-    width: 3vh;
-    height: 3vh;
-}
-
-
-/***Ensemble des différents boutons du compte***/
-
-#buttons-section {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    width: 60%;
-    height: 6vh;
-    align-self: center;
-    margin: auto;
-    margin-bottom: 11.69vh;
-}
-
-#buttons-section button{
-    display: flex;
-    flex-direction: row;
-    padding: 1vh;
-    border-radius: 10px;
-    border: none;
-    font-size: 1em;
     align-items: center;
-    justify-content: space-around;
-    cursor: pointer;
+    border-radius: 10px;
+    width: 60%;
+    padding: 2vh 5vh;
+    margin: auto;
+    margin-bottom: 60px;
+    background-color: rgb(23, 23, 23);
+    box-shadow: 10px 7px 4px rgba(0, 0, 0, 0.107);
 }
 
+form div {
+    display: flex;
+    flex-direction: column;
+    max-width: 80vh;
+    width: 100%;
+    gap: 2vh;
+}
 
+form>div {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+}
 
-/*** ---> Discord***/
-#buttons-section > button:first-of-type {
-    width: 23vh;
-    height: 6vh;
-    background-color:  rgb(91, 101, 234);
+form>div>div {
+    flex-direction: column;
+    gap: 2vh;
+}
+
+.container button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1vh;
+    font-family: "Koulen", sans-serif;
+    font-size: 1em;
+    padding: 1vh 2vh;
+    border-radius: 10px;
+    cursor: pointer;
+    border: none;
+}
+
+.container button>a {
+    gap: 1vh;
+}
+
+.container select,
+.container input {
+    border-radius: 5px;
+    border: 2px solid rgb(169, 169, 169);
+    width: 100%;
+    height: 5vh;
+    background-color: #1E1E1E;
+    font-size: 16px;
+    color: white;
+    padding-left: 2vh;
+}
+
+.container p {
+    width: 100%;
+    margin-bottom: 2vh;
+    font-size: 1.5em;
+}
+
+.container.buttons-section {
+    flex-direction: row;
+}
+
+/* save */
+.container .save-button {
+    background-color: rgb(119, 241, 190);
+    margin-top: 2vh;
+}
+
+.container button img {
+    width: 3vh;
+    height: 3vh;
+}
+
+.container .save-button img {
+    filter: brightness(0);
+}
+
+.buttons-section {
+    gap: 2vh;
+}
+
+.buttons-section button,
+.buttons-section form {
+    height: stretch;
+}
+
+/* discord */
+.container.buttons-section>button:first-of-type {
+    background-color: rgb(91, 101, 234);
     color: white;
 }
 
-#buttons-section > button:first-of-type a {
+.container.buttons-section>button:first-of-type a {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    text-decoration: none; /* Supprime le soulignement */
+    text-decoration: none;
     color: inherit;
-    width: 100%;
-    height: 100%;
 }
 
-#buttons-section > button:first-of-type img {
-    width: 40px;
-    height: 40px;
-    margin: 1vh;
-}
-
-
-/*** ---> Déconnexion***/
-
-#buttons-section form:first-of-type button {
-    width: 18vh;
-    height: 6vh;
-    background-color:  rgb(119, 241, 190);
+/* déconnexion */
+.container.buttons-section form:first-of-type button {
+    background-color: rgb(119, 241, 190);
     color: #1E1E1E;
 }
 
-#buttons-section form:first-of-type button img {
-    width: 30px;
-    height: 30px;
+/* supprimer mon compte */
+.container.buttons-section form:nth-of-type(2) button {
+    background-color: rgb(234, 91, 91);
+    color: rgb(0, 0, 0);
 }
 
-/*** ---> Supprimer mon compte***/
-
-#buttons-section form:nth-of-type(2) button {
-    width: 23vh;
-    height: 6vh;
-    background-color:  rgb(234, 91, 91);
-    color: white;
+.container.buttons-section form:nth-of-type(2) button img {
+    filter: brightness(0);
 }
 
-#buttons-section form:nth-of-type(2) button {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    color: inherit;
-    width: 100%;
-    height: 100%;
-}
+@media all and (max-width: 1024px) {
+    nav {
+        display: none;
+    }
 
-#buttons-section form:nth-of-type(2) button img {
-    width: 30px;
-    height: 30px;
-    margin: 0.5vh;
+    .container.buttons-section {
+        flex-direction: column;
+    }
 }
 
 
@@ -385,7 +285,7 @@ H2 {
 
 #historique-achats table th {
     background-color: #1E1E1E;
-    color:white;
+    color: white;
     padding: 20px;
     font-weight: bold;
     text-align: center;
@@ -407,7 +307,7 @@ H2 {
 
 /* Style du bouton */
 
-#viewAll-form{
+#viewAll-form {
     align-self: flex-end;
     background-color: none;
 }
