@@ -1,0 +1,17 @@
+{
+    "name": "totot/sae4",
+    "autoload": {
+        "psr-4": {
+            "Totot\\Sae4\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "MUSSET Thomas",
+            "email": "thomas.musset.etu@univ-lemans.fr"
+        }
+    ],
+    "require": {
+        "vlucas/phpdotenv": "^5.6"
+    }
+}

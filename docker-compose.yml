@@ -1,0 +1,72 @@
+services:
+  web:
+    build: .
+    container_name: adiil-web
+    ports:
+      - "8080:80"
+    environment:
+      DB_HOST: db
+      DB_NAME: adiil
+      DB_USER: root
+      DB_PASS_FILE: /run/secrets/db_root_password
+    secrets:
+      - db_root_password
+    volumes:
+      - ./adiil_website:/var/www/html
+      - /var/www/html/vendor
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  db:
+    image: mysql:8.0
+    container_name: adiil-db
+    environment:
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
+      MYSQL_DATABASE: adiil
+    secrets:
+      - db_root_password
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./adiil_website/assets/sql:/tmp/sql
+      - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
+    healthcheck:
+      test: [ "CMD-SHELL", "MYSQL_PWD=$$(cat /run/secrets/db_root_password) mysqladmin ping -h localhost -uroot" ]
+      interval: 5s
+      timeout: 5s
+      retries: 15
+    restart: unless-stopped
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: adiil-phpmyadmin
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD_FILE: /run/secrets/db_root_password
+    secrets:
+      - db_root_password
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+    profiles:
+      - pma
+
+volumes:
+  db_data:
+
+
+networks:
+  default:
+    driver: bridge
+
+secrets:
+  db_root_password:
+    file: ./secrets/db_root_password.txt
