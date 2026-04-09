@@ -3,16 +3,12 @@
 require_once 'src/model/bdd/membre.php';
 require_once 'src/model/utils/files_save.php';
 
-class account
+class Account
 {
     private $infoUser;
 
     public function show()
     {
-        if($_SESSION['userid'] == null) {
-            header("Location: /?page=base-login");
-        }
-
         // Gère les requêtes
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $this->processRequest();
@@ -28,7 +24,7 @@ class account
         $viewAll = isset($_GET['viewAll']) && $_GET['viewAll'] === '1';
         $historiqueAchats = getAchatsMembre($_SESSION['userid'], ($viewAll ? "" : " LIMIT 6"));
 
-        include 'src/view/base/accountView.php';
+        include_once 'src/view/base/accountView.php';
     }
 
     /**
@@ -144,25 +140,21 @@ class account
         // Récupérer l'utilisateur et le mot de passe actuel depuis la base de données
         $user = getMembre($_SESSION['userid']);
 
-        if ($user[0]['password_membre'] == NULL && $currentPassword == "") {
-            $password_ok = true;
-        } else {
-            $password_ok = password_verify($currentPassword, $user[0]['password_membre']);
+        if ($user[0]['password_membre'] == null || $currentPassword == "") {
+            $_SESSION['message'] = "Veuillez saisir votre mot de passe actuel.";
+            $_SESSION['message_type'] = "error";
+            $this->redirectOnLastPage();
         }
 
-        // TODO: c'est quoi cette condition de merde ???
-        if (empty($user)) {
+        if (!password_verify($currentPassword, $user[0]['password_membre'])) {
             $_SESSION['message'] = "Mot de passe actuel incorrect.";
             $_SESSION['message_type'] = "error";
             $this->redirectOnLastPage();
         }
 
-        // Vérifier la correspondance des nouveaux mots de passe
-        if ($password_ok && $newPassword == $newPasswordVerif) {
-            // Mettre à jour le mot de passe dans la base de données
+        if ($newPassword == $newPasswordVerif) {
             $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
             updateMembrePassword($hashedPassword, $_SESSION['userid']);
-
             $_SESSION['message'] = "Mot de passe mis à jour avec succès !";
             $_SESSION['message_type'] = "success";
         } else {
