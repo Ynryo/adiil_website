@@ -3,7 +3,7 @@
 require_once 'src/model/bdd/membre.php';
 require_once 'src/model/utils/files_save.php';
 
-class account
+class Account
 {
     private $infoUser;
 
@@ -24,7 +24,7 @@ class account
         $viewAll = isset($_GET['viewAll']) && $_GET['viewAll'] === '1';
         $historiqueAchats = getAchatsMembre($_SESSION['userid'], ($viewAll ? "" : " LIMIT 6"));
 
-        include 'src/view/base/accountView.php';
+        include_once 'src/view/base/accountView.php';
     }
 
     /**
