@@ -4,7 +4,8 @@ declare(strict_types=1);
 require_once 'src/model/bdd/membre.php';
 require_once 'src/model/bdd/evenement.php';
 
-class agenda {
+class agenda
+{
     private const START_HOUR = 8;
     private const END_HOUR = 21;
     private const SLOT_MINUTES = 30;
@@ -25,7 +26,8 @@ class agenda {
         '32D' => 6241,
     ];
 
-    public function show() {
+    public function show()
+    {
         $tp_user = getMembre($_SESSION['userid'])[0]['tp_membre'] ?? null;
         if ($tp_user === null || !isset($this->resourceMap[$tp_user])) {
             http_response_code(400);
@@ -94,7 +96,8 @@ class agenda {
         return new DateTime('now', $tz);
     }
 
-    private function getWeekEvents(string $ics, DateTime $weekStart, DateTime $weekEnd) {
+    private function getWeekEvents(string $ics, DateTime $weekStart, DateTime $weekEnd)
+    {
         $events = [];
 
         foreach ($this->parseEventsFromIcs($ics) as $event) {
@@ -122,14 +125,15 @@ class agenda {
         return $events;
     }
 
-    private function getManualEventsForWeek(DateTime $weekStart, DateTime $weekEnd) {
+    private function getManualEventsForWeek(DateTime $weekStart, DateTime $weekEnd)
+    {
         $events = [];
 
         $evList = eventWhereMembreIsSubscribed($_SESSION['userid']);
-        foreach($evList as $ev) {
+        foreach ($evList as $ev) {
             $id_ev = $ev["id_evenement"];
-            $event = getEvenement($id_ev)[0];
-            
+            $event = getEvenement($id_ev);
+
             $this->addEvent(
                 $events,
                 $event["date_debut_evenement"],
@@ -179,7 +183,7 @@ class agenda {
     {
         $days = [];
         for ($i = 0; $i < 7; $i++) {
-            $day = (clone $weekStart)->modify('+'.$i.' days');
+            $day = (clone $weekStart)->modify('+' . $i . ' days');
             $days[$day->format('Y-m-d')] = [
                 'date' => $day,
                 'events' => [],
@@ -288,7 +292,7 @@ class agenda {
         $clone = clone $date;
         $dow = (int) $clone->format('N');
         if ($dow > 1) {
-            $clone->modify('-'.($dow - 1).' days');
+            $clone->modify('-' . ($dow - 1) . ' days');
         }
         $clone->setTime(0, 0, 0);
         return $clone;
@@ -296,7 +300,7 @@ class agenda {
 
     private function formatIsoWeekInputValue(DateTime $date): string
     {
-        return $date->format('o').'-W'.$date->format('W');
+        return $date->format('o') . '-W' . $date->format('W');
     }
 
     private function getColor(string $cours): string
@@ -324,13 +328,13 @@ class agenda {
     public function dayLabelFrench(DateTime $date): string
     {
         static $days = [
-            1 => 'Lundi',
-            2 => 'Mardi',
-            3 => 'Mercredi',
-            4 => 'Jeudi',
-            5 => 'Vendredi',
-            6 => 'Samedi',
-            7 => 'Dimanche',
+        1 => 'Lundi',
+        2 => 'Mardi',
+        3 => 'Mercredi',
+        4 => 'Jeudi',
+        5 => 'Vendredi',
+        6 => 'Samedi',
+        7 => 'Dimanche',
         ];
 
         return $days[(int) $date->format('N')] . ' ' . $date->format('d/m/Y');
@@ -339,18 +343,18 @@ class agenda {
     public function shortWeekRange(DateTime $monday, DateTime $sunday): string
     {
         static $months = [
-            1 => 'janv.',
-            2 => 'févr.',
-            3 => 'mars',
-            4 => 'avr.',
-            5 => 'mai',
-            6 => 'juin',
-            7 => 'juil.',
-            8 => 'août',
-            9 => 'sept.',
-            10 => 'oct.',
-            11 => 'nov.',
-            12 => 'déc.',
+        1 => 'janv.',
+        2 => 'févr.',
+        3 => 'mars',
+        4 => 'avr.',
+        5 => 'mai',
+        6 => 'juin',
+        7 => 'juil.',
+        8 => 'août',
+        9 => 'sept.',
+        10 => 'oct.',
+        11 => 'nov.',
+        12 => 'déc.',
         ];
 
         return $monday->format('d') . ' - ' . $sunday->format('d') . ' ' . $months[(int) $sunday->format('n')] . ' ' . $sunday->format('y');

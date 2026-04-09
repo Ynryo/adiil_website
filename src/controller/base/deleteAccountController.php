@@ -2,8 +2,10 @@
 
 require_once 'src/model/bdd/database.php';
 
-class deleteAccount {
-    public function show() {
+class deleteAccount
+{
+    public function show()
+    {
         if (isset($_POST['delete_account_valid']) && $_POST['delete_account_valid'] === 'true') {
             $db = DB::getInstance();
             $db->query(

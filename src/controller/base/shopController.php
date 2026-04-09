@@ -4,8 +4,10 @@ require_once 'src/model/bdd/database.php';
 require_once 'src/model/utils/files_save.php';
 require_once 'src/model/utils/cart_class.php';
 
-class shop {
-    public function show() {
+class shop
+{
+    public function show()
+    {
         // Initialisation du panier
         $db = DB::getInstance();
         $cart = new cart();
@@ -65,7 +67,7 @@ class shop {
         }
         // Exécution de la requête
         $products = $db->select($query, str_repeat("s", count($params)), $params);
-    
+
         include 'src/view/base/shopView.php';
     }
 }

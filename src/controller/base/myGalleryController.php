@@ -3,8 +3,10 @@
 require_once 'src/model/bdd/evenement.php';
 require_once 'src/model/bdd/media.php';
 
-class myGallery {
-    public function show() {
+class myGallery
+{
+    public function show()
+    {
         $isLoggedIn = isset($_SESSION["userid"]);
         $limit = 10;
 
@@ -14,7 +16,7 @@ class myGallery {
                 $limit = (int) $_GET["show"];
             }
 
-            if(isset($_GET['eventid']) && $isLoggedIn){
+            if (isset($_GET['eventid']) && $isLoggedIn) {
                 $eventid = $_GET['eventid'];
                 $userid = $_SESSION["userid"];
             } else {

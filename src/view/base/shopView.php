@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,7 +23,8 @@
     <div id="principal-section">
         <form method="post" id="filter-form">
             <fieldset>
-                <input id="search-input" type="text" name="search" placeholder="Rechercher un article" value="<?= htmlspecialchars($searchTerm) ?>">
+                <input id="search-input" type="text" name="search" placeholder="Rechercher un article"
+                    value="<?= htmlspecialchars($searchTerm) ?>">
             </fieldset>
             <details>
                 <summary>Catégories</summary>
@@ -36,8 +38,10 @@
             <div>
                 <label>Trier par</label>
                 <select name="sort">
-                    <option value="name_asc" <?= $orderBy === 'name_asc' ? 'selected' : '' ?>>Ordre alphabétique (A-Z)</option>
-                    <option value="name_desc" <?= $orderBy === 'name_desc' ? 'selected' : '' ?>>Ordre anti-alphabétique (Z-A)</option>
+                    <option value="name_asc" <?= $orderBy === 'name_asc' ? 'selected' : '' ?>>Ordre alphabétique (A-Z)
+                    </option>
+                    <option value="name_desc" <?= $orderBy === 'name_desc' ? 'selected' : '' ?>>Ordre anti-alphabétique
+                        (Z-A)</option>
                     <option value="price_asc" <?= $orderBy === 'price_asc' ? 'selected' : '' ?>>Prix croissant</option>
                     <option value="price_desc" <?= $orderBy === 'price_desc' ? 'selected' : '' ?>>Prix décroissant</option>
                 </select>
@@ -49,7 +53,7 @@
             <button>
                 <a href="/?page=base-cart">
                     <img src="assets/image/base/logo_caddie.png" alt="Logo du panier">
-                    <p>Panier (<span id="count"><?=$cart->count();?></span>)</p>
+                    <p>Panier (<span id="count"><?= $cart->count(); ?></span>)</p>
                 </a>
             </button>
         </div>
@@ -58,31 +62,32 @@
     <p id='message-reduc'>
         * Articles non éligibles aux réductions de grade
     </p>
-    <?php if (!empty($products)) : ?>
+    <?php if (!empty($products)): ?>
         <div id="product-list">
-            <?php foreach ($products as $product) : ?>
+            <?php foreach ($products as $product): ?>
                 <div id="one-product">
                     <div>
                         <?php
-                            $img = $product['image_article'];
-                            $imgLink = "assets/image/" . ($img == null ? "admin/default_images/boutique.png" : "api/article/$img")
-                        ?>
-                        <img src="<?= $imgLink ?>" alt="Image de l'article"/>
-                        
+                        $img = $product['image_article'];
+                        $imgLink = "assets/image/" . ($img == null ? "admin/default_images/boutique.png" : "api/article/$img")
+                            ?>
+                        <img src="<?= $imgLink ?>" alt="Image de l'article" />
+
                         <h3 title="<?= htmlspecialchars($product['nom_article']) ?>">
                             <?= htmlspecialchars($product['nom_article']) ?>
                         </h3>
                         <p><?= number_format(htmlspecialchars($product['prix_article']), 2, ',', ' ') ?> € </p>
                         <p><?= htmlspecialchars($product['xp_article']) ?> XP
-                            <?php if (!(int) $product['reduction_article']) : ?>
-                                <span>    * </span>
+                            <?php if (!(int) $product['reduction_article']): ?>
+                                <span> * </span>
                             <?php endif ?>
                         </p>
                     </div>
                     <div>
                         <p id="stock-status">
-                            <?php if ((int)$product['stock_article'] > 0 || (int)$product['stock_article'] < 0): ?>
-                                <a class="addCart" id="add-to-cart-button" href="/?page=cartAdd?id=<?= htmlspecialchars($product['id_article']) ?>">
+                            <?php if ((int) $product['stock_article'] > 0 || (int) $product['stock_article'] < 0): ?>
+                                <a class="addCart" id="add-to-cart-button"
+                                    href="/?page=cartAdd?id=<?= htmlspecialchars($product['id_article']) ?>">
                                     Ajouter au panier
                                 </a>
                             <?php else: ?>
@@ -93,7 +98,7 @@
                 </div>
             <?php endforeach; ?>
         </div>
-    <?php else : ?>
+    <?php else: ?>
         <p>Aucun produit trouvé pour les critères sélectionnés.</p>
     <?php endif; ?>
 
@@ -104,7 +109,7 @@
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const form = document.querySelector("#filter-form");
-            
+
             // Soumission du formulaire lorsqu'on appuie sur "Entrée" dans le champ de recherche
             const searchInput = document.querySelector("input[name='search']");
             searchInput.addEventListener("keydown", function (event) {
@@ -148,5 +153,5 @@
     <script src="assets/js/base/add_cart.js"></script>
 
 </body>
-</html>
 
+</html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,98 +21,98 @@
 
     <!-- Affichage du message de succès ou d'erreur -->
     <?php
-        if (isset($_SESSION['message'])) {
-            $messageStyle = isset($_SESSION['message_type']) && $_SESSION['message_type'] === "error" ? "error-message" : "success-message";
-            echo '<div id="' . $messageStyle . '">' . htmlspecialchars($_SESSION['message']) . '</div>';
-            unset($_SESSION['message']); // Supprimer le message après affichage
-            unset($_SESSION['message_type']); // Supprimer le type après affichage
-        }
+    if (isset($_SESSION['message'])) {
+        $messageStyle = isset($_SESSION['message_type']) && $_SESSION['message_type'] === "error" ? "error-message" : "success-message";
+        echo '<div id="' . $messageStyle . '">' . htmlspecialchars($_SESSION['message']) . '</div>';
+        unset($_SESSION['message']); // Supprimer le message après affichage
+        unset($_SESSION['message_type']); // Supprimer le type après affichage
+    }
     ?>
 
     <section> <!-- Ensemble des différents formulaires du compte -->
         <!-- Partie contenant les informations générales sur le compte de l'utilisateur -->
         <div id="account-generalInfo">
-        <div>
-            <form method="POST" enctype="multipart/form-data" id="pp-form">
+            <div>
+                <form method="POST" enctype="multipart/form-data" id="pp-form">
 
-                <label id="cadre-pp" for="profilePictureInput">
-                    <img src=<?= $imgLink ?> alt="Photo de profil de l'utilisateur"/>
-                </label>
+                    <label id="cadre-pp" for="profilePictureInput">
+                        <img src=<?= $imgLink ?> alt="Photo de profil de l'utilisateur" />
+                    </label>
 
-                <input type="file" id="profilePictureInput" name="file" accept="image/jpeg, image/png, image/webp" style="display: none;" onchange="this.form.submit()">
+                    <input type="file" id="profilePictureInput" name="file" accept="image/jpeg, image/png, image/webp"
+                        style="display: none;" onchange="this.form.submit()">
 
-                <button type="button" id="edit-icon" onclick="document.getElementById('profilePictureInput').click()">
-                    <img src="assets/image/base/edit_logo.png" alt="Icone éditer la photo de profil" />
-                </button>
-            </form>
-        </div>
-        <div>
-            <p><?= $this->infoUser[0]['xp_membre']; ?></p>
-            <p>XP</p>
-        </div>
-        <div id="cadre-grade">
-            <?php if (empty($this->infoUser[0]['nom_grade'])): ?>
-                <p>Vous n'avez pas de grade</p>
-            <?php else: ?>
-                <p><?= $this->infoUser[0]['nom_grade']; ?></p>
-                <?php if($this->infoUser[0]['image_grade'] == null): ?>
-                    <img src="/admin/ressources/default_images/grade.webp" alt="Image du grade" />
+                    <button type="button" id="edit-icon"
+                        onclick="document.getElementById('profilePictureInput').click()">
+                        <img src="assets/image/base/edit_logo.png" alt="Icone éditer la photo de profil" />
+                    </button>
+                </form>
+            </div>
+            <div>
+                <p><?= $this->infoUser[0]['xp_membre']; ?></p>
+                <p>XP</p>
+            </div>
+            <div id="cadre-grade">
+                <?php if (empty($this->infoUser[0]['nom_grade'])): ?>
+                    <p>Vous n'avez pas de grade</p>
                 <?php else: ?>
-                    <img src="assets/image/api/<?= $this->infoUser[0]['image_grade']; ?>" alt="Illustration du grade de l'utilisateur" />
-                <?php endif?>
-            <?php endif; ?>
+                    <p><?= $this->infoUser[0]['nom_grade']; ?></p>
+                    <?php if ($this->infoUser[0]['image_grade'] == null): ?>
+                        <img src="/admin/ressources/default_images/grade.webp" alt="Image du grade" />
+                    <?php else: ?>
+                        <img src="assets/image/api/<?= $this->infoUser[0]['image_grade']; ?>"
+                            alt="Illustration du grade de l'utilisateur" />
+                    <?php endif ?>
+                <?php endif; ?>
+            </div>
         </div>
-    </div>
 
-    <!-- Formulaire contenant les données personnelles de l'utilisateur -->
+        <!-- Formulaire contenant les données personnelles de l'utilisateur -->
         <form method="POST" action="" id="account-personalInfo-form">
             <div>
                 <div>
-                    <input 
-                        type="text" 
-                        id="name" 
-                        name="name" 
-                        placeholder="Prénom" 
-                        value="<?= htmlspecialchars($this->infoUser[0]['prenom_membre']); ?>" 
-                        required>
-                    <input 
-                        type="text" 
-                        id="lastName" 
-                        name="lastName" 
-                        placeholder="Nom de famille" 
-                        value="<?= htmlspecialchars($this->infoUser[0]['nom_membre']); ?>" 
-                        required>
+                    <input type="text" id="name" name="name" placeholder="Prénom"
+                        value="<?= htmlspecialchars($this->infoUser[0]['prenom_membre']); ?>" required>
+                    <input type="text" id="lastName" name="lastName" placeholder="Nom de famille"
+                        value="<?= htmlspecialchars($this->infoUser[0]['nom_membre']); ?>" required>
                 </div>
                 <div>
-                    <input 
-                        type="email" 
-                        id="mail" 
-                        name="mail" 
-                        placeholder="Adresse mail" 
-                        value="<?= htmlspecialchars($this->infoUser[0]['email_membre']); ?>" 
-                        required>
-                    
+                    <input type="email" id="mail" name="mail" placeholder="Adresse mail"
+                        value="<?= htmlspecialchars($this->infoUser[0]['email_membre']); ?>" required>
+
                     <?php if (!empty($this->infoUser[0]['tp_membre'])): ?>
                         <select id="tp" name="tp">
-                            <option value="11A" <?= $this->infoUser[0]['tp_membre'] === '11A' ? 'selected' : ''; ?>>TP 11 A</option>
-                            <option value="11B" <?= $this->infoUser[0]['tp_membre'] === '11B' ? 'selected' : ''; ?>>TP 11 B</option>
-                            <option value="12C" <?= $this->infoUser[0]['tp_membre'] === '12C' ? 'selected' : ''; ?>>TP 12 C</option>
-                            <option value="12D" <?= $this->infoUser[0]['tp_membre'] === '12D' ? 'selected' : ''; ?>>TP 12 D</option>
-                            <option value="21A" <?= $this->infoUser[0]['tp_membre'] === '21A' ? 'selected' : ''; ?>>TP 21 A</option>
-                            <option value="21B" <?= $this->infoUser[0]['tp_membre'] === '21B' ? 'selected' : ''; ?>>TP 21 B</option>
-                            <option value="22C" <?= $this->infoUser[0]['tp_membre'] === '22C' ? 'selected' : ''; ?>>TP 22 C</option>
-                            <option value="22D" <?= $this->infoUser[0]['tp_membre'] === '22D' ? 'selected' : ''; ?>>TP 22 D</option>
-                            <option value="31A" <?= $this->infoUser[0]['tp_membre'] === '31A' ? 'selected' : ''; ?>>TP 31 A</option>
-                            <option value="31B" <?= $this->infoUser[0]['tp_membre'] === '31B' ? 'selected' : ''; ?>>TP 31 B</option>
-                            <option value="32C" <?= $this->infoUser[0]['tp_membre'] === '32C' ? 'selected' : ''; ?>>TP 32 C</option>
-                            <option value="32D" <?= $this->infoUser[0]['tp_membre'] === '32D' ? 'selected' : ''; ?>>TP 32 D</option>
+                            <option value="11A" <?= $this->infoUser[0]['tp_membre'] === '11A' ? 'selected' : ''; ?>>TP 11 A
+                            </option>
+                            <option value="11B" <?= $this->infoUser[0]['tp_membre'] === '11B' ? 'selected' : ''; ?>>TP 11 B
+                            </option>
+                            <option value="12C" <?= $this->infoUser[0]['tp_membre'] === '12C' ? 'selected' : ''; ?>>TP 12 C
+                            </option>
+                            <option value="12D" <?= $this->infoUser[0]['tp_membre'] === '12D' ? 'selected' : ''; ?>>TP 12 D
+                            </option>
+                            <option value="21A" <?= $this->infoUser[0]['tp_membre'] === '21A' ? 'selected' : ''; ?>>TP 21 A
+                            </option>
+                            <option value="21B" <?= $this->infoUser[0]['tp_membre'] === '21B' ? 'selected' : ''; ?>>TP 21 B
+                            </option>
+                            <option value="22C" <?= $this->infoUser[0]['tp_membre'] === '22C' ? 'selected' : ''; ?>>TP 22 C
+                            </option>
+                            <option value="22D" <?= $this->infoUser[0]['tp_membre'] === '22D' ? 'selected' : ''; ?>>TP 22 D
+                            </option>
+                            <option value="31A" <?= $this->infoUser[0]['tp_membre'] === '31A' ? 'selected' : ''; ?>>TP 31 A
+                            </option>
+                            <option value="31B" <?= $this->infoUser[0]['tp_membre'] === '31B' ? 'selected' : ''; ?>>TP 31 B
+                            </option>
+                            <option value="32C" <?= $this->infoUser[0]['tp_membre'] === '32C' ? 'selected' : ''; ?>>TP 32 C
+                            </option>
+                            <option value="32D" <?= $this->infoUser[0]['tp_membre'] === '32D' ? 'selected' : ''; ?>>TP 32 D
+                            </option>
                         </select>
                     <?php endif; ?>
                 </div>
             </div>
 
             <button type="submit">
-                <img src="assets/image/base/save_logo.png" alt="Logo enregistrer les modifications"/>
+                <img src="assets/image/base/save_logo.png" alt="Logo enregistrer les modifications" />
             </button>
         </form>
 
@@ -124,11 +125,13 @@
                 </div>
                 <div>
                     <input type="password" id="newMdp" name="newMdp" placeholder="Nouveau mot de passe" required>
-                    <input type="password" id="newMdpVerif" name="newMdpVerif" placeholder="Confirmation du nouveau mot de passe" required>
+                    <input type="password" id="newMdpVerif" name="newMdpVerif"
+                        placeholder="Confirmation du nouveau mot de passe" required>
                 </div>
             </div>
 
-            <button type="submit"><img src="assets/image/base/save_logo.png" alt="Logo editer la photo de profil"/></button>
+            <button type="submit"><img src="assets/image/base/save_logo.png"
+                    alt="Logo editer la photo de profil" /></button>
         </form>
     </section>
 
@@ -147,8 +150,8 @@
             <form action="" method="post">
                 <input type="hidden" name="deconnexion" value="true">
                 <button type="submit">
-                        <img src="assets/image/base/logOut_icon.png" alt="icone de deconnexion">
-                        Déconnexion
+                    <img src="assets/image/base/logOut_icon.png" alt="icone de deconnexion">
+                    Déconnexion
                 </button>
             </form>
 
@@ -213,7 +216,8 @@
             <?php endif; ?>
         </div>
     </section>
-    
+
     <?php require_once 'src/view/footer.php'; ?>
 </body>
+
 </html>

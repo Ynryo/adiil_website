@@ -8,16 +8,18 @@ require_once "src/model/bdd/database.php";
 //     return insert($sql, $params);
 // }
 
-function getActualite($id_actualite) {
+function getActualite($id_actualite)
+{
     $bd = DB::getInstance();
     return $bd->select(
-        "SELECT * FROM ACTUALITE WHERE id_actualite = ?", 
-        "i",  
+        "SELECT * FROM ACTUALITE WHERE id_actualite = ?",
+        "i",
         [$id_actualite]
     );
 }
 
-function getNextActualite($limit) {
+function getNextActualite($limit)
+{
     $bd = DB::getInstance();
     $sql = "SELECT id_actualite, titre_actualite, date_actualite FROM ACTUALITE WHERE date_actualite <= NOW() ORDER BY date_actualite ASC" . ($limit != null ? " LIMIT $limit;" : ";");
     return $bd->select(

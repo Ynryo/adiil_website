@@ -3,10 +3,12 @@
 require_once 'src/model/bdd/membre.php';
 require_once 'src/model/utils/files_save.php';
 
-class account {
+class account
+{
     private $infoUser;
 
-    public function show() {
+    public function show()
+    {
         // Gère les requêtes
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $this->processRequest();
@@ -29,20 +31,15 @@ class account {
      * Permet de gérer les requêtes.
      * Chaque fonction a une petite explication de ce qu'elle fait
      */
-    private function processRequest() {
+    private function processRequest()
+    {
         if (isset($_POST['deconnexion']) && $_POST['deconnexion'] === 'true') {
             $this->requestDisconnect();
-        }
-
-        elseif(isset($_FILES['file'])) {
+        } elseif (isset($_FILES['file'])) {
             $this->requestUpdatePP();
-        }
-
-        elseif(isset($_POST['name'], $_POST['lastName'], $_POST['mail'])) {
+        } elseif (isset($_POST['name'], $_POST['lastName'], $_POST['mail'])) {
             $this->requestProcessForm();
-        }
-
-        elseif(isset($_POST['mdp'], $_POST['newMdp'], $_POST['newMdpVerif'])) {
+        } elseif (isset($_POST['mdp'], $_POST['newMdp'], $_POST['newMdpVerif'])) {
             $this->requestUpdatePassword();
         }
     }
@@ -50,16 +47,18 @@ class account {
     /**
      * Déconnecte l'utilisateur si celui-ci le souhaite
      */
-    private function requestDisconnect() {
+    private function requestDisconnect()
+    {
         session_destroy();
-        header("Location: /page=base-home"); 
+        header("Location: /?page=base-home");
         exit();
     }
 
     /**
      * Formulaire permettant de modifier la photo de profil de l'utilisateur
      */
-    private function requestUpdatePP() {
+    private function requestUpdatePP()
+    {
         // Appelle saveImage() pour traiter l'image
         $fileName = saveImage();
 
@@ -71,7 +70,7 @@ class account {
 
         // Suppression de l'ancienne image si elle existe
         if (!empty($this->infoUser[0]['pp_membre'])) {
-            deleteFile($this->infoUser[0]['pp_membre']); 
+            deleteFile($this->infoUser[0]['pp_membre']);
         }
 
         // Met à jour la base de données avec le nom du fichier
@@ -79,7 +78,7 @@ class account {
 
         $_SESSION['message'] = "Mise à jour de la photo de profil réussie !";
         $_SESSION['message_type'] = "success";
-        
+
         // Recharge la page pour afficher la nouvelle image
         $this->redirectOnLastPage();
     }
@@ -87,7 +86,8 @@ class account {
     /**
      * Formulaire contenant les données personnelles de l'utilisateur
      */
-    private function requestProcessForm() {
+    private function requestProcessForm()
+    {
         // Charger les informations actuelles de l'utilisateur depuis la base de données
         $currentUserData = getMembre($_SESSION['userid']);
 
@@ -131,15 +131,16 @@ class account {
     /**
      * Formulaire permettant à l'utilisateur de modifier son mot de passe
      */
-    private function requestUpdatePassword() {
+    private function requestUpdatePassword()
+    {
         $currentPassword = htmlspecialchars(trim($_POST['mdp']));
         $newPassword = htmlspecialchars(trim($_POST['newMdp']));
         $newPasswordVerif = htmlspecialchars(trim($_POST['newMdpVerif']));
 
         // Récupérer l'utilisateur et le mot de passe actuel depuis la base de données
         $user = getMembre($_SESSION['userid']);
-        
-        if($user[0]['password_membre'] == NULL && $currentPassword == ""){
+
+        if ($user[0]['password_membre'] == NULL && $currentPassword == "") {
             $password_ok = true;
         } else {
             $password_ok = password_verify($currentPassword, $user[0]['password_membre']);
@@ -151,7 +152,7 @@ class account {
             $_SESSION['message_type'] = "error";
             $this->redirectOnLastPage();
         }
-        
+
         // Vérifier la correspondance des nouveaux mots de passe
         if ($password_ok && $newPassword == $newPasswordVerif) {
             // Mettre à jour le mot de passe dans la base de données
@@ -172,7 +173,8 @@ class account {
     /**
      * Fonction pour améliorer la lisibilité du code
      */
-    private function redirectOnLastPage() {
+    private function redirectOnLastPage()
+    {
         header("Location: ?page=base-account");
         exit();
     }

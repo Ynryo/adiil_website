@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
+
     <title>Inscription</title>
-    
+
     <link rel="stylesheet" href="assets/css/base/general_style.css">
     <link rel="stylesheet" href="assets/css/base/event_subscription_style.css">
 </head>
@@ -19,7 +20,7 @@
 
     <div>
         <button id="cart-button">
-            <a href="/?page=base-eventDetails&id=<?= $eventid?>">
+            <a href="/?page=base-eventDetails&id=<?= $eventid ?>">
                 <img src="assets/image/base/fleche_retour.png" alt="Flèche de retour">
                 Retourner à l'évènement
             </a>
@@ -48,13 +49,13 @@
             </table>
 
             <h3>Total &nbsp : &nbsp <?= number_format($price, 2, ',', ' ') ?> €</h3>
-            <?php         var_dump($price);
-            var_dump($user_reduction);?>
-                        <h3>Total après réductions &nbsp : &nbsp <?= number_format($price*$user_reduction, 2, ',', ' ') ?> €</h3>
-                   
+            <?php var_dump($price);
+            var_dump($user_reduction); ?>
+            <h3>Total après réductions &nbsp : &nbsp <?= number_format($price * $user_reduction, 2, ',', ' ') ?> €</h3>
+
         </div>
 
-        <div>    
+        <div>
             <h3>Paiement</h3>
 
             <label for="mode_paiement">Mode de Paiement :</label>
@@ -69,7 +70,8 @@
                     <input type="hidden" name="mode_paiement" value="carte_credit">
 
                     <label for="numero_carte">Numéro de Carte :</label>
-                    <input type="text" id="numero_carte" name="numero_carte" placeholder="XXXX XXXX XXXX XXXX" required><br><br>
+                    <input type="text" id="numero_carte" name="numero_carte" placeholder="XXXX XXXX XXXX XXXX"
+                        required><br><br>
 
                     <label for="expiration">Date d'Expiration :</label>
                     <input type="text" id="expiration" name="expiration" placeholder="MM/AA" required><br><br>
@@ -87,7 +89,7 @@
                     <input type="hidden" name="mode_paiement" value="paypal">
 
                     <button type="button" id="paypal-button">Se connecter à PayPal</button><br><br>
-                        
+
                     <button type="submit" id="finalise-order-button">Valider la commande</button>
                 </form>
             </div>
@@ -95,7 +97,7 @@
     </div>
 
     <script>
-        document.getElementById('mode_paiement').addEventListener('change', function() {
+        document.getElementById('mode_paiement').addEventListener('change', function () {
             var modePaiement = this.value;
             if (modePaiement === 'carte_credit') {
                 document.getElementById('carte_credit').style.display = 'block';
@@ -109,4 +111,5 @@
 
     <?php require_once 'src/view/footer.php'; ?>
 </body>
+
 </html>

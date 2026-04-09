@@ -2,14 +2,16 @@
 
 require_once 'src/model/bdd/membre.php';
 
-class signin {
-    public function show() {
+class signin
+{
+    public function show()
+    {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $user = getMembreByMail($_POST['mail']);
 
-            if(empty($user)) {
-                if($_POST['password'] == $_POST['password_verif']){
+            if (empty($user)) {
+                if ($_POST['password'] == $_POST['password_verif']) {
                     $hashedPassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
                     insertMembre($_POST['lname'], $_POST['fname'], $_POST['mail'], $hashedPassword);
                 }

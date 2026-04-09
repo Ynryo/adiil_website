@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,8 +33,8 @@
                     <th class="corner"></th>
                     <?php foreach ($days as $dayData): ?>
                         <?php
-                            $date = $dayData['date'];
-                            $isToday = $date->format('Y-m-d') === $now->format('Y-m-d');
+                        $date = $dayData['date'];
+                        $isToday = $date->format('Y-m-d') === $now->format('Y-m-d');
                         ?>
                         <th class="day-head <?= $isToday ? 'today' : '' ?>">
                             <?= $this->escape($this->dayLabelFrench($date)) ?>
@@ -62,23 +63,21 @@
 
                                 <?php foreach ($dayData['events'] as $event): ?>
                                     <?php
-                                        $startMin = ((int) $event['start']->format('H') * 60) + (int) $event['start']->format('i');
-                                        $endMin = ((int) $event['end']->format('H') * 60) + (int) $event['end']->format('i');
+                                    $startMin = ((int) $event['start']->format('H') * 60) + (int) $event['start']->format('i');
+                                    $endMin = ((int) $event['end']->format('H') * 60) + (int) $event['end']->format('i');
 
-                                        $visibleStart = max($startMin, $startHour * 60);
-                                        $visibleEnd = min($endMin, $endHour * 60);
+                                    $visibleStart = max($startMin, $startHour * 60);
+                                    $visibleEnd = min($endMin, $endHour * 60);
 
-                                        if ($visibleEnd <= $visibleStart) {
-                                            continue;
-                                        }
+                                    if ($visibleEnd <= $visibleStart) {
+                                        continue;
+                                    }
 
-                                        $top = (($visibleStart - ($startHour * 60)) / 30) * 26;
-                                        $height = max((($visibleEnd - $visibleStart) / 30) * 26, 30);
+                                    $top = (($visibleStart - ($startHour * 60)) / 30) * 26;
+                                    $height = max((($visibleEnd - $visibleStart) / 30) * 26, 30);
                                     ?>
-                                    <div
-                                        class="event"
-                                        style="top: <?= (int) $top ?>px; height: <?= (int) $height ?>px; background: <?= $this->escape($event['bg']) ?>; color: <?= $this->escape($event['fg']) ?>;"
-                                    >
+                                    <div class="event"
+                                        style="top: <?= (int) $top ?>px; height: <?= (int) $height ?>px; background: <?= $this->escape($event['bg']) ?>; color: <?= $this->escape($event['fg']) ?>;">
                                         <div class="summary"><?= $this->escape($event['summary']) ?></div>
 
                                         <?php if ($event['location'] !== ''): ?>
@@ -86,7 +85,8 @@
                                         <?php endif; ?>
 
                                         <div class="time">
-                                            <?= $this->escape($event['start']->format('H:i')) ?> - <?= $this->escape($event['end']->format('H:i')) ?>
+                                            <?= $this->escape($event['start']->format('H:i')) ?> -
+                                            <?= $this->escape($event['end']->format('H:i')) ?>
                                         </div>
                                     </div>
                                 <?php endforeach; ?>
@@ -100,4 +100,5 @@
 
     <?php require_once 'src/view/footer.php'; ?>
 </body>
+
 </html>

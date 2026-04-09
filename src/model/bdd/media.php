@@ -1,7 +1,8 @@
 <?php
 require_once "src/model/bdd/database.php";
 
-function insertMedia($url, $date, $id_membre, $id_evenement) {
+function insertMedia($url, $date, $id_membre, $id_evenement)
+{
     $db = DB::getInstance();
     $db->query(
         "INSERT INTO MEDIA VALUES (?, ?, ?, ?);",
@@ -10,7 +11,8 @@ function insertMedia($url, $date, $id_membre, $id_evenement) {
     );
 }
 
-function deleteMedia($id) {
+function deleteMedia($id)
+{
     $db = DB::getInstance();
     return $db->select(
         "DELETE FROM MEDIA WHERE id_media = ?",
@@ -19,7 +21,8 @@ function deleteMedia($id) {
     );
 }
 
-function getMedia($id) {
+function getMedia($id)
+{
     $db = DB::getInstance();
     return $db->select(
         "SELECT * FROM MEDIA WHERE id_media = ?",
@@ -28,22 +31,24 @@ function getMedia($id) {
     );
 }
 
-function getEvenementMedia($id_evenement, $limit) {
+function getEvenementMedia($id_evenement, $limit)
+{
     $db = DB::getInstance();
     $sql = "SELECT url_media FROM MEDIA WHERE id_evenement = ? ORDER by date_media ASC" . ($limit != null ? " LIMIT $limit;" : ";");
     return $db->select(
-        $sql, 
-        "i", 
+        $sql,
+        "i",
         [$id_evenement]
     );
 }
 
-function getUserEvenementMedia($id_membre, $id_evenement, $limit) {
+function getUserEvenementMedia($id_membre, $id_evenement, $limit)
+{
     $db = DB::getInstance();
     $sql = "SELECT url_media FROM MEDIA WHERE id_membre = ? and id_evenement = ? ORDER by date_media ASC" . ($limit != null ? " LIMIT $limit;" : ";");
     return $db->select(
-        $sql, 
-        "ii", 
+        $sql,
+        "ii",
         [$id_membre, $id_evenement]
     );
 }

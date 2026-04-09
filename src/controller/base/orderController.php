@@ -4,8 +4,10 @@ require_once "src/model/bdd/membre.php";
 require_once "src/model/utils/files_save.php";
 require_once "src/model/utils/cart_class.php";
 
-class order {
-    public function show() {
+class order
+{
+    public function show()
+    {
         $cart = new cart();
 
         if (!isset($_SESSION["userid"])) {
@@ -35,7 +37,7 @@ class order {
 
         $cart_items = [];
         foreach ($products as $product) {
-            if( $product['stock_article'] > 0 && $_SESSION['cart'][$product['id_article']] > $product['stock_article']) {
+            if ($product['stock_article'] > 0 && $_SESSION['cart'][$product['id_article']] > $product['stock_article']) {
                 $cart[$product['id_article']] = $product['stock_article'];
             }
 
@@ -62,7 +64,7 @@ class order {
                     );
                 }
                 $_SESSION['cart'] = [];
-                
+
                 $_SESSION['message'] = "Commande réalisée avec succès !";
                 $_SESSION['message_type'] = "success";
 

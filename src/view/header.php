@@ -2,8 +2,8 @@
 <link rel="stylesheet" href="assets/css/base/header_style.css">
 
 <?php
-    $isUserLoggedIn = isset($_SESSION['userid']);
-    $isAdmin = isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] ;
+$isUserLoggedIn = isset($_SESSION['userid']);
+$isAdmin = isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'];
 ?>
 
 <!-- HEADER -->
@@ -17,7 +17,7 @@
             <li><a href="/?page=base-news">Actualités</a></li>
             <li><a href="/?page=base-shop">Boutique</a></li>
             <li><a href="/?page=base-grade">Grades</a></li>
-            
+
             <?php if ($isUserLoggedIn): ?>
                 <li><a href="/?page=base-agenda">Agenda</a></li>
             <?php endif; ?>
@@ -28,10 +28,10 @@
                 <li><a href="/?page=base-account">Mon compte</a></li>
 
                 <?php if ($isAdmin): ?>
-                  <li><a id="header_admin" href="/?page=admin/admin">Panel Admin</a></li>
+                    <li><a id="header_admin" href="/?page=admin-admin/chat">Panel Admin</a></li>
                 <?php endif; ?>
 
-            <?php else : ?>
+            <?php else: ?>
                 <li><a href="/?page=base-login">Se connecter</a></li>
             <?php endif; ?>
 

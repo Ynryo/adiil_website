@@ -2,8 +2,10 @@
 
 require_once 'src/model/bdd/actualite.php';
 
-class newsDetails {
-    public function show() {
+class newsDetails
+{
+    public function show()
+    {
         if ($_SERVER['REQUEST_METHOD'] !== 'GET' || !isset($_GET['id'])) {
             header("Location: /?page=base-home");
             exit;
@@ -11,7 +13,7 @@ class newsDetails {
 
         $actuid = $_GET['id'];
         $actu = getActualite($actuid);
-        if(empty($actu) || is_null($actu)){
+        if (empty($actu) || is_null($actu)) {
             header("Location: /?page=base-home");
             exit;
         }
