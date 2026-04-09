@@ -28,6 +28,10 @@ class agenda
 
     public function show()
     {
+        if($_SESSION['userid'] == null) {
+            header("Location: /?page=base-login");
+        }
+        
         $tp_user = getMembre($_SESSION['userid'])[0]['tp_membre'] ?? null;
         if ($tp_user === null || !isset($this->resourceMap[$tp_user])) {
             http_response_code(400);

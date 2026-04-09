@@ -9,6 +9,10 @@ class account
 
     public function show()
     {
+        if($_SESSION['userid'] == null) {
+            header("Location: /?page=base-login");
+        }
+
         // Gère les requêtes
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $this->processRequest();
