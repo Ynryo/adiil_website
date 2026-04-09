@@ -18,7 +18,6 @@
 
     <h1>LES EVENEMENTS</h1>
     <section>
-        <a class="show-more" href="/?page=base-events&show=<?= $show + 10 ?>">Voir plus loin dans le passé</a>
         <div class="events-display">
 
             <?php
@@ -93,6 +92,11 @@
                 <?php $closest_event_id = ""; ?>
             <?php endforeach; ?>
         </div>
+        <?php if ($show < count($existingEvents)) : ?>
+            <a class="show-more" href="/?page=base-events&show=<?= $show + 10 ?>">Voir plus loin dans le futur</a>
+        <?php elseif ($show > 10) : ?>
+            <a class="show-more" href="/?page=base-events&show=<?= $show - 10 ?>">Voir moins loin dans le futur</a>
+        <?php endif ?>
     </section>
 
     <?php require_once 'src/view/footer.php'; ?>

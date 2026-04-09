@@ -17,13 +17,14 @@ function getGrade($id) {
     );
 }
 
-function getGradeMembre($id_grade, $id_membre) {
+function getGradeMembre($id_membre) {
     $db = DB::getInstance();
-    return $db->select(
-        "SELECT * FROM GRADE INNER JOIN ADHESION ON GRADE.id_grade = ADHESION.id_grade INNER JOIN MEMBRE ON ADHESION.id_membre = MEMBRE.id_membre WHERE GRADE.id_grade = ? AND MEMBRE.id_membre = ?;", 
-        "ii",
-        [$id_grade, $id_membre]
+    $result = $db->select(
+        "SELECT id_grade FROM ADHESION WHERE id_membre = ?;", 
+        "i",
+        [$id_membre]
     );
+    return $result[0] ?? null;
 }
 
 function updateGrade($id, $nom, $description, $prix, $reduction) {

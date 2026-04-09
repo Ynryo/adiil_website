@@ -9,6 +9,10 @@ class events
         $show = 5;
         if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['show']) && is_numeric($_GET['show'])) {
             $show = (int) $_GET['show'];
+
+            if($show < 5) {
+                header("Location: /?page=base-events");
+            }
         }
 
         $date = getdate();
@@ -17,9 +21,8 @@ class events
         $moisFr = [1 => 'Janvier', 2 => 'Février', 3 => 'Mars', 4 => 'Avril', 5 => 'Mai', 6 => 'Juin', 7 => 'Juillet', 8 => 'Août', 9 => 'Septembre', 10 => 'Octobre', 11 => 'Novembre', 12 => 'Décembre'];
         $current_date = new DateTime(date("Y-m-d"));
 
-        $events_to_display = getNextEvenement($sql_date, null);
-        $passed_events = getPastEvenement($sql_date, $show);
-        $events_to_display = array_merge($passed_events, $events_to_display);
+        $existingEvents = getNextEvenement($sql_date, null);
+        $events_to_display = array_slice($existingEvents, 0, $show);
 
         $closest_event_id = "";
 

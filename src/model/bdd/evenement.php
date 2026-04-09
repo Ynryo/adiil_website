@@ -4,7 +4,7 @@ require_once "src/model/bdd/database.php";
 function getAllEvenements()
 {
     $db = DB::getInstance();
-    return $db->select("SELECT id_evenement, nom_evenement FROM EVENEMENT WHERE deleted = FALSE ORDER BY date_debut_evenement DESC");
+    return $db->select("SELECT id_evenement, nom_evenement, date_debut_evenement, lieu_evenement FROM EVENEMENT WHERE deleted = FALSE ORDER BY date_debut_evenement DESC");
 }
 
 function getEvenement($id)

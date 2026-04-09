@@ -8,6 +8,10 @@ class grade
     public function show()
     {
         $products = getAllGrades();
+        $gradeMembre = null;
+        if (!empty($_SESSION['userid'])) {
+            $gradeMembre = getGradeMembre($_SESSION['userid']);
+        }
 
         include 'src/view/base/gradeView.php';
     }

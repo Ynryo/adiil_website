@@ -53,19 +53,15 @@
                     </div>
                     <div>
                         <p id="adhesion-status">
-
-                            <?php
-                            if (!empty($_SESSION['userid'])) {
-                                $unAdherant = getGradeMembre($product['id_grade'], $_SESSION['userid']);
-                            }
-                            ?>
-                            <?php if (!empty($_SESSION) && !empty($unAdherant)): ?>
-                                <button id="detention">Vous détenez ce grade</button>
-                            <?php else: ?>
+                            <?php if (empty($_SESSION) || $gradeMembre == null || $product["id_grade"] > $gradeMembre["id_grade"]): ?>
                                 <a id="buy-button"
                                     href="?page=base-gradeSubscription&id=<?= htmlspecialchars($product['id_grade']) ?>">
                                     Acheter
                                 </a>
+                            <?php elseif($product["id_grade"] == $gradeMembre["id_grade"]) : ?>
+                                <button id="detention">Vous détenez ce grade</button>
+                            <?php else: ?>
+                                <button id="detention">Vous possédez un meilleur grade</button>
                             <?php endif; ?>
                         </p>
                     </div>
