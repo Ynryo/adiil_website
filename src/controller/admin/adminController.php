@@ -155,7 +155,13 @@ class Admin
 
         include_once 'src/controller/admin/comptabiliteController.php';
         $comptabiliteController = new ComptabiliteController();
-        $comptabiliteController->show();
+
+        if ($action === 'show' || !method_exists($comptabiliteController, $action)) {
+            include_once self::HEADER;
+            $comptabiliteController->show();
+        } else {
+            $comptabiliteController->$action();
+        }
     }
 
     public function reunions()

@@ -1,9 +1,12 @@
 <?php
 
+require_once 'src/model/bdd/logs.php';
+
 class LogsController
 {
     public function show()
     {
-        include_once 'src/view/admin/panels/logs.html';
+        $logs = getLogs();
+        include_once 'src/view/admin/panels/logs.php';
     }
 }
