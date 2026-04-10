@@ -71,18 +71,19 @@ H2 {
 
 #account-generalInfo div:nth-of-type(2) {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    gap: 10px;
     justify-content: space-between;
+    align-items: center;
 }
 
 #account-generalInfo div:nth-of-type(2) p:nth-child(1) {
-    font-size: 75px;
+    font-size: 40px;
     font-weight: 500;
 }
 
 #account-generalInfo div:nth-of-type(2) p:nth-child(2) {
-    font-size: 45px;
+    font-size: 30px;
 }
 
 #account-generalInfo div:nth-of-type(3) {
@@ -93,13 +94,11 @@ H2 {
 }
 
 #account-generalInfo div:nth-of-type(3) p {
-    font-size: 35px;
+    font-size: 20px;
     font-weight: 500;
 }
 
 #cadre-grade {
-    width: 200px;
-    height: 200px;
     overflow: hidden;
     margin-top: 2vh;
 }

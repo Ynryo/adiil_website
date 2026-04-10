@@ -5,7 +5,7 @@
                 <?php
                 $isMine = ((int) $_SESSION['userid'] === (int) ($msg['id_membre'] ?? 0));
                 $pp = $msg['pp_membre'];
-                $ppSrc = $pp ? 'assets/image/api/pp/' . htmlspecialchars($pp) : 'assets/image/default_images/user.jpg';
+                $ppSrc = $pp ? 'assets/image/api/pp/' . htmlspecialchars($pp) : 'assets/image/admin/default_images/user.jpg';
                 $name = htmlspecialchars($msg['prenom_membre'] . ' ' . strtoupper($msg['nom_membre']));
                 $time = htmlspecialchars(date('H:i', strtotime($msg['created_at'])));
                 ?>
@@ -28,7 +28,7 @@
             <input type="text" id="chat_input" name="message" placeholder="Écrire un message..." autocomplete="off"
                 maxlength="1000">
             <button type="submit" class="btn-transparent btn-blue">
-                <img src="assets/image/admin/save.svg" alt="Envoyer">Envoyer
+                <span class="material-symbols-outlined">send</span>Envoyer
             </button>
         </form>
     </div>
