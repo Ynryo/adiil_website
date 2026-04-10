@@ -82,6 +82,7 @@
                                 <span> * </span>
                             <?php endif ?>
                         </p>
+                        <p><?= $product["stock_article"] ?> restant(s)</p>
                     </div>
                     <div>
                         <p id="stock-status">
