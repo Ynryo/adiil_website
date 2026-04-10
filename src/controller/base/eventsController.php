@@ -2,7 +2,7 @@
 
 require_once 'src/model/bdd/evenement.php';
 
-class events
+class Events
 {
     public function show()
     {
@@ -10,7 +10,7 @@ class events
         if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['show']) && is_numeric($_GET['show'])) {
             $show = (int) $_GET['show'];
 
-            if($show < 5) {
+            if ($show < 5) {
                 header("Location: /?page=base-events");
             }
         }
@@ -26,6 +26,6 @@ class events
 
         $closest_event_id = "";
 
-        include 'src/view/base/eventsView.php';
+        include_once 'src/view/base/eventsView.php';
     }
 }

@@ -2,7 +2,7 @@
 
 require_once 'src/model/bdd/database.php';
 
-class deleteAccount
+class DeleteAccount
 {
     public function show()
     {
@@ -18,6 +18,6 @@ class deleteAccount
             exit();
         }
 
-        include 'src/view/base/deleteAccountView.php';
+        include_once 'src/view/base/deleteAccountView.php';
     }
 }

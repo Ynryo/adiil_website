@@ -2,7 +2,7 @@
 
 require_once 'src/model/bdd/actualite.php';
 
-class newsDetails
+class NewsDetails
 {
     public function show()
     {
@@ -22,6 +22,6 @@ class newsDetails
         $img = $actu['image_actualite'];
         $imgLink = "assets/image/" . ($img == null ? "admin/default_images/event.jpg" : "api/news/$img");
 
-        include 'src/view/base/newsDetailsView.php';
+        include_once 'src/view/base/newsDetailsView.php';
     }
 }

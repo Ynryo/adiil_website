@@ -2,7 +2,7 @@
 
 require_once 'src/model/bdd/actualite.php';
 
-class news
+class News
 {
     public function show()
     {
@@ -24,6 +24,6 @@ class news
         $actuality_subscription_color_class = "event-not-subscribed";
         $actuality_subscription_label = "Consulter";
 
-        include 'src/view/base/newsView.php';
+        include_once 'src/view/base/newsView.php';
     }
 }

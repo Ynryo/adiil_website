@@ -3,7 +3,7 @@
 require_once 'src/model/bdd/evenement.php';
 require_once 'src/model/bdd/media.php';
 
-class eventDetails
+class EventDetails
 {
     public function show()
     {
@@ -54,6 +54,6 @@ class eventDetails
             ';
         }
 
-        include 'src/view/base/eventDetailsView.php';
+        include_once 'src/view/base/eventDetailsView.php';
     }
 }

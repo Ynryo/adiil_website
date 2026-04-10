@@ -4,7 +4,7 @@ require_once 'src/model/bdd/grade.php';
 require_once 'src/model/bdd/membre.php';
 require_once 'src/model/utils/files_save.php';
 
-class gradeSubscription
+class GradeSubscription
 {
     public function show()
     {
@@ -52,6 +52,6 @@ class gradeSubscription
             }
         }
 
-        include 'src/view/base/gradeSubscriptionView.php';
+        include_once 'src/view/base/gradeSubscriptionView.php';
     }
 }

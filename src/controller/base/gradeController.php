@@ -3,7 +3,7 @@
 require_once 'src/model/bdd/grade.php';
 require_once 'src/model/utils/files_save.php';
 
-class grade
+class Grade
 {
     public function show()
     {
@@ -13,6 +13,6 @@ class grade
             $gradeMembre = getGradeMembre($_SESSION['userid']);
         }
 
-        include 'src/view/base/gradeView.php';
+        include_once 'src/view/base/gradeView.php';
     }
 }

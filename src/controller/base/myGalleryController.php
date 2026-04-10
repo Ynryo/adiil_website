@@ -3,7 +3,7 @@
 require_once 'src/model/bdd/evenement.php';
 require_once 'src/model/bdd/media.php';
 
-class myGallery
+class MyGallery
 {
     public function show()
     {
@@ -27,6 +27,6 @@ class myGallery
 
         $event = getEvenement($eventid)[0];
 
-        include 'src/view/base/myGalleryView.php';
+        include_once 'src/view/base/myGalleryView.php';
     }
 }

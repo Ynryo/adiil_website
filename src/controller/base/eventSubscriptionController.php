@@ -4,7 +4,7 @@ require_once 'src/model/bdd/evenement.php';
 require_once 'src/model/bdd/membre.php';
 require_once 'src/model/utils/files_save.php';
 
-class eventSubscription
+class EventSubscription
 {
     public function show()
     {
@@ -57,6 +57,6 @@ class eventSubscription
             exit;
         }
 
-        include 'src/view/base/eventSubscriptionView.php';
+        include_once 'src/view/base/eventSubscriptionView.php';
     }
 }
