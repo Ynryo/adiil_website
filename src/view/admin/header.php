@@ -38,7 +38,7 @@
                 ["logs", "p_log", "Logs"]
             ];
             foreach ($onglets as $onglet) {
-                if (hasPermission($onglet[1]) || $onglet[1] == "p_chat") {
+                if ($onglet[1] == "p_chat" || hasPermission($onglet[1])) {
                     echo '<li perm="' . $onglet[0] . '">
                         <a href="/?page=admin-admin/' . $onglet[0] . '">
                             <img src="assets/image/admin/panels_icons/' . $onglet[0] . '.svg" alt="Icone de la ' . $onglet[0] . '">

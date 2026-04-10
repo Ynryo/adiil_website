@@ -2,14 +2,20 @@
 
 require_once 'src/model/bdd/membre.php';
 
-class login
+class Login
 {
     public function show()
     {
+
+        if (isset($_SESSION['userid'])) {
+            header("Location: /?page=base-home");
+            exit;
+        }
+
         // Gestion de la connexion
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-            $login_error = "<h3 class=\"login-error\">Erreur dans les informations de connexion.</h3>";
+            $login_error = "<h3 class=\"form-error\">Erreur dans les informations de connexion.</h3>";
             $mail = htmlspecialchars(trim($_POST['mail']));
             $password = htmlspecialchars(trim($_POST['password']));
 
@@ -24,7 +30,7 @@ class login
             $db_password = $selection_db[0]["password_membre"];
             $mail_ok = ($db_mail == $mail);
 
-            if ($db_password == NULL && $password == "") {
+            if ($db_password == null && $password == "") {
                 $password_ok = true;
             } else {
                 $password_ok = password_verify($password, $db_password);
@@ -47,6 +53,6 @@ class login
             header("Location: /?page=base-home");
         }
 
-        include 'src/view/base/loginView.php';
+        include_once 'src/view/base/loginView.php';
     }
 }

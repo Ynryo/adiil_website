@@ -14,6 +14,11 @@ class Account
             $this->processRequest();
         }
 
+        if (!isset($_SESSION['userid'])) {
+            header("Location: /?page=base-login");
+            exit();
+        }
+
         // Recuperer les informations de l'utilisateur
         $this->infoUser = getInfoOfmembre($_SESSION['userid']);
 

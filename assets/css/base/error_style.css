@@ -1,0 +1,11 @@
+h3.form-error {
+    margin: 10px;
+    color: red;
+    padding: 10px;
+    border: 1px solid red;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    background-color: #ffcccc;
+}

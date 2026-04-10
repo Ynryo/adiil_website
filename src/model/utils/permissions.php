@@ -8,6 +8,10 @@ function hasPermission($permission): bool
         return false;
     }
 
+    if ($permission == "p_chat") {
+        return true;
+    }
+
     $db = DB::getInstance();
     $perms = $db->select("SELECT * FROM LISTE_PERMISSIONS WHERE id_membre = ?", 'i', [$_SESSION['userid']]);
 

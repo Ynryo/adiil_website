@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" href="assets/css/base/login_style.css">
     <link rel="stylesheet" href="assets/css/base/general_style.css">
+    <link rel="stylesheet" href="assets/css/base/error_style.css">
 </head>
 
 <body>
