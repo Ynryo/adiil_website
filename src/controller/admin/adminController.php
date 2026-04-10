@@ -268,17 +268,55 @@ class Admin
 
     public function history()
     {
-        $this->show();
+        if (!isset($_SESSION['userid'])) {
+            header(self::LOGIN_REDIRECT);
+            exit();
+        }
+        if (!(isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'])) {
+            header(self::UNAUTHORIZED_REDIRECT);
+            exit();
+        }
+        include_once self::MODEL_PERMS;
+
+        $page = $_GET['page'] ?? '';
+        $parts = explode('/', $page);
+        $action = $parts[2] ?? 'show';
+
         include_once 'src/controller/admin/historyController.php';
         $historyController = new HistoryController();
-        $historyController->show();
+
+        if ($action === 'show' || !method_exists($historyController, $action)) {
+            include_once self::HEADER;
+            $historyController->show();
+        } else {
+            $actualitesController->$action();
+        }
     }
 
     public function logs()
     {
-        $this->show();
+        if (!isset($_SESSION['userid'])) {
+            header(self::LOGIN_REDIRECT);
+            exit();
+        }
+        if (!(isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'])) {
+            header(self::UNAUTHORIZED_REDIRECT);
+            exit();
+        }
+        include_once self::MODEL_PERMS;
+
+        $page = $_GET['page'] ?? '';
+        $parts = explode('/', $page);
+        $action = $parts[2] ?? 'show';
+
         include_once 'src/controller/admin/logsController.php';
         $logsController = new LogsController();
-        $logsController->show();
+
+        if ($action === 'show' || !method_exists($logsController, $action)) {
+            include_once self::HEADER;
+            $logsController->show();
+        } else {
+            $logsController->$action();
+        }
     }
 }
