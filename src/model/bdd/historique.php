@@ -19,7 +19,7 @@ function getHistorique($filters = [])
     }
 
     if (!empty($filters['user_search'])) {
-        $whereClauses[] = "(UPPER(CONCAT(m.nom_membre, ' ', m.prenom_membre)) LIKE UPPER(?))";
+        $whereClauses[] = "(CONCAT(m.nom_membre COLLATE utf8mb4_unicode_ci, ' ', m.prenom_membre COLLATE utf8mb4_unicode_ci) LIKE ? COLLATE utf8mb4_unicode_ci)";
         $params[] = '%' . $filters['user_search'] . '%';
         $types .= 's';
     }
