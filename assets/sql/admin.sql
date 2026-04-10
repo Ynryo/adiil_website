@@ -55,17 +55,17 @@ DROP VIEW IF EXISTS LISTE_PERMISSIONS;
 CREATE VIEW LISTE_PERMISSIONS AS
 SELECT 
     MEMBRE.id_membre,
-    MAX(COALESCE(p_log_role, 0))          AS acces_logs,
-    MAX(COALESCE(p_boutique_role, 0))     AS gestion_boutique,
-    MAX(COALESCE(p_reunion_role, 0))      AS gestion_reunions,
-    MAX(COALESCE(p_utilisateur_role, 0))  AS gestion_utilisateurs,
-    MAX(COALESCE(p_grade_role, 0))        AS gestion_grades,
-    MAX(COALESCE(p_roles_role, 0))        AS gestion_roles,
-    MAX(COALESCE(p_actualite_role, 0))    AS gestion_actualites,
-    MAX(COALESCE(p_evenements_role, 0))   AS gestion_evenements,
-    MAX(COALESCE(p_comptabilite_role, 0)) AS gestion_comptabilite,
-    MAX(COALESCE(p_achats_role, 0))       AS acces_achats,
-    MAX(COALESCE(p_moderation_role, 0))   AS moderation
+    MAX(COALESCE(p_log_role, 0))          AS p_log,
+    MAX(COALESCE(p_boutique_role, 0))     AS p_boutique,
+    MAX(COALESCE(p_reunion_role, 0))      AS p_reunion,
+    MAX(COALESCE(p_utilisateur_role, 0))  AS p_utilisateur,
+    MAX(COALESCE(p_grade_role, 0))        AS p_grade,
+    MAX(COALESCE(p_roles_role, 0))        AS p_roles,
+    MAX(COALESCE(p_actualite_role, 0))    AS p_actualite,
+    MAX(COALESCE(p_evenements_role, 0))   AS p_evenement,
+    MAX(COALESCE(p_comptabilite_role, 0)) AS p_comptabilite,
+    MAX(COALESCE(p_achats_role, 0))       AS p_achat,
+    MAX(COALESCE(p_moderation_role, 0))   AS p_moderation
 FROM MEMBRE
 LEFT JOIN ASSIGNATION ON MEMBRE.id_membre = ASSIGNATION.id_membre
 LEFT JOIN ROLE ON ASSIGNATION.id_role = ROLE.id_role
