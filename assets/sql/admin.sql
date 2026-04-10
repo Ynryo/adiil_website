@@ -71,10 +71,12 @@ LEFT JOIN ASSIGNATION ON MEMBRE.id_membre = ASSIGNATION.id_membre
 LEFT JOIN ROLE ON ASSIGNATION.id_role = ROLE.id_role
 GROUP BY MEMBRE.id_membre;
 
+DELIMITER $$
+
 /***************************************************/
 /* PROCEDURE : Annuler une commande */
 /***************************************************/
-DROP PROCEDURE IF EXISTS refund_transaction;
+DROP PROCEDURE IF EXISTS refund_transaction$$
 
 CREATE PROCEDURE refund_transaction(IN _id_commande INT)
 BEGIN
@@ -97,23 +99,23 @@ BEGIN
         WHERE id_article = _id_article;
 
     DELETE FROM COMMANDE WHERE id_commande = _id_commande;
-END;
+END$$
 
 /***************************************************/
 /* PROCEDURE : Supprimer un evenement et sa galerie */
 /***************************************************/
-DROP PROCEDURE IF EXISTS delete_event;
+DROP PROCEDURE IF EXISTS delete_event$$
 
 CREATE PROCEDURE delete_event(IN _id_event INT)
 BEGIN
     DELETE FROM MEDIA WHERE id_evenement = _id_event;
     DELETE FROM EVENEMENT WHERE id_evenement = _id_event;
-END;
+END$$
 
 /***************************************************/
 /* TRIGGER : Vérifier permissions pour créer actualité */
 /***************************************************/
-DROP TRIGGER IF EXISTS permissions_create_event;
+DROP TRIGGER IF EXISTS permissions_create_event$$
 
 CREATE TRIGGER permissions_create_event 
 AFTER INSERT ON ACTUALITE
@@ -129,4 +131,6 @@ BEGIN
         SIGNAL SQLSTATE '45000' 
         SET MESSAGE_TEXT = 'Vous n''avez pas les permissions pour ajouter une actualite';
     END IF;
-END;
+END$$
+
+DELIMITER ;
