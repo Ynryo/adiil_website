@@ -9,16 +9,16 @@ INSERT INTO ROLE (nom_role, p_log_role, p_boutique_role, p_reunion_role, p_utili
 
 -- Insertion des membres
 INSERT INTO MEMBRE (nom_membre, prenom_membre, email_membre, password_membre, xp_membre, discord_token_membre, pp_membre, tp_membre) VALUES
-('RUFFAULT--RAVENEL', 'Gemino', 'gemino.ruffault@example.com', 'password1', 50, NULL, NULL, '11A'),
-('HANNIER', 'Axelle', 'axelle.hannier@example.com', 'password2', 18, NULL, '2.jpg', '12C'),
-('DAUVERGNE', 'Julien', 'julien.dauvergne@example.com', 'password3', 0, 'g4rd64g6rd4g8f4e64h5bv231h5th44g5ht6h87yj8ty6', NULL,'31A'),
-('DELAYE', 'Baptiste', 'baptiste.delahay@example.com', 'password4', 0, NULL, NULL, '32D'),
-('VIEILLARD', 'Nathalie', 'nathalie.vieillard@example.com', 'password5', 11, NULL, NULL, NULL),
-('HAVARD', 'Barnabe', 'barnabe.havard@example.com', 'password6', 0, 'kiuilui4l8iul654hg2g', NULL, '11A'),
-('FEVRIER', 'Theo', 'theo.fevrier@example.com', 'password7', 0, NULL, NULL, NULL),
-('GOUIN', 'Tom', 'tom.gouin@example.com', 'password8', 12, NULL, NULL, NULL),
-('CONGNARD', 'Evann', 'evann.congnard@example.com', 'password9', 0, NULL, NULL, '31A'),
-('LE COZ', 'Erwan', 'erwan.lecoz@example.com', 'password10', 0, NULL, NULL, '31B');
+('RUFFAULT--RAVENEL', 'Gemino', 'gemino.ruffault@example.com', '$2y$10$4ZyDaDMApbY0w8RBahD6m.CPxJ/5Gaqojoql/6XPwnzN0fkg1R4zq', 50, NULL, NULL, '11A'),
+('HANNIER', 'Axelle', 'axelle.hannier@example.com', '$2y$10$4ZyDaDMApbY0w8RBahD6m.CPxJ/5Gaqojoql/6XPwnzN0fkg1R4zq', 18, NULL, '2.jpg', '12C'),
+('DAUVERGNE', 'Julien', 'julien.dauvergne@example.com', '$2y$10$4ZyDaDMApbY0w8RBahD6m.CPxJ/5Gaqojoql/6XPwnzN0fkg1R4zq', 0, 'g4rd64g6rd4g8f4e64h5bv231h5th44g5ht6h87yj8ty6', NULL,'31A'),
+('DELAYE', 'Baptiste', 'baptiste.delahay@example.com', '$2y$10$4ZyDaDMApbY0w8RBahD6m.CPxJ/5Gaqojoql/6XPwnzN0fkg1R4zq', 0, NULL, NULL, '32D'),
+('VIEILLARD', 'Nathalie', 'nathalie.vieillard@example.com', '$2y$10$4ZyDaDMApbY0w8RBahD6m.CPxJ/5Gaqojoql/6XPwnzN0fkg1R4zq', 11, NULL, NULL, NULL),
+('HAVARD', 'Barnabe', 'barnabe.havard@example.com', '$2y$10$4ZyDaDMApbY0w8RBahD6m.CPxJ/5Gaqojoql/6XPwnzN0fkg1R4zq', 0, 'kiuilui4l8iul654hg2g', NULL, '11A'),
+('FEVRIER', 'Theo', 'theo.fevrier@example.com', '$2y$10$4ZyDaDMApbY0w8RBahD6m.CPxJ/5Gaqojoql/6XPwnzN0fkg1R4zq', 0, NULL, NULL, NULL),
+('GOUIN', 'Tom', 'tom.gouin@example.com', '$2y$10$4ZyDaDMApbY0w8RBahD6m.CPxJ/5Gaqojoql/6XPwnzN0fkg1R4zq', 12, NULL, NULL, NULL),
+('CONGNARD', 'Evann', 'evann.congnard@example.com', '$2y$10$4ZyDaDMApbY0w8RBahD6m.CPxJ/5Gaqojoql/6XPwnzN0fkg1R4zq', 0, NULL, NULL, '31A'),
+('LE COZ', 'Erwan', 'erwan.lecoz@example.com', '$2y$10$4ZyDaDMApbY0w8RBahD6m.CPxJ/5Gaqojoql/6XPwnzN0fkg1R4zq', 0, NULL, NULL, '31B');
 
 -- Definition des roles
 INSERT INTO ASSIGNATION (id_membre, id_role) VALUES
