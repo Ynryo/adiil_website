@@ -23,10 +23,31 @@ class Admin
 
     public function chat()
     {
-        $this->show();
+        if (!isset($_SESSION['userid'])) {
+            header(self::LOGIN_REDIRECT);
+            exit();
+        }
+        if (!(isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'])) {
+            header(self::UNAUTHORIZED_REDIRECT);
+            exit();
+        }
+        include_once self::MODEL_PERMS;
+
+        $page = $_GET['page'] ?? '';
+        $parts = explode('/', $page);
+        $action = $parts[2] ?? 'show';
+
         include_once 'src/controller/admin/chatController.php';
         $chatController = new ChatController();
-        $chatController->show();
+
+        if ($action === 'poll') {
+            $chatController->poll();
+        } elseif ($action === 'send') {
+            $chatController->send();
+        } else {
+            include_once self::HEADER;
+            $chatController->show();
+        }
     }
 
     public function boutique()
@@ -220,10 +241,29 @@ class Admin
 
     public function actualites()
     {
-        $this->show();
+        if (!isset($_SESSION['userid'])) {
+            header(self::LOGIN_REDIRECT);
+            exit();
+        }
+        if (!(isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'])) {
+            header(self::UNAUTHORIZED_REDIRECT);
+            exit();
+        }
+        include_once self::MODEL_PERMS;
+
+        $page = $_GET['page'] ?? '';
+        $parts = explode('/', $page);
+        $action = $parts[2] ?? 'show';
+
         include_once 'src/controller/admin/actualitesController.php';
         $actualitesController = new ActualitesController();
-        $actualitesController->show();
+
+        if ($action === 'show' || !method_exists($actualitesController, $action)) {
+            include_once self::HEADER;
+            $actualitesController->show();
+        } else {
+            $actualitesController->$action();
+        }
     }
 
     public function history()

@@ -164,3 +164,12 @@ CREATE TABLE INSCRIPTION(
     FOREIGN KEY(id_membre) REFERENCES MEMBRE(id_membre),
     FOREIGN KEY(id_evenement) REFERENCES EVENEMENT(id_evenement)
 );
+
+CREATE TABLE IF NOT EXISTS CHAT_MESSAGE (
+    id_message INT AUTO_INCREMENT,
+    id_membre INT NOT NULL,
+    message TEXT NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT NOW(),
+    PRIMARY KEY(id_message),
+    FOREIGN KEY(id_membre) REFERENCES MEMBRE(id_membre) ON DELETE CASCADE
+);
