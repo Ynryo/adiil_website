@@ -34,8 +34,7 @@ class agenda
         
         $tp_user = getMembre($_SESSION['userid'])[0]['tp_membre'] ?? null;
         if ($tp_user === null || !isset($this->resourceMap[$tp_user])) {
-            http_response_code(400);
-            die('TP inconnu.');
+            header("Location: /?page=base-account");
         }
 
         $weekAnchor = $this->getWeekAnchorFromRequest();

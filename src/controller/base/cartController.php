@@ -1,6 +1,7 @@
 <?php
 
 require_once 'src/model/bdd/database.php';
+require_once 'src/model/bdd/membre.php';
 require_once 'src/model/utils/files_save.php';
 require_once 'src/model/utils/cart_class.php';
 
@@ -9,7 +10,7 @@ class cart
     public function show()
     {
         $db = DB::getInstance();
-        $cart = new cart();
+        $cart = cart_class::getInstance();
 
         // On récupère les produits du panier
         $ids = array_keys($_SESSION['cart']);

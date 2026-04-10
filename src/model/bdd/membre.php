@@ -140,7 +140,7 @@ function getAchatsMembre($id, $limit)
 function addXpToMembre($xp, $id)
 {
     $db = DB::getInstance();
-    return $db->select(
+    $db->query(
         "UPDATE MEMBRE m SET m.xp_membre = m.xp_membre + ? where m.id_membre = ?;",
         "ii",
         [$xp, $id]

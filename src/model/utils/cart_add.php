@@ -6,7 +6,7 @@ require_once 'src/model/utils/files_save.php';
 require_once 'src/model/utils/cart_class.php';
 
 // Initialisation du panier
-$cart = new cart();
+$cart = cart_class::getInstance();
 
 $json = array('error' => true);
 

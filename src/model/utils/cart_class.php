@@ -2,11 +2,12 @@
 
 require_once 'src/model/bdd/database.php';
 
-class cart
+class cart_class
 {
+    private static $instance;
     private $db;
 
-    public function __construct()
+    private function __construct()
     {
 
         if (!isset($_SESSION['cart'])) {
@@ -22,6 +23,14 @@ class cart
         if (isset($_POST['cart']['quantity'])) {
             $this->recalc();
         }
+    }
+    
+    public static function getInstance()
+    {
+        if (self::$instance == null) {
+            self::$instance = new cart_class();
+        }
+        return self::$instance;
     }
 
     public function recalc()

@@ -80,34 +80,32 @@
                     <input type="email" id="mail" name="mail" placeholder="Adresse mail"
                         value="<?= htmlspecialchars($this->infoUser[0]['email_membre']); ?>" required>
 
-                    <?php if (!empty($this->infoUser[0]['tp_membre'])): ?>
-                        <select id="tp" name="tp">
-                            <option value="11A" <?= $this->infoUser[0]['tp_membre'] === '11A' ? 'selected' : ''; ?>>TP 11 A
-                            </option>
-                            <option value="11B" <?= $this->infoUser[0]['tp_membre'] === '11B' ? 'selected' : ''; ?>>TP 11 B
-                            </option>
-                            <option value="12C" <?= $this->infoUser[0]['tp_membre'] === '12C' ? 'selected' : ''; ?>>TP 12 C
-                            </option>
-                            <option value="12D" <?= $this->infoUser[0]['tp_membre'] === '12D' ? 'selected' : ''; ?>>TP 12 D
-                            </option>
-                            <option value="21A" <?= $this->infoUser[0]['tp_membre'] === '21A' ? 'selected' : ''; ?>>TP 21 A
-                            </option>
-                            <option value="21B" <?= $this->infoUser[0]['tp_membre'] === '21B' ? 'selected' : ''; ?>>TP 21 B
-                            </option>
-                            <option value="22C" <?= $this->infoUser[0]['tp_membre'] === '22C' ? 'selected' : ''; ?>>TP 22 C
-                            </option>
-                            <option value="22D" <?= $this->infoUser[0]['tp_membre'] === '22D' ? 'selected' : ''; ?>>TP 22 D
-                            </option>
-                            <option value="31A" <?= $this->infoUser[0]['tp_membre'] === '31A' ? 'selected' : ''; ?>>TP 31 A
-                            </option>
-                            <option value="31B" <?= $this->infoUser[0]['tp_membre'] === '31B' ? 'selected' : ''; ?>>TP 31 B
-                            </option>
-                            <option value="32C" <?= $this->infoUser[0]['tp_membre'] === '32C' ? 'selected' : ''; ?>>TP 32 C
-                            </option>
-                            <option value="32D" <?= $this->infoUser[0]['tp_membre'] === '32D' ? 'selected' : ''; ?>>TP 32 D
-                            </option>
-                        </select>
-                    <?php endif; ?>
+                    <select id="tp" name="tp">
+                        <option value="11A" <?= $this->infoUser[0]['tp_membre'] === '11A' ? 'selected' : ''; ?>>TP 11 A
+                        </option>
+                        <option value="11B" <?= $this->infoUser[0]['tp_membre'] === '11B' ? 'selected' : ''; ?>>TP 11 B
+                        </option>
+                        <option value="12C" <?= $this->infoUser[0]['tp_membre'] === '12C' ? 'selected' : ''; ?>>TP 12 C
+                        </option>
+                        <option value="12D" <?= $this->infoUser[0]['tp_membre'] === '12D' ? 'selected' : ''; ?>>TP 12 D
+                        </option>
+                        <option value="21A" <?= $this->infoUser[0]['tp_membre'] === '21A' ? 'selected' : ''; ?>>TP 21 A
+                        </option>
+                        <option value="21B" <?= $this->infoUser[0]['tp_membre'] === '21B' ? 'selected' : ''; ?>>TP 21 B
+                        </option>
+                        <option value="22C" <?= $this->infoUser[0]['tp_membre'] === '22C' ? 'selected' : ''; ?>>TP 22 C
+                        </option>
+                        <option value="22D" <?= $this->infoUser[0]['tp_membre'] === '22D' ? 'selected' : ''; ?>>TP 22 D
+                        </option>
+                        <option value="31A" <?= $this->infoUser[0]['tp_membre'] === '31A' ? 'selected' : ''; ?>>TP 31 A
+                        </option>
+                        <option value="31B" <?= $this->infoUser[0]['tp_membre'] === '31B' ? 'selected' : ''; ?>>TP 31 B
+                        </option>
+                        <option value="32C" <?= $this->infoUser[0]['tp_membre'] === '32C' ? 'selected' : ''; ?>>TP 32 C
+                        </option>
+                        <option value="32D" <?= $this->infoUser[0]['tp_membre'] === '32D' ? 'selected' : ''; ?>>TP 32 D
+                        </option>
+                    </select>
                 </div>
             </div>
 

@@ -8,7 +8,7 @@ class order
 {
     public function show()
     {
-        $cart = new cart();
+        $cart = cart_class::getInstance();
 
         if (!isset($_SESSION["userid"])) {
             header("Location: /?page=base-login");
