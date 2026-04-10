@@ -1,15 +1,16 @@
 <?php
 
 require_once 'src/model/bdd/database.php';
+require_once 'src/model/bdd/membre.php';
 require_once 'src/model/utils/files_save.php';
 require_once 'src/model/utils/cart_class.php';
 
-class cart
+class Cart
 {
     public function show()
     {
         $db = DB::getInstance();
-        $cart = new cart();
+        $cart = Cart_class::getInstance();
 
         // On récupère les produits du panier
         $ids = array_keys($_SESSION['cart']);
@@ -28,6 +29,6 @@ class cart
             );
         }
 
-        include 'src/view/base/cartView.php';
+        include_once 'src/view/base/cartView.php';
     }
 }

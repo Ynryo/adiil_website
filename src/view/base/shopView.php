@@ -82,12 +82,13 @@
                                 <span> * </span>
                             <?php endif ?>
                         </p>
+                        <p><?= $product["stock_article"] ?> restant(s)</p>
                     </div>
                     <div>
                         <p id="stock-status">
                             <?php if ((int) $product['stock_article'] > 0 || (int) $product['stock_article'] < 0): ?>
                                 <a class="addCart" id="add-to-cart-button"
-                                    href="/?page=cartAdd?id=<?= htmlspecialchars($product['id_article']) ?>">
+                                    href="/?page=base-shop/add&id=<?= $product['id_article'] ?>">
                                     Ajouter au panier
                                 </a>
                             <?php else: ?>

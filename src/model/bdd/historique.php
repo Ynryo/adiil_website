@@ -11,7 +11,8 @@ function getHistorique($filters = [])
 
     if (!empty($filters['types'])) {
         $typePlaceholders = implode(',', array_fill(0, count($filters['types']), '?'));
-        $whereClauses[] = "type_transaction IN ($typePlaceholders)";
+        // On aligne ici aussi la collation sur ta base de données
+        $whereClauses[] = "type_transaction COLLATE utf8mb4_general_ci IN ($typePlaceholders)";
         foreach ($filters['types'] as $type) {
             $params[] = $type;
             $types .= 's';
@@ -19,7 +20,8 @@ function getHistorique($filters = [])
     }
 
     if (!empty($filters['user_search'])) {
-        $whereClauses[] = "(CONCAT(m.nom_membre COLLATE utf8mb4_unicode_ci, ' ', m.prenom_membre COLLATE utf8mb4_unicode_ci) LIKE ? COLLATE utf8mb4_unicode_ci)";
+        // Remplacement de unicode_ci par general_ci pour correspondre à ta BDD
+        $whereClauses[] = "(CONCAT(m.nom_membre COLLATE utf8mb4_general_ci, ' ', m.prenom_membre COLLATE utf8mb4_general_ci) LIKE ? COLLATE utf8mb4_general_ci)";
         $params[] = '%' . $filters['user_search'] . '%';
         $types .= 's';
     }

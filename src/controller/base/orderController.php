@@ -4,11 +4,11 @@ require_once "src/model/bdd/membre.php";
 require_once "src/model/utils/files_save.php";
 require_once "src/model/utils/cart_class.php";
 
-class order
+class Order
 {
     public function show()
     {
-        $cart = new cart();
+        $cart = Cart_class::getInstance();
 
         if (!isset($_SESSION["userid"])) {
             header("Location: /?page=base-login");
@@ -89,6 +89,6 @@ class order
             }
         }
 
-        include 'src/view/base/orderView.php';
+        include_once 'src/view/base/orderView.php';
     }
 }

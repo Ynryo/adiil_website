@@ -4,7 +4,7 @@ declare(strict_types=1);
 require_once 'src/model/bdd/membre.php';
 require_once 'src/model/bdd/evenement.php';
 
-class agenda
+class Agenda
 {
     private const START_HOUR = 8;
     private const END_HOUR = 21;
@@ -28,14 +28,13 @@ class agenda
 
     public function show()
     {
-        if($_SESSION['userid'] == null) {
+        if ($_SESSION['userid'] == null) {
             header("Location: /?page=base-login");
         }
-        
+
         $tp_user = getMembre($_SESSION['userid'])[0]['tp_membre'] ?? null;
         if ($tp_user === null || !isset($this->resourceMap[$tp_user])) {
-            http_response_code(400);
-            die('TP inconnu.');
+            header("Location: /?page=base-account");
         }
 
         $weekAnchor = $this->getWeekAnchorFromRequest();
