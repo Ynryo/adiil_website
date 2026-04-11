@@ -1,14 +1,13 @@
 {
-    "name": "totot/sae4",
-    "autoload": {
-        "psr-4": {
-            "Totot\\Sae4\\": "src/"
-        }
-    },
+    "name": "adiil/website",
     "authors": [
         {
             "name": "MUSSET Thomas",
             "email": "thomas.musset.etu@univ-lemans.fr"
+        },
+        {
+            "name": "ATIDE-KLEIN Ewen",
+            "email": "ewen.atide--klein.etu@univ-lemans.fr"
         }
     ],
     "require": {

@@ -94,7 +94,7 @@
                     </div>
                     <div>
                         <input type="date" name="date"
-                            value="<?= htmlspecialchars(explode(' ', $selectedEvent['date_evenement'])[0]) ?>">
+                            value="<?= htmlspecialchars(explode(' ', $selectedEvent['date_debut_evenement'])[0]) ?>">
                     </div>
                 </div>
 

@@ -1,9 +1,9 @@
 <?php
 
-class about
+class About
 {
     public function show()
     {
-        include 'src/view/base/aboutView.php';
+        include_once 'src/view/base/aboutView.php';
     }
 }

@@ -10,6 +10,8 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" />
     <link rel="shortcut icon" href="assets/image/admin/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="assets/css/admin/general.css">
     <link rel="stylesheet" href="assets/css/admin/admin.css">
@@ -18,7 +20,10 @@
 
 <body id="main">
     <nav>
-        <h1 href="/?base-home" style="cursor: pointer;">ADIIL - Admin</h1>
+        <a href="/?page=base-home" class="logo">
+            <img src="assets/image/base/logo.png" alt="Logo de l'ADIIL">
+            <h1>Administration</h1>
+        </a>
         <ul>
             <?php
             $onglets = [ //nom img, id permission, nom onglet
@@ -35,7 +40,7 @@
                 ["logs", "p_log", "Logs"]
             ];
             foreach ($onglets as $onglet) {
-                if (hasPermission($onglet[1]) || $onglet[1] == "p_chat") {
+                if ($onglet[1] == "p_chat" || hasPermission($onglet[1])) {
                     echo '<li perm="' . $onglet[0] . '">
                         <a href="/?page=admin-admin/' . $onglet[0] . '">
                             <img src="assets/image/admin/panels_icons/' . $onglet[0] . '.svg" alt="Icone de la ' . $onglet[0] . '">

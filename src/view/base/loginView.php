@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
+
     <title>Connexion</title>
 
     <link rel="stylesheet" href="assets/css/base/login_style.css">
     <link rel="stylesheet" href="assets/css/base/general_style.css">
+    <link rel="stylesheet" href="assets/css/base/error_style.css">
 </head>
 
 <body>
@@ -32,7 +34,8 @@
         <h2>Pas encore de compte ?</h2>
         <button type="submit">Créez en un</button>
     </form>
-        
+
     <?php require_once 'src/view/footer.php'; ?>
 </body>
+
 </html>

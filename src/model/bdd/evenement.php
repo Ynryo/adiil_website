@@ -4,7 +4,7 @@ require_once "src/model/bdd/database.php";
 function getAllEvenements()
 {
     $db = DB::getInstance();
-    return $db->select("SELECT id_evenement, nom_evenement FROM EVENEMENT WHERE deleted = FALSE ORDER BY date_evenement DESC");
+    return $db->select("SELECT id_evenement, nom_evenement, date_debut_evenement, lieu_evenement FROM EVENEMENT WHERE deleted = FALSE ORDER BY date_debut_evenement DESC");
 }
 
 function getEvenement($id)
@@ -22,7 +22,7 @@ function createEvenement()
 {
     $db = DB::getInstance();
     return $db->query(
-        "INSERT INTO EVENEMENT (nom_evenement, xp_evenement, places_evenement, prix_evenement, reductions_evenement, lieu_evenement, date_evenement, image_evenement, description_evenement) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO EVENEMENT (nom_evenement, xp_evenement, places_evenement, prix_evenement, reductions_evenement, lieu_evenement, date_debut_evenement, image_evenement, description_evenement) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "siiidssss",
         ["Nouvel événement", 10, 0, 0, 1, "Lieu de l'événement", date('Y-m-d'), NULL, "Description de l'événement"]
     );
@@ -32,7 +32,7 @@ function updateEvenement($id, $nom, $description, $xp, $places, $prix, $lieu, $d
 {
     $db = DB::getInstance();
     $db->query(
-        "UPDATE EVENEMENT SET nom_evenement = ?, description_evenement = ?, xp_evenement = ?, places_evenement = ?, prix_evenement = ?, lieu_evenement = ?, date_evenement = ?, reductions_evenement = ? WHERE id_evenement = ?",
+        "UPDATE EVENEMENT SET nom_evenement = ?, description_evenement = ?, xp_evenement = ?, places_evenement = ?, prix_evenement = ?, lieu_evenement = ?, date_debut_evenement = ?, reductions_evenement = ? WHERE id_evenement = ?",
         "ssiidssii",
         [$nom, $description, $xp, $places, $prix, $lieu, $date, $reductions, $id]
     );
@@ -57,7 +57,7 @@ function updateEvenementImage($id, $imageName)
 function getNextEvenement($date, $limit)
 {
     $db = DB::getInstance();
-    $sql = "SELECT id_evenement, nom_evenement, lieu_evenement, date_evenement FROM EVENEMENT WHERE date_evenement >= ? AND deleted = false ORDER BY date_evenement ASC" . ($limit != null ? " LIMIT $limit;" : ";");
+    $sql = "SELECT id_evenement, nom_evenement, lieu_evenement, date_debut_evenement FROM EVENEMENT WHERE date_debut_evenement >= ? AND deleted = false ORDER BY date_debut_evenement ASC" . ($limit != null ? " LIMIT $limit;" : ";");
     return $db->select(
         $sql,
         "s",
@@ -68,7 +68,7 @@ function getNextEvenement($date, $limit)
 function getPastEvenement($date, $limit)
 {
     $db = DB::getInstance();
-    $sql = "SELECT id_evenement, nom_evenement, lieu_evenement, date_evenement FROM EVENEMENT WHERE date_evenement < ? AND deleted = false ORDER BY date_evenement DESC" . ($limit != null ? " LIMIT $limit;" : ";");
+    $sql = "SELECT id_evenement, nom_evenement, lieu_evenement, date_debut_evenement FROM EVENEMENT WHERE date_debut_evenement < ? AND deleted = false ORDER BY date_debut_evenement DESC" . ($limit != null ? " LIMIT $limit;" : ";");
     return $db->select(
         $sql,
         "s",
@@ -94,6 +94,16 @@ function isSubscribed($id_membre, $id_evenement)
         "ii",
         [$id_membre, $id_evenement]
     ));
+}
+
+function eventWhereMembreIsSubscribed($id_membre)
+{
+    $db = DB::getInstance();
+    return $db->select(
+        "SELECT id_evenement FROM INSCRIPTION WHERE id_membre = ?;",
+        "i",
+        [$id_membre]
+    );
 }
 
 function subscribeMembreToEvenement($id_membre, $id_evenement, $prix)

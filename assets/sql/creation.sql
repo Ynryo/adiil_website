@@ -76,7 +76,8 @@ CREATE TABLE EVENEMENT(
     prix_evenement INT NOT NULL,
     reductions_evenement BIT NOT NULL DEFAULT 1,
     lieu_evenement VARCHAR(50) NOT NULL,
-    date_evenement DATETIME NOT NULL,
+    date_debut_evenement DATETIME NOT NULL,
+    date_fin_evenement DATETIME NOT NULL,
     image_evenement VARCHAR(255),
     description_evenement TEXT,
     PRIMARY KEY(id_evenement)
@@ -162,4 +163,13 @@ CREATE TABLE INSCRIPTION(
     PRIMARY KEY(id_membre, id_evenement),
     FOREIGN KEY(id_membre) REFERENCES MEMBRE(id_membre),
     FOREIGN KEY(id_evenement) REFERENCES EVENEMENT(id_evenement)
+);
+
+CREATE TABLE IF NOT EXISTS CHAT_MESSAGE (
+    id_message INT AUTO_INCREMENT,
+    id_membre INT NOT NULL,
+    message TEXT NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT NOW(),
+    PRIMARY KEY(id_message),
+    FOREIGN KEY(id_membre) REFERENCES MEMBRE(id_membre) ON DELETE CASCADE
 );

@@ -9,16 +9,16 @@ INSERT INTO ROLE (nom_role, p_log_role, p_boutique_role, p_reunion_role, p_utili
 
 -- Insertion des membres
 INSERT INTO MEMBRE (nom_membre, prenom_membre, email_membre, password_membre, xp_membre, discord_token_membre, pp_membre, tp_membre) VALUES
-('RUFFAULT--RAVENEL', 'Gemino', 'gemino.ruffault@example.com', '$2y$10$oFylvlAz4ugNIWxRb6C9tuKcyMX3AN97fmIZhGJr2zyxo5RzTRKPO', 50, NULL, 'http://files.bdeinfo.fr/fes2fse1f21se.jpg', '11A'),
-('HANNIER', 'Axelle', 'axelle.hannier@example.com', '$2y$10$W1hVuGCabIgfBtywA1XBN.rIz0seoMT0u1e63TsV9Zl2BTWs3fuAW', 18, NULL, '2.jpg', '12C'),
-('DAUVERGNE', 'Julien', 'julien.dauvergne@example.com', '$2y$10$jElJU3PY2wLPTYr3wFFSKOXqpbPhAXlqPOsqND/6VsPaS2ep7teOe', 0, 'g4rd64g6rd4g8f4e64h5bv231h5th44g5ht6h87yj8ty6', 'http://files.bdeinfo.fr/gprdgrd5.jpg','31A'),
-('DELAYE', 'Baptiste', 'baptiste.delahay@example.com', '$2y$10$m4T0vn5KLlZkb8lVU4Lxj.s2JYWXi961zl5o3yAlBYRhNz8a5QAvG', 0, NULL, 'http://files.bdeinfo.fr/h5th42fth.jpg', '32D'),
-('VIEILLARD', 'Nathalie', 'nathalie.vieillard@example.com', '$2y$10$iV3H5vcRzwvAxLVccdCUB.Mgu0024D8wMM6ZFnE0oVzKod8.zT3/q', 11, NULL, 'http://files.bdeinfo.fr/jygjgy56yjg.jpg', NULL),
-('HAVARD', 'Barnabe', 'barnabe.havard@example.com', '$2y$10$0pIz8stU9.rXcCjPn2lPju2BSUwMZAK6rBlnvOa4lpvd3oPFG0wWK', 0, 'kiuilui4l8iul654hg2g', 'http://files.bdeinfo.fr/fesifo45ht45h.jpg', '11A'),
-('FEVRIER', 'Theo', 'theo.fevrier@example.com', '$2y$10$KcZ5VshLmFq6LlsV97GaC.8kSa0zpa6aVl2rONiM4Vuu.JbvY1qiy', 0, NULL, 'http://files.bdeinfo.fr/gr68grg.jpg', NULL),
-('GOUIN', 'Tom', 'tom.gouin@example.com', '$2y$10$NXHF18OTKyo2X5VCL3lIGuLbUC1wnmLZd.PMLQlmb4c3Omut6eEzq', 12, NULL, 'http://files.bdeinfo.fr/fesf4556fe.jpg', NULL),
-('CONGNARD', 'Evann', 'evann.congnard@example.com', '$2y$10$7XaRqYy3pjHccQ49TSsHb.FYwqYwvXursrfd718KrADcMA2VGc/kS', 0, NULL, 'http://files.bdeinfo.fr/2f1e2sfs.jpg', '31A'),
-('LE COZ', 'Erwan', 'erwan.lecoz@example.com', '$2y$10$kbISruZXQhMHGHgx6L08AO1J5O7tRttrtc/S./qboXojbYPWbE3de', 0, NULL, 'http://files.bdeinfo.fr/fesf45ef6s4fes6.jpg', '31B');
+('RUFFAULT--RAVENEL', 'Gemino', 'gemino.ruffault@example.com', '$2y$10$4ZyDaDMApbY0w8RBahD6m.CPxJ/5Gaqojoql/6XPwnzN0fkg1R4zq', 50, NULL, NULL, '11A'),
+('HANNIER', 'Axelle', 'axelle.hannier@example.com', '$2y$10$4ZyDaDMApbY0w8RBahD6m.CPxJ/5Gaqojoql/6XPwnzN0fkg1R4zq', 18, NULL, '2.jpg', '12C'),
+('DAUVERGNE', 'Julien', 'julien.dauvergne@example.com', '$2y$10$4ZyDaDMApbY0w8RBahD6m.CPxJ/5Gaqojoql/6XPwnzN0fkg1R4zq', 0, 'g4rd64g6rd4g8f4e64h5bv231h5th44g5ht6h87yj8ty6', NULL,'31A'),
+('DELAYE', 'Baptiste', 'baptiste.delahay@example.com', '$2y$10$4ZyDaDMApbY0w8RBahD6m.CPxJ/5Gaqojoql/6XPwnzN0fkg1R4zq', 0, NULL, NULL, '32D'),
+('VIEILLARD', 'Nathalie', 'nathalie.vieillard@example.com', '$2y$10$4ZyDaDMApbY0w8RBahD6m.CPxJ/5Gaqojoql/6XPwnzN0fkg1R4zq', 11, NULL, NULL, NULL),
+('HAVARD', 'Barnabe', 'barnabe.havard@example.com', '$2y$10$4ZyDaDMApbY0w8RBahD6m.CPxJ/5Gaqojoql/6XPwnzN0fkg1R4zq', 0, 'kiuilui4l8iul654hg2g', NULL, '11A'),
+('FEVRIER', 'Theo', 'theo.fevrier@example.com', '$2y$10$4ZyDaDMApbY0w8RBahD6m.CPxJ/5Gaqojoql/6XPwnzN0fkg1R4zq', 0, NULL, NULL, NULL),
+('GOUIN', 'Tom', 'tom.gouin@example.com', '$2y$10$4ZyDaDMApbY0w8RBahD6m.CPxJ/5Gaqojoql/6XPwnzN0fkg1R4zq', 12, NULL, NULL, NULL),
+('CONGNARD', 'Evann', 'evann.congnard@example.com', '$2y$10$4ZyDaDMApbY0w8RBahD6m.CPxJ/5Gaqojoql/6XPwnzN0fkg1R4zq', 0, NULL, NULL, '31A'),
+('LE COZ', 'Erwan', 'erwan.lecoz@example.com', '$2y$10$4ZyDaDMApbY0w8RBahD6m.CPxJ/5Gaqojoql/6XPwnzN0fkg1R4zq', 0, NULL, NULL, '31B');
 
 -- Definition des roles
 INSERT INTO ASSIGNATION (id_membre, id_role) VALUES
@@ -30,9 +30,9 @@ INSERT INTO ASSIGNATION (id_membre, id_role) VALUES
 
 -- Ajout des grades
 INSERT INTO GRADE (reduction_grade, image_grade, prix_grade, description_grade, nom_grade) VALUES
-(0, 'http://files.bdeinfo.fr/grade_fer.jpg', 5, 'Un grade de base en fer.', 'Fer'),
-(0, 'http://files.bdeinfo.fr/grade_or.jpg', 10, 'Un grade supérieur en or.', 'Or'),
-(10, 'http://files.bdeinfo.fr/grade_diamand.jpg', 13, 'Le grade ultime en diamant.', 'Diamant');
+(0, 'fer.png', 5, 'Un grade de base en fer.', 'Fer'),
+(0, 'or.png', 10, 'Un grade supérieur en or.', 'Or'),
+(10, 'diamant.png', 13, 'Le grade ultime en diamant.', 'Diamant');
 
 -- Insertion des adhésions
 INSERT INTO ADHESION (date_adhesion, prix_adhesion, paiement_adhesion, id_membre, id_grade) VALUES
@@ -69,21 +69,21 @@ INSERT INTO COMMANDE (statut_commande, prix_commande, paiement_commande, date_co
 (1, 1.60, 'Especes', NOW(), 4, 10, 10);        -- Baptiste achete 4 Volvic
 
 -- Ajout des evenements
-INSERT INTO EVENEMENT (nom_evenement, xp_evenement, places_evenement, prix_evenement, reductions_evenement, lieu_evenement, date_evenement, image_evenement, description_evenement) VALUES
-('LAN Minecraft', 10, 100, 20, 1, 'Amphi 1', '2026-09-15 10:00:00', NULL, NULL),
-('Competition CSGO', 10, 200, 15, 1, 'Amphi 1', '2026-10-20 14:00:00', NULL, NULL),
-('Raclette', 10, 30, 25, 0, 'TD2', '2026-11-05 18:30:00', NULL, NULL),
-('Loup Garou', 10, 150, 10, 1, 'TD2', '2026-12-10 19:00:00', NULL, NULL),
-('LAN Mario Kart', 10, 1, 5, 1, 'Amphi 3', '2027-01-15 15:00:00', NULL, NULL),
-('Barbecue de l''ADIIL', 10, 300, 10, 1, 'Parking du Batiment Dep. Informatique', '2027-05-01 12:00:00', NULL, NULL),
-('Raclette 2', 10, 75, 12, 0, 'TD2', '2027-05-20 18:30:00', NULL, NULL),
-('Course de Caddie Carrefour', 10, 100, 10, 1, 'Carrefour', '2027-06-10 10:00:00', NULL, NULL),
-('Soiree Bar', 10, 200, 15, 1, 'Bar l''After Work', '2027-06-20 20:00:00', NULL, NULL),
-('Barbecue de Depart', 10, 50, 30, 0, 'Centre de Conferences', '2027-07-01 12:00:00', NULL, NULL),
-('Evenement passé', 10, 10, 30, 0, 'Quelque part', '2025-07-01 12:00:00', NULL, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis hendrerit mi. Donec sit amet nisl placerat, tristique dolor vitae, condimentum ipsum. Nam eget neque vel enim commodo pretium in vel sem. Curabitur at libero sollicitudin, placerat erat vel, ultrices nisi. Vestibulum mattis eu sem sed laoreet. Nullam posuere eu risus non volutpat. Etiam tempus nisl eu felis porta rutrum. Cras lectus quam, pharetra ultrices ullamcorper at, rhoncus quis dolor. Aliquam vel metus vitae elit iaculis consectetur nec non lorem. In fermentum nec lacus sed rutrum. Nullam quis congue velit. Quisque eu lectus interdum, fermentum neque non, imperdiet ex. "),
-('Evenement en cours', 10, 50, 30, 0, 'Quelque part', '2026-07-01 12:00:00', NULL, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis hendrerit mi. Donec sit amet nisl placerat, tristique dolor vitae, condimentum ipsum. Nam eget neque vel enim commodo pretium in vel sem. Curabitur at libero sollicitudin, placerat erat vel, ultrices nisi. Vestibulum mattis eu sem sed laoreet. Nullam posuere eu risus non volutpat. Etiam tempus nisl eu felis porta rutrum. Cras lectus quam, pharetra ultrices ullamcorper at, rhoncus quis dolor. Aliquam vel metus vitae elit iaculis consectetur nec non lorem. In fermentum nec lacus sed rutrum. Nullam quis congue velit. Quisque eu lectus interdum, fermentum neque non, imperdiet ex. "),
-('Evenement plein', 10, 0, 30, 0, 'Quelque part', '2026-07-01 12:00:00', NULL, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis hendrerit mi. Donec sit amet nisl placerat, tristique dolor vitae, condimentum ipsum. Nam eget neque vel enim commodo pretium in vel sem. Curabitur at libero sollicitudin, placerat erat vel, ultrices nisi. Vestibulum mattis eu sem sed laoreet. Nullam posuere eu risus non volutpat. Etiam tempus nisl eu felis porta rutrum. Cras lectus quam, pharetra ultrices ullamcorper at, rhoncus quis dolor. Aliquam vel metus vitae elit iaculis consectetur nec non lorem. In fermentum nec lacus sed rutrum. Nullam quis congue velit. Quisque eu lectus interdum, fermentum neque non, imperdiet ex. "),
-('Evenement inscrit', 10, 5, 30, 0, 'Quelque part', '2026-07-01 12:00:00', NULL, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis hendrerit mi. Donec sit amet nisl placerat, tristique dolor vitae, condimentum ipsum. Nam eget neque vel enim commodo pretium in vel sem. Curabitur at libero sollicitudin, placerat erat vel, ultrices nisi. Vestibulum mattis eu sem sed laoreet. Nullam posuere eu risus non volutpat. Etiam tempus nisl eu felis porta rutrum. Cras lectus quam, pharetra ultrices ullamcorper at, rhoncus quis dolor. Aliquam vel metus vitae elit iaculis consectetur nec non lorem. In fermentum nec lacus sed rutrum. Nullam quis congue velit. Quisque eu lectus interdum, fermentum neque non, imperdiet ex. ");
+INSERT INTO EVENEMENT (nom_evenement, xp_evenement, places_evenement, prix_evenement, reductions_evenement, lieu_evenement, date_debut_evenement, date_fin_evenement, image_evenement, description_evenement) VALUES
+('LAN Minecraft', 10, 100, 20, 1, 'Amphi 1', '2026-09-15 10:00:00', '2026-09-15 12:00:00', NULL, NULL),
+('Competition CSGO', 10, 200, 15, 1, 'Amphi 1', '2026-10-20 14:00:00', '2026-10-20 16:00:00', NULL, NULL),
+('Raclette', 10, 30, 25, 0, 'TD2', '2026-11-05 18:30:00', '2026-11-05 20:00:00', NULL, NULL),
+('Loup Garou', 10, 150, 10, 1, 'TD2', '2026-12-10 19:00:00', '2026-12-10 21:00:00', NULL, NULL),
+('LAN Mario Kart', 10, 1, 5, 1, 'Amphi 3', '2027-01-15 15:00:00', '2027-01-15 17:00:00', NULL, NULL),
+('Barbecue de l''ADIIL', 10, 300, 10, 1, 'Parking du Batiment Dep. Informatique', '2027-05-01 12:00:00', '2027-05-01 13:30:00', NULL, NULL),
+('Raclette 2', 10, 75, 12, 0, 'TD2', '2027-05-20 18:30:00', '2027-05-20 21:00:00', NULL, NULL),
+('Course de Caddie Carrefour', 10, 100, 10, 1, 'Carrefour', '2027-06-10 10:00:00', '2027-06-10 12:00:00', NULL, NULL),
+('Soiree Bar', 10, 200, 15, 1, 'Bar l''After Work', '2027-06-20 20:00:00', '2027-06-20 21:00:00', NULL, NULL),
+('Barbecue de Depart', 10, 50, 30, 0, 'Centre de Conferences', '2027-07-01 12:00:00', '2027-07-01 13:00:00', NULL, NULL),
+('Evenement passé', 10, 10, 30, 0, 'Quelque part', '2025-07-01 12:00:00', '2025-07-01 13:00:00', NULL, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis hendrerit mi. Donec sit amet nisl placerat, tristique dolor vitae, condimentum ipsum. Nam eget neque vel enim commodo pretium in vel sem. Curabitur at libero sollicitudin, placerat erat vel, ultrices nisi. Vestibulum mattis eu sem sed laoreet. Nullam posuere eu risus non volutpat. Etiam tempus nisl eu felis porta rutrum. Cras lectus quam, pharetra ultrices ullamcorper at, rhoncus quis dolor. Aliquam vel metus vitae elit iaculis consectetur nec non lorem. In fermentum nec lacus sed rutrum. Nullam quis congue velit. Quisque eu lectus interdum, fermentum neque non, imperdiet ex. "),
+('Evenement en cours', 10, 50, 30, 0, 'Quelque part', '2026-07-01 12:00:00', '2026-07-01 13:00:00', NULL, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis hendrerit mi. Donec sit amet nisl placerat, tristique dolor vitae, condimentum ipsum. Nam eget neque vel enim commodo pretium in vel sem. Curabitur at libero sollicitudin, placerat erat vel, ultrices nisi. Vestibulum mattis eu sem sed laoreet. Nullam posuere eu risus non volutpat. Etiam tempus nisl eu felis porta rutrum. Cras lectus quam, pharetra ultrices ullamcorper at, rhoncus quis dolor. Aliquam vel metus vitae elit iaculis consectetur nec non lorem. In fermentum nec lacus sed rutrum. Nullam quis congue velit. Quisque eu lectus interdum, fermentum neque non, imperdiet ex. "),
+('Evenement plein', 10, 0, 30, 0, 'Quelque part', '2026-07-01 12:00:00', '2026-07-01 13:00:00', NULL, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis hendrerit mi. Donec sit amet nisl placerat, tristique dolor vitae, condimentum ipsum. Nam eget neque vel enim commodo pretium in vel sem. Curabitur at libero sollicitudin, placerat erat vel, ultrices nisi. Vestibulum mattis eu sem sed laoreet. Nullam posuere eu risus non volutpat. Etiam tempus nisl eu felis porta rutrum. Cras lectus quam, pharetra ultrices ullamcorper at, rhoncus quis dolor. Aliquam vel metus vitae elit iaculis consectetur nec non lorem. In fermentum nec lacus sed rutrum. Nullam quis congue velit. Quisque eu lectus interdum, fermentum neque non, imperdiet ex. "),
+('Evenement inscrit', 10, 5, 30, 0, 'Quelque part', '2026-07-01 12:00:00', '2026-07-01 13:00:00', NULL, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis hendrerit mi. Donec sit amet nisl placerat, tristique dolor vitae, condimentum ipsum. Nam eget neque vel enim commodo pretium in vel sem. Curabitur at libero sollicitudin, placerat erat vel, ultrices nisi. Vestibulum mattis eu sem sed laoreet. Nullam posuere eu risus non volutpat. Etiam tempus nisl eu felis porta rutrum. Cras lectus quam, pharetra ultrices ullamcorper at, rhoncus quis dolor. Aliquam vel metus vitae elit iaculis consectetur nec non lorem. In fermentum nec lacus sed rutrum. Nullam quis congue velit. Quisque eu lectus interdum, fermentum neque non, imperdiet ex. ");
 
 -- Ajout des inscriptions
 INSERT INTO INSCRIPTION (id_membre, id_evenement, date_inscription, paiement_inscription, prix_inscription) VALUES

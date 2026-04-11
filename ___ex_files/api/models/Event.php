@@ -17,7 +17,7 @@ class Event extends BaseModel implements JsonSerializable
 
     public function update(string $nom, string $description, int $xp, int $places, bool $reductions, float $prix, string $lieu, string $date) : Event
     {
-        $this->DB->query("UPDATE EVENEMENT SET nom_evenement = ?, xp_evenement = ?, places_evenement = ?, reductions_evenement = ?, prix_evenement = ?, lieu_evenement = ?, date_evenement = ?, description_evenement = ? WHERE id_evenement = ?", "siiidsssi", [$nom, $xp, $places, $reductions, $prix, $lieu, $date, $description, $this->id]);
+        $this->DB->query("UPDATE EVENEMENT SET nom_evenement = ?, xp_evenement = ?, places_evenement = ?, reductions_evenement = ?, prix_evenement = ?, lieu_evenement = ?, date_debut_evenement = ?, description_evenement = ? WHERE id_evenement = ?", "siiidsssi", [$nom, $xp, $places, $reductions, $prix, $lieu, $date, $description, $this->id]);
 
         return $this;
     }
@@ -51,7 +51,7 @@ class Event extends BaseModel implements JsonSerializable
     public static function create(string $nom, string $description, int $xp, int $places, bool $reductions, float $prix, string $lieu, string $date) : Event
     {
         $DB = new \DB();
-        $id = $DB->query("INSERT INTO EVENEMENT (nom_evenement, xp_evenement, places_evenement, reductions_evenement, prix_evenement, lieu_evenement, date_evenement, description_evenement)
+        $id = $DB->query("INSERT INTO EVENEMENT (nom_evenement, xp_evenement, places_evenement, reductions_evenement, prix_evenement, lieu_evenement, date_debut_evenement, description_evenement)
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?)", "siiidsss", [$nom, $xp, $places, $reductions, $prix, $lieu, $date, $description]);
 
         return new Event($id);

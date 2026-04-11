@@ -2,38 +2,50 @@
 
 require_once 'src/model/bdd/database.php';
 
-class cart {
+class Cart_class
+{
+    private static $instance;
     private $db;
 
-    public function __construct(){
+    private function __construct()
+    {
 
-        if(!isset($_SESSION['cart'])) {
+        if (!isset($_SESSION['cart'])) {
             $_SESSION['cart'] = [];
         }
 
         $this->db = DB::getInstance();
 
-        if(isset($_GET['del'])){
+        if (isset($_GET['del'])) {
             $this->del($_GET['del']);
         }
 
-        if(isset($_POST['cart']['quantity'])) {
+        if (isset($_POST['cart']['quantity'])) {
             $this->recalc();
         }
     }
 
-    public function recalc() {
+    public static function getInstance()
+    {
+        if (self::$instance == null) {
+            self::$instance = new Cart_class();
+        }
+        return self::$instance;
+    }
+
+    public function recalc()
+    {
         // Récupérer tous les ids des produits présents dans le panier
         $product_ids = array_keys($_SESSION['cart']);
         if (empty($product_ids)) {
-            return; 
+            return;
         }
 
         // Requête pour récupérer les stocks
         $placeholders = implode(',', array_fill(0, count($product_ids), '?'));
         $query = "SELECT id_article, stock_article FROM ARTICLE WHERE id_article IN ($placeholders)";
         $products = $this->db->select($query, str_repeat("i", count($product_ids)), $product_ids);
-        
+
         $stocks = [];
         foreach ($products as $product) {
             $stocks[$product['id_article']] = $product['stock_article'];
@@ -61,19 +73,19 @@ class cart {
             }
         }
     }
-    
-    public function total(){
+
+    public function total()
+    {
         $total = 0;
 
         $ids = array_keys($_SESSION['cart']);
-        if(empty($ids)){
+        if (empty($ids)) {
             $products = [];
-        }
-        else {
+        } else {
             $placeholders = implode(",", array_fill(0, count($ids), "?"));
             $query = "SELECT id_article, prix_article FROM ARTICLE WHERE id_article IN ($placeholders)";
             $types = str_repeat("i", count($ids));
-            
+
             $products = $this->db->select(
                 $query,
                 $types,
@@ -81,25 +93,28 @@ class cart {
             );
         }
 
-        foreach ($products as $product){
-            $total+= $product['prix_article'] * $_SESSION['cart'][$product['id_article'] ];
+        foreach ($products as $product) {
+            $total += $product['prix_article'] * $_SESSION['cart'][$product['id_article']];
         }
         return $total;
     }
 
-    public function count () {
+    public function count()
+    {
         return array_sum($_SESSION['cart']);
     }
 
-    public function add ($product_id) {
-        if(isset($_SESSION['cart'][$product_id])){
+    public function add($product_id)
+    {
+        if (isset($_SESSION['cart'][$product_id])) {
             $_SESSION['cart'][$product_id]++;
-        }else{
+        } else {
             $_SESSION['cart'][$product_id] = 1;
         }
     }
 
-    public function del ($product_id) {
+    public function del($product_id)
+    {
         unset($_SESSION['cart'][$product_id]);
     }
 

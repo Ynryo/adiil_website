@@ -3,7 +3,7 @@
 class Admin
 {
     public const UNAUTHORIZED_REDIRECT = 'Location: src/view/admin/unauthorized.html';
-    public const LOGIN_REDIRECT = 'Location: src/view/login.php';
+    public const LOGIN_REDIRECT = 'Location: /?page=base-login';
     public const HEADER = "src/view/admin/header.php";
     public const MODEL_PERMS = "src/model/utils/permissions.php";
 
@@ -23,10 +23,31 @@ class Admin
 
     public function chat()
     {
-        $this->show();
+        if (!isset($_SESSION['userid'])) {
+            header(self::LOGIN_REDIRECT);
+            exit();
+        }
+        if (!(isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'])) {
+            header(self::UNAUTHORIZED_REDIRECT);
+            exit();
+        }
+        include_once self::MODEL_PERMS;
+
+        $page = $_GET['page'] ?? '';
+        $parts = explode('/', $page);
+        $action = $parts[2] ?? 'show';
+
         include_once 'src/controller/admin/chatController.php';
         $chatController = new ChatController();
-        $chatController->show();
+
+        if ($action === 'poll') {
+            $chatController->poll();
+        } elseif ($action === 'send') {
+            $chatController->send();
+        } else {
+            include_once self::HEADER;
+            $chatController->show();
+        }
     }
 
     public function boutique()
@@ -155,7 +176,13 @@ class Admin
 
         include_once 'src/controller/admin/comptabiliteController.php';
         $comptabiliteController = new ComptabiliteController();
-        $comptabiliteController->show();
+
+        if ($action === 'show' || !method_exists($comptabiliteController, $action)) {
+            include_once self::HEADER;
+            $comptabiliteController->show();
+        } else {
+            $comptabiliteController->$action();
+        }
     }
 
     public function reunions()
@@ -214,25 +241,82 @@ class Admin
 
     public function actualites()
     {
-        $this->show();
+        if (!isset($_SESSION['userid'])) {
+            header(self::LOGIN_REDIRECT);
+            exit();
+        }
+        if (!(isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'])) {
+            header(self::UNAUTHORIZED_REDIRECT);
+            exit();
+        }
+        include_once self::MODEL_PERMS;
+
+        $page = $_GET['page'] ?? '';
+        $parts = explode('/', $page);
+        $action = $parts[2] ?? 'show';
+
         include_once 'src/controller/admin/actualitesController.php';
         $actualitesController = new ActualitesController();
-        $actualitesController->show();
+
+        if ($action === 'show' || !method_exists($actualitesController, $action)) {
+            include_once self::HEADER;
+            $actualitesController->show();
+        } else {
+            $actualitesController->$action();
+        }
     }
 
     public function history()
     {
-        $this->show();
+        if (!isset($_SESSION['userid'])) {
+            header(self::LOGIN_REDIRECT);
+            exit();
+        }
+        if (!(isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'])) {
+            header(self::UNAUTHORIZED_REDIRECT);
+            exit();
+        }
+        include_once self::MODEL_PERMS;
+
+        $page = $_GET['page'] ?? '';
+        $parts = explode('/', $page);
+        $action = $parts[2] ?? 'show';
+
         include_once 'src/controller/admin/historyController.php';
         $historyController = new HistoryController();
-        $historyController->show();
+
+        if ($action === 'show' || !method_exists($historyController, $action)) {
+            include_once self::HEADER;
+            $historyController->show();
+        } else {
+            $historyController->$action();
+        }
     }
 
     public function logs()
     {
-        $this->show();
+        if (!isset($_SESSION['userid'])) {
+            header(self::LOGIN_REDIRECT);
+            exit();
+        }
+        if (!(isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'])) {
+            header(self::UNAUTHORIZED_REDIRECT);
+            exit();
+        }
+        include_once self::MODEL_PERMS;
+
+        $page = $_GET['page'] ?? '';
+        $parts = explode('/', $page);
+        $action = $parts[2] ?? 'show';
+
         include_once 'src/controller/admin/logsController.php';
         $logsController = new LogsController();
-        $logsController->show();
+
+        if ($action === 'show' || !method_exists($logsController, $action)) {
+            include_once self::HEADER;
+            $logsController->show();
+        } else {
+            $logsController->$action();
+        }
     }
 }

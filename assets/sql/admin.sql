@@ -55,28 +55,29 @@ DROP VIEW IF EXISTS LISTE_PERMISSIONS;
 CREATE VIEW LISTE_PERMISSIONS AS
 SELECT 
     MEMBRE.id_membre,
-    MAX(COALESCE(p_log_role, 0))          AS acces_logs,
-    MAX(COALESCE(p_boutique_role, 0))     AS gestion_boutique,
-    MAX(COALESCE(p_reunion_role, 0))      AS gestion_reunions,
-    MAX(COALESCE(p_utilisateur_role, 0))  AS gestion_utilisateurs,
-    MAX(COALESCE(p_grade_role, 0))        AS gestion_grades,
-    MAX(COALESCE(p_roles_role, 0))        AS gestion_roles,
-    MAX(COALESCE(p_actualite_role, 0))    AS gestion_actualites,
-    MAX(COALESCE(p_evenements_role, 0))   AS gestion_evenements,
-    MAX(COALESCE(p_comptabilite_role, 0)) AS gestion_comptabilite,
-    MAX(COALESCE(p_achats_role, 0))       AS acces_achats,
-    MAX(COALESCE(p_moderation_role, 0))   AS moderation
+    MAX(COALESCE(p_log_role, 0))          AS p_log,
+    MAX(COALESCE(p_boutique_role, 0))     AS p_boutique,
+    MAX(COALESCE(p_reunion_role, 0))      AS p_reunion,
+    MAX(COALESCE(p_utilisateur_role, 0))  AS p_utilisateur,
+    MAX(COALESCE(p_grade_role, 0))        AS p_grade,
+    MAX(COALESCE(p_roles_role, 0))        AS p_roles,
+    MAX(COALESCE(p_actualite_role, 0))    AS p_actualite,
+    MAX(COALESCE(p_evenements_role, 0))   AS p_evenement,
+    MAX(COALESCE(p_comptabilite_role, 0)) AS p_comptabilite,
+    MAX(COALESCE(p_achats_role, 0))       AS p_achat,
+    MAX(COALESCE(p_moderation_role, 0))   AS p_moderation
 FROM MEMBRE
 LEFT JOIN ASSIGNATION ON MEMBRE.id_membre = ASSIGNATION.id_membre
 LEFT JOIN ROLE ON ASSIGNATION.id_role = ROLE.id_role
 GROUP BY MEMBRE.id_membre;
 
+DELIMITER $$
+
 /***************************************************/
 /* PROCEDURE : Annuler une commande */
 /***************************************************/
-DROP PROCEDURE IF EXISTS refund_transaction;
+DROP PROCEDURE IF EXISTS refund_transaction$$
 
-DELIMITER $$
 CREATE PROCEDURE refund_transaction(IN _id_commande INT)
 BEGIN
     DECLARE _id_article INT;
@@ -98,28 +99,24 @@ BEGIN
         WHERE id_article = _id_article;
 
     DELETE FROM COMMANDE WHERE id_commande = _id_commande;
-END $$
-DELIMITER ;
+END$$
 
 /***************************************************/
 /* PROCEDURE : Supprimer un evenement et sa galerie */
 /***************************************************/
-DROP PROCEDURE IF EXISTS delete_event;
+DROP PROCEDURE IF EXISTS delete_event$$
 
-DELIMITER $$
 CREATE PROCEDURE delete_event(IN _id_event INT)
 BEGIN
     DELETE FROM MEDIA WHERE id_evenement = _id_event;
     DELETE FROM EVENEMENT WHERE id_evenement = _id_event;
-END $$
-DELIMITER ;
+END$$
 
 /***************************************************/
 /* TRIGGER : Vérifier permissions pour créer actualité */
 /***************************************************/
-DROP TRIGGER IF EXISTS permissions_create_event;
+DROP TRIGGER IF EXISTS permissions_create_event$$
 
-DELIMITER $$
 CREATE TRIGGER permissions_create_event 
 AFTER INSERT ON ACTUALITE
 FOR EACH ROW
@@ -134,5 +131,6 @@ BEGIN
         SIGNAL SQLSTATE '45000' 
         SET MESSAGE_TEXT = 'Vous n''avez pas les permissions pour ajouter une actualite';
     END IF;
-END $$
+END$$
+
 DELIMITER ;

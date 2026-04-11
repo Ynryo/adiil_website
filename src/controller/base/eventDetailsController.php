@@ -3,7 +3,7 @@
 require_once 'src/model/bdd/evenement.php';
 require_once 'src/model/bdd/media.php';
 
-class eventDetails
+class EventDetails
 {
     public function show()
     {
@@ -20,7 +20,6 @@ class eventDetails
             header("Location: /?page=base-home");
             exit;
         }
-        $event = $event[0];
 
         if (isset($_GET['show']) && is_numeric($_GET['show']) && $_GET['show']) {
             $show = (int) $_GET['show'];
@@ -30,7 +29,7 @@ class eventDetails
         $imgLink = "assets/image/" . ($img == null ? "admin/default_images/event.jpg" : "api/event/$img");
 
         $current_date = new DateTime(date("Y-m-d"));
-        $event_date = new DateTime(substr($event['date_evenement'], 0, 10));
+        $event_date = new DateTime(substr($event['date_debut_evenement'], 0, 10));
 
         $btnHTML = null;
         // l'évènement est déja passé
@@ -49,12 +48,12 @@ class eventDetails
         else {
             $btnHTML = '
                 <form class="subscription" action="/?page=base-eventSubscription" method="post">
-                    <input type="text" name="eventid" value="<?= $eventid?>" hidden>
+                    <input type="text" name="eventid" value="' . $eventid . '" hidden>
                     <button type="submit">Inscription</a></button>
                 </form>
             ';
         }
 
-        include 'src/view/base/eventDetailsView.php';
+        include_once 'src/view/base/eventDetailsView.php';
     }
 }

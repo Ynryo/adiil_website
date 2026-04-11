@@ -5,7 +5,6 @@
 
 -- Procédure : achat_article
 DROP PROCEDURE IF EXISTS achat_article;
-DELIMITER $$
 CREATE PROCEDURE achat_article(
     IN _id_membre_acheteur INT,
     IN _id_article_achat INT,
@@ -54,12 +53,10 @@ BEGIN
     UPDATE ARTICLE 
     SET stock_article = COALESCE(stock_article,0) - _quantite
     WHERE id_article = _id_article_achat;
-END $$
-DELIMITER ;
+END;
 
 -- Procédure : suppressionCompte
 DROP PROCEDURE IF EXISTS suppressionCompte;
-DELIMITER $$
 CREATE PROCEDURE suppressionCompte(IN _id_utilisateur_supprime INT)
 BEGIN
     UPDATE MEMBRE 
@@ -74,12 +71,10 @@ BEGIN
 
     DELETE FROM MEDIA WHERE id_membre = _id_utilisateur_supprime;
     DELETE FROM ASSIGNATION WHERE id_membre = _id_utilisateur_supprime;
-END $$
-DELIMITER ;
+END;
 
 -- Procédure : creationCompte
 DROP PROCEDURE IF EXISTS creationCompte;
-DELIMITER $$
 CREATE PROCEDURE creationCompte(
     IN _name_user VARCHAR(100),
     IN _firstName_user VARCHAR(100),
@@ -91,12 +86,10 @@ BEGIN
         INSERT INTO MEMBRE (nom_membre, prenom_membre, email_membre, password_membre) 
         VALUES (_name_user, _firstName_user, _email_user, _password_user);
     END IF;
-END $$
-DELIMITER ;
+END;
 
 -- Trigger : verifier places restantes sur inscription
 DROP TRIGGER IF EXISTS verif_places_event;
-DELIMITER $$
 CREATE TRIGGER verif_places_event
 AFTER INSERT ON INSCRIPTION
 FOR EACH ROW
@@ -117,8 +110,7 @@ BEGIN
     IF _places_restantes IS NULL OR _places_restantes <= 0 THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Il n''y a plus de places disponibles pour cet evenement';
     END IF;
-END $$
-DELIMITER ;
+END;
 
 -- Modifications de schéma (colonnes "deleted")
 ALTER TABLE EVENEMENT ADD COLUMN deleted BOOLEAN NOT NULL DEFAULT FALSE;

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <title>Commander</title>
-    
+
     <link rel="stylesheet" href="assets/css/base/general_style.css">
     <link rel="stylesheet" href="assets/css/base/order_style.css">
 
@@ -19,7 +20,7 @@
     <h1>MA COMMANDE</h1>
 
     <div>
-        <button id="cart-button" >
+        <button id="cart-button">
             <a href="/?page=base-cart">
                 <img src="assets/image/basefleche_retour.png" alt="Fleche de retour">
                 Retourner au panier
@@ -41,23 +42,35 @@
                 <tbody>
                     <?php foreach ($cart_items as $product_id => $item): ?>
                         <tr>
-                            <td><?= htmlspecialchars($item['nom_article']); ?></td>
-                            <td><?= $item['quantite']; ?></td>
-                            <td><?= number_format($item['prix_article'], 2, ',', ' ') . " €"; ?></td>
-                            <td><?= number_format($item['prix_article'] * $item['quantite'], 2, ',', ' ') . " €"; ?></td>
+                            <td>
+                                <?= htmlspecialchars($item['nom_article']); ?>
+                            </td>
+                            <td>
+                                <?= $item['quantite']; ?>
+                            </td>
+                            <td>
+                                <?= number_format($item['prix_article'], 2, ',', ' ') . " €"; ?>
+                            </td>
+                            <td>
+                                <?= number_format($item['prix_article'] * $item['quantite'], 2, ',', ' ') . " €"; ?>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
 
-            <h3>Total &nbsp : &nbsp<?= number_format($total, 2, ',', ' '); ?> €</h3>
+            <h3>Total &nbsp : &nbsp
+                <?= number_format($total, 2, ',', ' '); ?> €
+            </h3>
             <!-- récupérer la réduction liée au grade -->
-            <?php if (!empty($_SESSION['userid']) && !empty($adherant)) : ?>
-                <h3>Total après réductions &nbsp : &nbsp <?= number_format($totalWithReduc, 2, ',', ' ') ?> €</h3>     
+            <?php if (!empty($_SESSION['userid']) && !empty($adherant)): ?>
+                <h3>Total après réductions &nbsp : &nbsp
+                    <?= number_format($totalWithReduc, 2, ',', ' ') ?> €
+                </h3>
             <?php endif ?>
         </div>
 
-        <div>    
+        <div>
             <h3>Paiement</h3>
 
             <label for="mode_paiement">Mode de Paiement :</label>
@@ -70,7 +83,8 @@
                     <input type="hidden" name="mode_paiement" value="carte_credit">
 
                     <label for="numero_carte">Numéro de Carte :</label>
-                    <input type="text" id="numero_carte" name="numero_carte" placeholder="XXXX XXXX XXXX XXXX" required><br><br>
+                    <input type="text" id="numero_carte" name="numero_carte" placeholder="XXXX XXXX XXXX XXXX"
+                        required><br><br>
 
                     <label for="expiration">Date d'Expiration :</label>
                     <input type="text" id="expiration" name="expiration" placeholder="MM/AA" required><br><br>
@@ -86,7 +100,7 @@
                     <input type="hidden" name="mode_paiement" value="paypal">
 
                     <button type="button" id="paypal-button">Se connecter à PayPal</button><br><br>
-                        
+
                     <button type="submit" id="finalise-order-button">Valider la commande</button>
                 </form>
             </div>
@@ -94,7 +108,7 @@
     </div>
 
     <script>
-        document.getElementById('mode_paiement').addEventListener('change', function() {
+        document.getElementById('mode_paiement').addEventListener('change', function () {
             var modePaiement = this.value;
             if (modePaiement === 'carte_credit') {
                 document.getElementById('carte_credit').style.display = 'block';
@@ -108,4 +122,5 @@
 
     <?php require_once 'src/view/footer.php'; ?>
 </body>
+
 </html>

@@ -1,14 +1,17 @@
 <?php
 
 require_once 'src/model/bdd/database.php';
+require_once 'src/model/bdd/article.php';
 require_once 'src/model/utils/files_save.php';
 require_once 'src/model/utils/cart_class.php';
 
-class shop {
-    public function show() {
+class Shop
+{
+    public function show()
+    {
         // Initialisation du panier
         $db = DB::getInstance();
-        $cart = new cart();
+        $cart = cart_class::getInstance();
 
         // Gestion de la recherche, des filtres et tris
 
@@ -65,7 +68,27 @@ class shop {
         }
         // Exécution de la requête
         $products = $db->select($query, str_repeat("s", count($params)), $params);
-    
-        include 'src/view/base/shopView.php';
+
+        include_once 'src/view/base/shopView.php';
+    }
+
+    public function add()
+    {
+        if (!isset($_GET["id"])) {
+            header("Location: /?page=base-shop");
+            exit;
+        }
+
+        $cart = cart_class::getInstance();
+        $product = getArticle($_GET['id']);
+
+        if (empty($product)) {
+            header("Location: /?page=base-shop");
+            exit;
+        }
+
+        $cart->add($product['id_article']);
+        header("Location: /?page=base-shop");
+        exit;
     }
 }

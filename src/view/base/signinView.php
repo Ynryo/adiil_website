@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
 
     <link rel="stylesheet" href="assets/css/base/login_style.css">
     <link rel="stylesheet" href="assets/css/base/general_style.css">
+    <link rel="stylesheet" href="assets/css/base/error_style.css">
 </head>
 
 <body>
@@ -23,7 +25,7 @@
 
         <label for="mail">Nom :</label>
         <input type="text" name="lname" required>
-    
+
         <label for="mail">Adresse Mail :*</label>
         <input type="email" name="mail" required>
 
@@ -38,4 +40,5 @@
 
     <?php require_once 'src/view/footer.php' ?>
 </body>
+
 </html>
