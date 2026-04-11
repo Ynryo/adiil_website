@@ -1,11 +1,2 @@
-secrets/db_root_password.txt
-tmp_hash.php
-tmp_patch.php
 .env
-./.env
-vendor/
-.vscode/
-.idea/
-.DS_Store
-*.log
-*.sql
+/vendor/
